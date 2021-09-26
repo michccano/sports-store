@@ -82,7 +82,7 @@
                          with font-awesome or any other icon font library -->
                     <li class="nav-header">Product Managment</li>
                     <li class="nav-item">
-                        <a href="pages/calendar.html" class="nav-link">
+                        <a href="{{route("productList")}}" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
                                 Products

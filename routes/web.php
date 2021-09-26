@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,18 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
+Route::prefix("admin")->group(function (){
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    });
+    Route::prefix("product")->group(function (){
+        Route::get('/list',[ProductController::class,'list'])->name("productList");
+        Route::get('/create',[ProductController::class,'create'])->name("createProduct");
+        Route::post('/store',[ProductController::class,'store'])->name("storeProduct");
+        Route::get('/delete',[ProductController::class,'delete'])->name("deleteProduct");
+        Route::get('/edit/{id}',[ProductController::class,'edit'])->name("editProduct");
+        Route::post('/update/{id}',[ProductController::class,'update'])->name("updateProduct");
+    });
 });
 
-Route::get('/productlist',[\App\Http\Controllers\ProductController::class,'list']);
-Route::get('/create',[\App\Http\Controllers\ProductController::class,'create']);
+

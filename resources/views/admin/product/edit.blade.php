@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Create Product')
+@section('title', 'Edit Product')
 
 @section('content')
     <div class="content-wrapper">
@@ -25,16 +25,25 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="{{route("storeProduct")}}" method="POST">
+                            <form action="{{route("updateProduct",$product->id)}}" method="POST">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label >Name</label>
-                                        <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                                        <input type="text" class="form-control" name="name"
+                                               placeholder="Enter Name" value="{{$product->name}}">
                                     </div>
                                     <div class="form-group">
                                         <label >Price</label>
-                                        <input type="text" class="form-control" name="price" placeholder="Enter Price">
+                                        <input type="text" class="form-control" name="price"
+                                               placeholder="Enter Price" value="{{$product->price}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label >Status</label>
+                                        <select name="status" class="form-control">
+                                            <option>Active</option>
+                                            <option>Inactive</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
