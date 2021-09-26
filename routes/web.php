@@ -20,3 +20,6 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
+
+Route::get('/productlist',[\App\Http\Controllers\ProductController::class,'list']);
+Route::get('/create',[\App\Http\Controllers\ProductController::class,'create']);
