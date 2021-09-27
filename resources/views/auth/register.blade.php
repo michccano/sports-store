@@ -12,7 +12,18 @@
                             <div class="card-header">
                                 <h3 class="card-title">Create New Account</h3>
                             </div>
-                            <!-- /.card-header -->
+                            @if(count($errors) > 0 )
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <ul class="p-0 m-0" style="list-style: none;">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <!-- form start -->
                             <form action="{{route("storeUser")}}" method="POST">
                                 @csrf
@@ -120,7 +131,7 @@
 
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Register</button>
-                                    <a href="#">Already have and account? Login here</a>
+                                    <a href="/login">Already have and account? Login here</a>
                                 </div>
                             </form>
                         </div>

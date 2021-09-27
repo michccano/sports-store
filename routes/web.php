@@ -22,11 +22,13 @@ Route::get('/', function () {
 Route::get('/register',[AuthController::class,'register']);
 Route::post('/register',[AuthController::class,'store'])->name("storeUser");
 Route::get('/login',[AuthController::class,'login'])->name('login');
+Route::post('/login',[AuthController::class,'login_post'])->name('loginPost');
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
-Route::prefix("admin")->group(function (){
+Route::prefix("admin")->middleware("auth")->group(function (){
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
-    });
+    })->name("dashboard");
     Route::prefix("product")->group(function (){
         Route::get('/list',[ProductController::class,'list'])->name("productList");
         Route::get('/create',[ProductController::class,'create'])->name("createProduct");
