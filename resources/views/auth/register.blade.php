@@ -14,20 +14,22 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="{{route("storeProduct")}}" method="POST">
+                            <form action="{{route("storeUser")}}" method="POST">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >First Name</label>
-                                                <input type="text" class="form-control" name="firstname" placeholder="Enter Name">
+                                                <input type="text" class="form-control" name="firstname"
+                                                       placeholder="Enter Name" value="{{ old('firstname') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >Last Name</label>
-                                                <input type="text" class="form-control" name="lastname" placeholder="Enter Name">
+                                                <input type="text" class="form-control" name="lastname"
+                                                       placeholder="Enter Name" value="{{ old('lastname') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -35,13 +37,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >Email</label>
-                                                <input type="email" class="form-control" name="email" placeholder="Enter Email Address">
+                                                <input type="email" class="form-control" name="email"
+                                                       placeholder="Enter Email Address" value="{{ old('email') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >Password</label>
-                                                <input type="password" class="form-control" name="password" placeholder="Enter Password">
+                                                <input type="password" class="form-control" name="password"
+                                                       placeholder="Enter Password" value="{{ old('password') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -49,13 +53,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >Address1</label>
-                                                <input type="text" class="form-control" name="address1" placeholder="Enter Address1">
+                                                <input type="text" class="form-control" name="address1"
+                                                       placeholder="Enter Address1" value="{{ old('address1') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >Address2</label>
-                                                <input type="text" class="form-control" name="address2" placeholder="Enter Address2">
+                                                <input type="text" class="form-control" name="address2"
+                                                       placeholder="Enter Address2" value="{{ old('address2') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -63,13 +69,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >City</label>
-                                                <input type="text" class="form-control" name="city" placeholder="Enter City">
+                                                <input type="text" class="form-control" name="city"
+                                                       placeholder="Enter City" value="{{ old('city') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >State</label>
-                                                <input type="text" class="form-control" name="state" placeholder="Enter State">
+                                                <input type="text" class="form-control" name="state"
+                                                       placeholder="Enter State" value="{{ old('state') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -77,13 +85,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >Postal Code</label>
-                                                <input type="text" class="form-control" name="postal" placeholder="Enter Postal Code">
+                                                <input type="text" class="form-control" name="postal"
+                                                       placeholder="Enter Postal Code" value="{{ old('postal') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >Country</label>
-                                                <input type="text" class="form-control" name="country" placeholder="Enter Country">
+                                                <input type="text" class="form-control" name="country"
+                                                       placeholder="Enter Country" value="{{ old('country') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -91,13 +101,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >Day Phone</label>
-                                                <input type="text" class="form-control" name="dayphone" placeholder="Enter Day Phone">
+                                                <input type="text" class="form-control" name="dayphone"
+                                                       placeholder="Enter Day Phone" value="{{ old('dayphone') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >Eve Phone</label>
-                                                <input type="text" class="form-control" name="evephone" placeholder="Enter Eve Phone">
+                                                <input type="text" class="form-control" name="evephone"
+                                                       placeholder="Enter Eve Phone" value="{{ old('evephone') }}">
                                             </div>
                                         </div>
                                     </div>

@@ -20,6 +20,8 @@ Route::get('/', function () {
 });
 
 Route::get('/register',[AuthController::class,'register']);
+Route::post('/register',[AuthController::class,'store'])->name("storeUser");
+Route::get('/login',[AuthController::class,'login'])->name('login');
 
 Route::prefix("admin")->group(function (){
     Route::get('/dashboard', function () {
