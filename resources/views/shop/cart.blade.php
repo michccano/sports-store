@@ -48,6 +48,8 @@
     <br>
         @if(count($products) >0)
             <a href="{{route("cart.checkout")}}" class="btn btn-info">Checkout</a>
+        @else
+            <p>Did not added any product to the cart</p>
         @endif
 </div>
 </body>
