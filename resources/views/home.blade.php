@@ -64,7 +64,7 @@
                         <a class="nav-link" href="#">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cart <span>0</span></a>
+                        <a class="nav-link" href="{{route('cart.show')}}"> Cart {{\Gloudemans\Shoppingcart\Facades\Cart::content()->count()}}</a>
                     </li>
 
                 </ul>
