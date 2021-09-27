@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,5 +40,15 @@ Route::prefix("admin")->middleware("auth")->group(function (){
         Route::post('/update/{id}',[ProductController::class,'update'])->name("updateProduct");
     });
 });
+
+Route::get('/shop',[ShopController::class,'index'])->name('shop');
+Route::prefix("cart")->group(function (){
+    Route::post('/store',[CartController::class,'store'])->name('cart.store');
+    Route::get('/show',[CartController::class,'show'])->name('cart.show');
+    Route::post('/delete',[CartController::class,'delete'])->name('cart.remove');
+    Route::get('/checkout',[CartController::class,'checkout'])->name('cart.checkout')
+        ->middleware("auth");
+});
+
 
 

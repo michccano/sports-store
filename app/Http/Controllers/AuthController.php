@@ -48,14 +48,9 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->role == 1)
-            return redirect()->route('dashboard');
+                return redirect()->route('dashboard');
             else{
-                Auth::logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
-                return back()
-                    ->withInput($request->only('email', 'remember'))
-                    ->withErrors(['invalid' => 'You are not an admin']);
+                return redirect()->route('cart.show');
             }
         }
         else {

@@ -34,8 +34,8 @@ class RegisterRequest extends FormRequest
             'state' => 'required|string',
             'postal' => 'required',
             'country' => 'required|string',
-            'dayphone' => 'required|numeric|min:10',
-            'evephone' => 'numeric|min:10',
+            'dayphone' => 'required|numeric|min:10|unique:users',
+            'evephone' => 'numeric|min:10|unique:users',
         ];
     }
 }
