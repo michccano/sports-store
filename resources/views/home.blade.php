@@ -44,7 +44,7 @@
                         <a class="nav-link" href="#">TEAM</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">SportsPress</a>
+                        <a class="nav-link" href="{{route("sportsPress")}}">SportsPress</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">NEWS</a>

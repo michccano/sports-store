@@ -51,10 +51,13 @@ Route::prefix("cart")->group(function (){
     Route::get('/checkout',[CartController::class,'checkout'])->name('cart.checkout')
         ->middleware("auth");
 });
-Route::get("/sportspress",[SportsPressController::class,'index'])->middleware("auth");
-Route::get('/error', function () {
-    return view('services.error');
-})->name("service.error");
+Route::prefix("service")->middleware('auth')->group(function (){
+    Route::get("/sportspress",[SportsPressController::class,'index'])->name("sportsPress");
+    Route::get('/error', function () {
+        return view('services.error');
+    })->name("service.error");
+});
+
 
 
 
