@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     @if(session('message'))
-        <p>{{session('message')}}</p>
+        <p class="alert alert-danger">{{session('message')}}</p>
     @endif
     <div class="row">
 
