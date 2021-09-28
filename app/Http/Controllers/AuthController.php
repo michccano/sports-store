@@ -50,7 +50,7 @@ class AuthController extends Controller
             if (Auth::user()->role == 1)
                 return redirect()->route('dashboard');
             else{
-                return redirect()->route('cart.show');
+                return redirect()->route('home');
             }
         }
         else {

@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             "evephone" => "" ,
             "status" => 1,
             "role" => 1,
+            "pick" => 1,
         ]);
     }
 }

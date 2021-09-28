@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\SportsPressController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name("home");
 
 Route::get('/register',[AuthController::class,'register']);
 Route::post('/register',[AuthController::class,'store'])->name("storeUser");
@@ -39,6 +40,7 @@ Route::prefix("admin")->middleware("auth")->group(function (){
         Route::get('/edit/{id}',[ProductController::class,'edit'])->name("editProduct");
         Route::post('/update/{id}',[ProductController::class,'update'])->name("updateProduct");
     });
+
 });
 
 Route::get('/shop',[ShopController::class,'index'])->name('shop');
@@ -49,6 +51,10 @@ Route::prefix("cart")->group(function (){
     Route::get('/checkout',[CartController::class,'checkout'])->name('cart.checkout')
         ->middleware("auth");
 });
+Route::get("/sportspress",[SportsPressController::class,'index'])->middleware("auth");
+Route::get('/error', function () {
+    return view('services.error');
+})->name("service.error");
 
 
 
