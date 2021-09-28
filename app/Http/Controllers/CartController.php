@@ -17,7 +17,7 @@ class CartController extends Controller
             'name' => $product->name,
             'qty' => 1,
             'price' => $product->price,
-            'weight' => 0, 'options' => ['size' => 'large']]);
+            'weight' => 0, 'options' => ['img' => $product->img]]);
 
         return redirect()->route('shop')->with("message","Added To Cart");
     }

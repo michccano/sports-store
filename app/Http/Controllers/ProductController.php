@@ -17,9 +17,13 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
+        $imageName = time() . '-' . $request->name . '.' . $request->img->extension();
+        $request->img->move(public_path('images'), $imageName);
+
         Product::create([
-           "name" => $request->name,
-           "price" => $request->price,
+            "name" => $request->name,
+            "price" => $request->price,
+            "img" => $imageName,
         ]);
 
         return redirect()->route("productList");
@@ -37,6 +41,9 @@ class ProductController extends Controller
     }
 
     public function update(Request $request, $id){
+        $imageName = time() . '-' . $request->name . '.' . $request->img->extension();
+        $request->img->move(public_path('images'), $imageName);
+
         if($request->status !=null){
             $status = "";
             if ($request->status == "Active")
@@ -46,6 +53,7 @@ class ProductController extends Controller
             Product::find($id)->update([
                 "name" => $request->name,
                 "price" => $request->price,
+                "img" => $imageName,
                 "status" => $status,
             ]);
 

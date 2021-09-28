@@ -25,7 +25,7 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="{{route("updateProduct",$product->id)}}" method="POST">
+                            <form action="{{route("updateProduct",$product->id)}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
@@ -37,6 +37,12 @@
                                         <label >Price</label>
                                         <input type="text" class="form-control" name="price"
                                                placeholder="Enter Price" value="{{$product->price}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label >Image</label>
+                                        <input type="file" class="form-control" name="img" placeholder="Enter Image"
+                                               onchange="previewImage(this)">
+                                        <img id="previewImg" style="height: 100px; width: 130px" src="{{asset('images/' . $product->img)}}" />
                                     </div>
                                     <div class="form-group">
                                         <label >Status</label>
@@ -58,4 +64,19 @@
             </div>
         </section>
     </div>
+@endsection
+
+@section("scripts")
+    <script>
+        function previewImage(input){
+            var file = $("input[type=file]").get(0).files[0];
+            if (file){
+                var reader = new FileReader()
+                reader.onload = function (){
+                    $('#previewImg').attr("src",reader.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 @endsection

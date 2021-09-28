@@ -37,6 +37,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Price</th>
+                                        <th>Image</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -46,6 +47,9 @@
                                     <tr>
                                         <td>{{$product->name}}</td>
                                         <td>{{$product->price}}</td>
+                                        <td>
+                                            <img src="{{asset('images/' . $product->img)}}" style="height: 70px; width: 90px" class="img-fluid"  alt=""/>
+                                        </td>
                                         <td>{{$product->status ? "Active" : "Inactive"}}</td>
                                         <td>
                                             <div class="row">
