@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function store(Request $request){
-        $product =Product::findOrFail($request->input('product_id'));
+    public function store($id){
+        $product =Product::findOrFail($id);
 
         Cart::add([
             'id' => $product->id,

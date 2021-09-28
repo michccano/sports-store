@@ -11,6 +11,6 @@ class ShopController extends Controller
     public function index(){
         $products = Product::where("status",1)->get();
         $cart = Cart::content();
-        return view('shop.productList',compact("products","cart"));
+        return view('shop.shop',compact("products","cart"));
     }
 }
