@@ -84,11 +84,10 @@
                                     <div class="col-lg-4 mb-4">
                                         <div class="shop-single-item">
                                             <div class="card">
-                                                <img src="{{asset('images/' . $product->img)}}" class="card-img-top" style="height: 200px; width: 260px">
+                                                <img src="{{asset('images/' . $product->img)}}" class="card-img-top" style="height: 220px; width: 260px">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{$product->name}}</h5>
                                                     <a class="product-cart-btn">
-                                                        <del>$4.00</del>
                                                         <span>${{$product->price}}</span>
                                                     </a>
                                                 </div>
