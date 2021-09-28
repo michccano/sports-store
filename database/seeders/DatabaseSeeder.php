@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             "firstname" => "Admin",
             "lastname" => "",
             "email" => "admin@gmail.com",
-            "password" => bcrypt("123456"),
+            "password" => bcrypt("admin"),
             "address1" => "",
             "address2" => "",
             "city" => "",
