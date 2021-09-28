@@ -126,8 +126,8 @@
 <!-- Sparkline -->
 <script src="/theme/plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
-<script src="/theme/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="/theme/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- <script src="/theme/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/theme/plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
 <!-- jQuery Knob Chart -->
 <script src="/theme/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
@@ -143,8 +143,6 @@
 <script src="/theme/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/theme/dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="/theme/dist/js/pages/dashboard.js"></script>
 @yield("scripts")
 </body>
 </html>
