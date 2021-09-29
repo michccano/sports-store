@@ -22,6 +22,7 @@ class ProductController extends Controller
 
         Product::create([
             "name" => $request->name,
+            "description" => $request->description,
             "price" => $request->price,
             "img" => $imageName,
         ]);
@@ -52,6 +53,7 @@ class ProductController extends Controller
                 $status = 0;
             Product::find($id)->update([
                 "name" => $request->name,
+                "description" => $request->description,
                 "price" => $request->price,
                 "img" => $imageName,
                 "status" => $status,

@@ -33,6 +33,10 @@
                                         <input type="text" class="form-control" name="name" placeholder="Enter Name" value="{{ old('name') }}">
                                     </div>
                                     <div class="form-group">
+                                        <label >Description</label>
+                                        <textarea class="form-control description" name="description" placeholder="Enter Description" value="{{ old('description') }}"></textarea>
+                                    </div>
+                                    <div class="form-group">
                                         <label >Price</label>
                                         <input type="text" class="form-control" name="price" placeholder="Enter Price" value="{{ old('price') }}">
                                     </div>
@@ -57,6 +61,25 @@
 @endsection
 
 @section("scripts")
+    {{--<script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>--}}
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector:'textarea.description',
+            height: 300,
+            menubar: true,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+            content_css: '//www.tiny.cloud/css/codepen.min.css'
+        });
+    </script>
     <script>
         $('#previewImg').hide();
         function previewImage(input){
