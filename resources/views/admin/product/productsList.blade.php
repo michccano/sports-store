@@ -47,7 +47,7 @@
                                     @foreach($products as $product)
                                     <tr>
                                         <td>{{$product->name}}</td>
-                                        <td>{!! $product->description !!}</td>
+                                        <td>{!! \Illuminate\Support\Str::of($product->description)->words(5) !!}</td>
                                         <td>{{$product->price}}</td>
                                         <td>
                                             <img src="{{asset('images/' . $product->img)}}" style="height: 70px; width: 90px" class="img-fluid"  alt=""/>
