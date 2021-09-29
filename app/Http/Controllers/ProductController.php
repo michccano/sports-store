@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductCreateRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class ProductController extends Controller
         return view("admin.product.create");
     }
 
-    public function store(Request $request){
+    public function store(ProductCreateRequest $request){
         $imageName = time() . '-' . $request->name . '.' . $request->img->extension();
         $request->img->move(public_path('images'), $imageName);
 
@@ -41,7 +42,7 @@ class ProductController extends Controller
         return view("admin.product.edit",compact('product'));
     }
 
-    public function update(Request $request, $id){
+    public function update(ProductCreateRequest $request, $id){
         $imageName = time() . '-' . $request->name . '.' . $request->img->extension();
         $request->img->move(public_path('images'), $imageName);
 

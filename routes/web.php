@@ -36,7 +36,7 @@ Route::prefix("admin")->middleware("auth")->group(function (){
         Route::get('/list',[ProductController::class,'list'])->name("productList");
         Route::get('/create',[ProductController::class,'create'])->name("createProduct");
         Route::post('/store',[ProductController::class,'store'])->name("storeProduct");
-        Route::get('/delete',[ProductController::class,'delete'])->name("deleteProduct");
+        Route::post('/delete',[ProductController::class,'delete'])->name("deleteProduct");
         Route::get('/edit/{id}',[ProductController::class,'edit'])->name("editProduct");
         Route::post('/update/{id}',[ProductController::class,'update'])->name("updateProduct");
     });

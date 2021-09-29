@@ -14,6 +14,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-10">
+                        <p id="message" class=""></p>
                         <a href="{{route("createProduct")}}" class="btn btn-info">Add Product</a>
                     </div><!-- /.col -->
                     <div class="col-sm-2">
@@ -45,7 +46,7 @@
                                     </thead>
                                     <tbody>
                                     @foreach($products as $product)
-                                    <tr>
+                                    <tr id="product{{$product->id}}">
                                         <td>{{$product->name}}</td>
                                         <td>{!! \Illuminate\Support\Str::of($product->description)->words(5) !!}</td>
                                         <td>{{$product->price}}</td>
@@ -80,7 +81,7 @@
                                                 </button>
                                             </div>
 
-                                            <form action="{{route('deleteProduct')}}" method="get">
+                                            <form action="" method="get">
 
                                                 <div class="modal-body">
                                                     <p>Select "Delete" below if you are ready to delete the product.</p>
@@ -89,7 +90,7 @@
 
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                    <button id="deleteP" type="" class="btn btn-danger" data-dismiss="modal">Delete</button>
                                                 </div>
                                             </form>
 
@@ -135,6 +136,31 @@
                 var modal = $(this)
                 modal.find('.modal-body #product_id').val(product_id);
             })
+        });
+
+        $('#deleteP').click(function (e) {
+            e.preventDefault();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var product_id= $('#product_id').val();
+
+            $.ajax({
+                url: 'delete',
+                data: { "product_id": product_id },
+                type: 'POST',
+                success: function (data) {
+                    $('#product'+product_id).hide();
+                    $('#message').html("Product Deleted");
+                    $('#message').attr("class","alert alert-danger");
+                },
+                error: function () {
+                }
+            });
         });
     </script>
 @endsection
