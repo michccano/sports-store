@@ -50,9 +50,7 @@
         <div class="container">
             <div class="shop-product-inner-wrap">
                 <div class="shop-product-title">
-                    @if(session('message'))
-                        <p class="alert alert-success">{{session('message')}}</p>
-                    @endif
+                        <p id="message" class="">{{session('message')}}</p>
                     <h3>Shop</h3>
                 </div>
                 <div class="shop-product-item-wrap">
@@ -93,17 +91,22 @@
                                                 </div>
                                             </div>
                                             @if($cart->where('id',$product->id)->count())
-                                                <div class="add-to-cart-btn-wrap">
+                                                <div id="" class="add-to-cart-btn-wrap">
                                                     <div class="hero-button-area">
                                                         <a class="">In Cart</a>
                                                     </div>
                                                 </div>
                                             @else
-                                            <div class="add-to-cart-btn-wrap">
-                                                <div class="hero-button-area">
-                                                        <a href="{{route("cart.store",$product->id)}}" class="">Add to cart</a>
+                                                <div id="inCart{{$product->id}}" class="add-to-cart-btn-wrap">
+                                                    <div class="hero-button-area">
+                                                        <a class="">In Cart</a>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                <div id="addCart{{$product->id}}" class="add-to-cart-btn-wrap">
+                                                    <div class="hero-button-area">
+                                                        <a  class="" onclick="addToCart({{$product->id}})">Add to cart</a>
+                                                    </div>
+                                                </div>
                                             @endif
 
 
@@ -450,4 +453,31 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section("scripts")
+    <script>
+        $('#inCart'+id).hide();
+        function addToCart(id) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: 'cart/store/'+id,
+                type: 'GET',
+                success: function (data) {
+                    $('#inCart'+id).show();
+                    $('#addCart'+id).hide();
+                    $('#message').html(data);
+                    $('#message').attr("class","alert alert-success");
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+        }
+    </script>
 @endsection

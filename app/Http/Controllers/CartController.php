@@ -19,7 +19,7 @@ class CartController extends Controller
             'price' => $product->price,
             'weight' => 0, 'options' => ['img' => $product->img]]);
 
-        return redirect()->route('shop')->with("message","Added To Cart");
+        return response()->json("Added To Cart");
     }
 
     public function show(){
