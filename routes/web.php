@@ -44,6 +44,8 @@ Route::prefix("admin")->middleware("auth")->group(function (){
 });
 
 Route::get('/shop',[ShopController::class,'index'])->name('shop');
+Route::get('/detail/{id}',[ShopController::class,'productDetail'])->name('productDetails');
+
 Route::prefix("cart")->group(function (){
     Route::get('/store/{id}',[CartController::class,'store'])->name('cart.store');
     Route::get('/show',[CartController::class,'show'])->name('cart.show');
@@ -51,6 +53,7 @@ Route::prefix("cart")->group(function (){
     Route::get('/checkout',[CartController::class,'checkout'])->name('cart.checkout')
         ->middleware("auth");
 });
+
 Route::prefix("service")->middleware('auth')->group(function (){
     Route::get("/sportspress",[SportsPressController::class,'index'])->name("sportsPress");
     Route::get('/error', function () {

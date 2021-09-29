@@ -13,4 +13,10 @@ class ShopController extends Controller
         $cart = Cart::content();
         return view('shop.shop',compact("products","cart"));
     }
+
+    public function productDetail($id){
+        $product = Product::findOrFail($id);
+        $cart = Cart::content();
+        return view('shop.productDetails',compact("product","cart"));
+    }
 }

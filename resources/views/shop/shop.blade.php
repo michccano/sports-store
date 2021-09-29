@@ -50,7 +50,7 @@
         <div class="container">
             <div class="shop-product-inner-wrap">
                 <div class="shop-product-title">
-                        <p id="message" class="">{{session('message')}}</p>
+                        <p id="message" class=""></p>
                     <h3>Shop</h3>
                 </div>
                 <div class="shop-product-item-wrap">
@@ -85,8 +85,11 @@
                                                 <img src="{{asset('images/' . $product->img)}}" class="card-img-top" style="height: 220px; width: 200px">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{$product->name}}</h5>
-                                                    <a class="product-cart-btn">
+                                                    <p class="product-cart-btn">
                                                         <span>${{$product->price}}</span>
+                                                    </p>
+                                                    <a href="{{route("productDetails",$product->id)}}" class="product-cart-btn">
+                                                        <span>Info</span>
                                                     </a>
                                                 </div>
                                             </div>
@@ -107,6 +110,7 @@
                                                         <a  class="" onclick="addToCart({{$product->id}})">Add to cart</a>
                                                     </div>
                                                 </div>
+
                                             @endif
 
 
@@ -457,7 +461,6 @@
 
 @section("scripts")
     <script>
-        $('#inCart'+id).hide();
         function addToCart(id) {
             $.ajaxSetup({
                 headers: {
