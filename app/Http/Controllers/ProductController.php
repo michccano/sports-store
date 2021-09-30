@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductCreateRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -42,25 +43,32 @@ class ProductController extends Controller
         return view("admin.product.edit",compact('product'));
     }
 
-    public function update(ProductCreateRequest $request, $id){
-        $imageName = time() . '-' . $request->name . '.' . $request->img->extension();
-        $request->img->move(public_path('images'), $imageName);
+    public function update(ProductUpdateRequest $request, $id){
+        $dataToUpdate = [];
+        if($request->name!= null)
+            $dataToUpdate["name"] = $request->name;
 
-        if($request->status !=null){
+        if ($request->description != null)
+            $dataToUpdate["description"] = $request->description;
+
+        if ($request->price != null)
+            $dataToUpdate["price"] = $request->price;
+
+        if ($request->img != null) {
+            $imageName = time() . '-' . $request->name . '.' . $request->img->extension();
+            $request->img->move(public_path('images'), $imageName);
+            $dataToUpdate["img"] = $imageName;
+        }
+        if($request->status !=null) {
             $status = "";
             if ($request->status == "Active")
                 $status = 1;
             else
                 $status = 0;
-            Product::find($id)->update([
-                "name" => $request->name,
-                "description" => $request->description,
-                "price" => $request->price,
-                "img" => $imageName,
-                "status" => $status,
-            ]);
+            $dataToUpdate["status"] = $status;
+        }
+            Product::find($id)->update([$dataToUpdate]);
 
             return redirect()->route("productList");
         }
     }
-}
