@@ -27,10 +27,12 @@ class CartController extends Controller
         return view('shop.cart',compact("products"));
     }
 
-    public function delete(Request $request){
-        $rowId = $request->rowId;
+    public function delete($id){
+        $product = Cart::content()->where('id',$id)->first();
+        $rowId = $product->rowId;
         Cart::remove($rowId);
-        return redirect()->route('cart.show');
+        $cartCount = Cart::content()->count();
+        return response()->json($cartCount);
     }
 
     public function checkout(){

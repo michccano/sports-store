@@ -24,10 +24,15 @@
                     <p class="card-text">To order click on ADD TO CART below or call
                     954.377.8000</p>
                     @if($cart->where('id',$product->id)->count())
-                        <p  class="btn btn-danger">In Cart</p>
+                        <button id="inCart2" class="btn btn-info">In Cart</button>
+                        <button id="removeFromCart2" class="btn btn-danger" onclick="removeFromCart2({{$product->id}})">
+                            Remove from Cart</button>
+                        <button id="addCart2" class="btn btn-danger" onclick="addToCart2({{$product->id}})">Add to Cart</button>
                     @else
-                        <p id="inCart"  class="btn btn-danger">In Cart</p>
-                        <button id="addCart" class="btn btn-danger" onclick="addToCart({{$product->id}})">Add to Cart</button>
+                        <button id="inCart1"  class="btn btn-info">In Cart</button>
+                        <button id="removeFromCart1" class="btn btn-danger" onclick="removeFromCart({{$product->id}})">
+                            Remove from Cart</button>
+                        <button id="addCart1" class="btn btn-danger" onclick="addToCart({{$product->id}})">Add to Cart</button>
                     @endif
                 </div>
             </div>
@@ -37,7 +42,9 @@
 
 @section("scripts")
     <script>
-        $('#inCart').hide();
+        $('#inCart1').hide();
+        $('#removeFromCart1').hide();
+        $('#addCart2').hide();
         function addToCart(id) {
             $.ajaxSetup({
                 headers: {
@@ -50,10 +57,87 @@
                 {{--/*url: {{route("cart.store",id)}},*/--}}
                 type: 'GET',
                 success: function (data) {
-                    $('#inCart').show();
-                    $('#addCart').hide();
-                    $('#message').html(data);
+                    $('#inCart1').show();
+                    $('#removeFromCart1').show();
+                    $('#addCart1').hide();
+                    $('#message').html("Added To Cart");
                     $('#message').attr("class","alert alert-success");
+                    $('#cartItemsNumber').html("Cart "+data);
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+        }
+
+        function removeFromCart(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: 'http://localhost:8000/cart/delete/'+id,
+                {{--/*url: {{route("cart.store",id)}},*/--}}
+                type: 'GET',
+                success: function (data) {
+                    $('#inCart1').hide();
+                    $('#removeFromCart1').hide();
+                    $('#addCart1').show();
+                    $('#message').html("Remove From Cart");
+                    $('#message').attr("class","alert alert-danger");
+                    $('#cartItemsNumber').html("Cart "+data);
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+        }
+
+        function removeFromCart2(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: 'http://localhost:8000/cart/delete/'+id,
+                {{--/*url: {{route("cart.store",id)}},*/--}}
+                type: 'GET',
+                success: function (data) {
+                    $('#inCart2').hide();
+                    $('#removeFromCart2').hide();
+                    $('#addCart2').show();
+                    $('#message').html("Remove From Cart");
+                    $('#message').attr("class","alert alert-danger");
+                    $('#cartItemsNumber').html("Cart "+data);
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+        }
+
+        function addToCart2(id) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: 'http://localhost:8000/cart/store/'+id,
+                {{--/*url: {{route("cart.store",id)}},*/--}}
+                type: 'GET',
+                success: function (data) {
+                    $('#inCart2').show();
+                    $('#removeFromCart2').show();
+                    $('#addCart2').hide();
+                    $('#message').html("Added To Cart");
+                    $('#message').attr("class","alert alert-success");
+                    $('#cartItemsNumber').html("Cart "+data);
                 },
                 error: function () {
                     console.log('error');

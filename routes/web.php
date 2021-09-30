@@ -49,7 +49,7 @@ Route::get('/detail/{id}',[ShopController::class,'productDetail'])->name('produc
 Route::prefix("cart")->group(function (){
     Route::get('/store/{id}',[CartController::class,'store'])->name('cart.store');
     Route::get('/show',[CartController::class,'show'])->name('cart.show');
-    Route::post('/delete',[CartController::class,'delete'])->name('cart.remove');
+    Route::get('/delete/{id}',[CartController::class,'delete'])->name('cart.remove');
     Route::get('/checkout',[CartController::class,'checkout'])->name('cart.checkout')
         ->middleware("auth");
 });
