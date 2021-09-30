@@ -73,7 +73,7 @@
 
 @section("scripts")
     {{--<script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>--}}
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/jc9qegq89pzzpomshmsl4xqcjx9w53rv2or1obd5uyds5lrf/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script type="text/javascript">
         tinymce.init({
             selector:'textarea.description',
