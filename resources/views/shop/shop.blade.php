@@ -474,8 +474,9 @@
                 success: function (data) {
                     $('#inCart'+id).show();
                     $('#addCart'+id).hide();
-                    $('#message').html(data);
+                    $('#message').html("Added To Cart");
                     $('#message').attr("class","alert alert-success");
+                    $('#cartItemsNumber').html("Cart "+data);
                 },
                 error: function () {
                     console.log('error');

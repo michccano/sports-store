@@ -70,7 +70,8 @@
                         <a class="nav-link" href="#">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cart.show')}}"> Cart {{\Gloudemans\Shoppingcart\Facades\Cart::content()->count()}}</a>
+                        <a class="nav-link" href="{{route('cart.show')}}" id="cartItemsNumber">
+                            Cart {{\Gloudemans\Shoppingcart\Facades\Cart::content()->count()}}</a>
                     </li>
 
                 </ul>

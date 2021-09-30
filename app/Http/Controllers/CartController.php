@@ -18,8 +18,8 @@ class CartController extends Controller
             'qty' => 1,
             'price' => $product->price,
             'weight' => 0, 'options' => ['img' => $product->img]]);
-
-        return response()->json("Added To Cart");
+        $cartCount = Cart::content()->count();
+        return response()->json($cartCount);
     }
 
     public function show(){
