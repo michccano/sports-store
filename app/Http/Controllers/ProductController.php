@@ -6,12 +6,30 @@ use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+
 
 class ProductController extends Controller
 {
+    public function getProductData(Request $request){
+        if ($request->ajax()) {
+            return DataTables::of(Product::all())
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $id = $row['id'];
+                    $actionBtn = '<a href="/admin/product/edit/' . $id .'" data-id="' . $id . '" class="btn btn-xs btn-warning edit"><i class="far fa-edit"></i></a>
+                                  <button type="submit" class="btn btn-xs btn-danger" data-productid="' . $id . '" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        } else {
+            return back(); // if http request
+        }
+    }
+
     public function list(){
-        $products = Product::all();
-        return view("admin.product.productsList",compact("products"));
+        return view("admin.product.productsList2");
     }
 
     public function create(){
@@ -67,7 +85,7 @@ class ProductController extends Controller
                 $status = 0;
             $dataToUpdate["status"] = $status;
         }
-            Product::find($id)->update([$dataToUpdate]);
+            Product::find($id)->update($dataToUpdate);
 
             return redirect()->route("productList");
         }
