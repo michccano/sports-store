@@ -124,7 +124,10 @@
 
                         }
                     },
-                    {data: 'price', name: 'price'},
+                    {
+                        data: 'price',
+                        name: 'price'
+                    },
                     {
                         data: 'img',
                         name: 'img',
