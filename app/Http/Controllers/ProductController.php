@@ -79,8 +79,8 @@ class ProductController extends Controller
             $request->img->move(public_path('images'), $imageName);
             $dataToUpdate["img"] = $imageName;
         }
+
         if($request->status !=null) {
-            $status = "";
             if ($request->status == "Active")
                 $status = 1;
             else
