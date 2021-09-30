@@ -38,7 +38,9 @@ class ProductController extends Controller
 
     public function store(ProductCreateRequest $request){
         $title = preg_replace('/\s+/', '', $request->name);
-        $imageName = time() . '-' . $title . '.' . $request->img->extension();
+        $titleWithOutRegExpression = str_replace( array( '\'', '!','”','#','$','%','&','’','(', '*','+',',',
+            '-','.','/',':',';','<','=','>','?','@','[',']','^','_','`','{','|','}','~'), '', $title);
+        $imageName = time() . '-' . $titleWithOutRegExpression . '.' . $request->img->extension();
         $request->img->move(public_path('images'), $imageName);
 
         Product::create([
@@ -75,7 +77,9 @@ class ProductController extends Controller
 
         if ($request->img != null) {
             $title = preg_replace('/\s+/', '', $request->name);
-            $imageName = time() . '-' . $title . '.' . $request->img->extension();
+            $titleWithOutRegExpression= str_replace( array( '\'', '!','”','#','$','%','&','’','(', '*','+',',',
+                '-','.','/',':',';','<','=','>','?','@','[',']','^','_','`','{','|','}','~'), '', $title);
+            $imageName = time() . '-' . $titleWithOutRegExpression . '.' . $request->img->extension();
             $request->img->move(public_path('images'), $imageName);
             $dataToUpdate["img"] = $imageName;
         }
