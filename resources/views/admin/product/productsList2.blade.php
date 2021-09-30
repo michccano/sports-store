@@ -108,6 +108,7 @@
             $('#product_dataTable').DataTable({
                 processing: true,
                 serverSide: true,
+                responsive: true,
                 ajax: "{{ route('getProducts') }}",
                 columns: [
                     {
@@ -118,10 +119,10 @@
                         data: 'description',
                         name: 'description',
                         render: function (data, type, full, meta) {
-                            // let str = data.toString();
-                            // return str.replace(/(<([^>]+)>)/ig, '');
-                            return data
-
+                            var html = data;
+                            var div = document.createElement("div");
+                            div.innerHTML = html;
+                            return div.textContent || div.innerText || "";
                         }
                     },
                     {
