@@ -150,15 +150,12 @@
                         data: 'action',
                         name: 'action',
                         orderable: false,
-                        searchable: false},
+                        searchable: false
+                    },
                 ],
             });
         });
         $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-            })
-
             $('#deleteModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
                 var product_id = button.data('productid')

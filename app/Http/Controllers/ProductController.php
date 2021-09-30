@@ -37,7 +37,8 @@ class ProductController extends Controller
     }
 
     public function store(ProductCreateRequest $request){
-        $imageName = time() . '-' . $request->name . '.' . $request->img->extension();
+        $title = preg_replace('/\s+/', '', $request->name);
+        $imageName = time() . '-' . $title . '.' . $request->img->extension();
         $request->img->move(public_path('images'), $imageName);
 
         Product::create([
@@ -73,7 +74,8 @@ class ProductController extends Controller
             $dataToUpdate["price"] = $request->price;
 
         if ($request->img != null) {
-            $imageName = time() . '-' . $request->name . '.' . $request->img->extension();
+            $title = preg_replace('/\s+/', '', $request->name);
+            $imageName = time() . '-' . $title . '.' . $request->img->extension();
             $request->img->move(public_path('images'), $imageName);
             $dataToUpdate["img"] = $imageName;
         }
