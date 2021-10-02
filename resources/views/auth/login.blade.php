@@ -42,6 +42,11 @@
                                            placeholder="Enter Password" value="{{ old('password') }}">
                                 </div>
                                 <div class="form-group">
+                                <a href="{{route('password.request')}}" class="pull-right">
+                                    Forgot Password?
+                                </a>
+                                </div>
+                                <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-1">
                                             <input type="checkbox" id="remember" name="remember"
