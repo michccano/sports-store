@@ -59,8 +59,10 @@
                 }
             });
 
+            let url = "{{ route('cart.remove', ':id') }}";
+            url = url.replace(':id', id);
             $.ajax({
-                url: 'http://localhost:8000/cart/delete/'+id,
+                url: url,
                 {{--/*url: {{route("cart.store",id)}},*/--}}
                 type: 'GET',
                 success: function (data) {
@@ -75,7 +77,6 @@
 
                 },
                 error: function () {
-                    console.log('error');
                 }
             });
         }

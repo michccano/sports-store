@@ -52,9 +52,10 @@
                 }
             });
 
+            let url = "{{ route('cart.store', ':id') }}";
+            url = url.replace(':id', id);
             $.ajax({
-                url: 'http://localhost:8000/cart/store/'+id,
-                {{--/*url: {{route("cart.store",id)}},*/--}}
+                url: url,
                 type: 'GET',
                 success: function (data) {
                     $('#inCart1').show();
@@ -65,7 +66,6 @@
                     $('#cartItemsNumber').html("Cart "+data);
                 },
                 error: function () {
-                    console.log('error');
                 }
             });
         }
@@ -77,8 +77,11 @@
                 }
             });
 
+            let url = "{{ route('cart.remove', ':id') }}";
+            url = url.replace(':id', id);
             $.ajax({
-                url: 'http://localhost:8000/cart/delete/'+id,
+
+                url: url,
                 {{--/*url: {{route("cart.store",id)}},*/--}}
                 type: 'GET',
                 success: function (data) {
@@ -90,7 +93,6 @@
                     $('#cartItemsNumber').html("Cart "+data);
                 },
                 error: function () {
-                    console.log('error');
                 }
             });
         }
@@ -102,8 +104,10 @@
                 }
             });
 
+            let url = "{{ route('cart.remove', ':id') }}";
+            url = url.replace(':id', id);
             $.ajax({
-                url: 'http://localhost:8000/cart/delete/'+id,
+                url: url,
                 {{--/*url: {{route("cart.store",id)}},*/--}}
                 type: 'GET',
                 success: function (data) {
@@ -115,7 +119,6 @@
                     $('#cartItemsNumber').html("Cart "+data);
                 },
                 error: function () {
-                    console.log('error');
                 }
             });
         }
@@ -127,8 +130,10 @@
                 }
             });
 
+            let url = "{{ route('cart.store', ':id') }}";
+            url = url.replace(':id', id);
             $.ajax({
-                url: 'http://localhost:8000/cart/store/'+id,
+                url: url,
                 {{--/*url: {{route("cart.store",id)}},*/--}}
                 type: 'GET',
                 success: function (data) {
@@ -140,7 +145,6 @@
                     $('#cartItemsNumber').html("Cart "+data);
                 },
                 error: function () {
-                    console.log('error');
                 }
             });
         }

@@ -10,14 +10,13 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
     public function store($id){
-        $product =Product::findOrFail($id);
-
+        $product =Product::with('category')->findOrFail($id);
         Cart::add([
             'id' => $product->id,
             'name' => $product->name,
             'qty' => 1,
             'price' => $product->price,
-            'weight' => 0, 'options' => ['img' => $product->img]]);
+            'weight' => 0, 'options' => ['img' => $product->img, 'category' => $product->category->name]]);
         $cartCount = Cart::content()->count();
         return response()->json($cartCount);
     }
