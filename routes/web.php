@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SportsPressController;
@@ -57,6 +58,15 @@ Route::prefix("admin")->middleware("auth")->group(function (){
         Route::post('/update/{id}',[ProductController::class,'update'])->name("updateProduct");
     });
 
+    Route::prefix("category")->group(function (){
+        Route::get('/create',[CategoryController::class,'create']);
+        Route::post('/store',[CategoryController::class,'store'])->name("storeCategory");
+        Route::get('/getCategories',[CategoryController::class,'getCategoriesData'])->name('getCategories');
+        Route::get('/list',[CategoryController::class,'list'])->name('categoryList');
+        Route::get('/edit/{id}',[CategoryController::class,'edit']);
+        Route::post('/update/{id}',[CategoryController::class,'update'])->name('updateCategory');
+        Route::post('/delete',[CategoryController::class,'delete'])->name("deleteCategory");
+    });
 });
 
 Route::get('/shop',[ShopController::class,'index'])->name('shop');

@@ -9,6 +9,11 @@ class BonusToken extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'total',
+        'user_id'
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }
