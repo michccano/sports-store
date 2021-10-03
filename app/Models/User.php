@@ -52,4 +52,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function purchaseToken(){
+        return $this->hasOne(PurchaseToken::class);
+    }
+
+    public function bonusToken(){
+        return $this->hasOne(BonusToken::class);
+    }
+
+    public function makeupToken(){
+        return $this->hasOne(MakeupToken::class);
+    }
 }
