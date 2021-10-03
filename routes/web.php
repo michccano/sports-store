@@ -59,7 +59,7 @@ Route::prefix("admin")->middleware("auth")->group(function (){
     });
 
     Route::prefix("category")->group(function (){
-        Route::get('/create',[CategoryController::class,'create']);
+        Route::get('/create',[CategoryController::class,'create'])->name('createCategory');
         Route::post('/store',[CategoryController::class,'store'])->name("storeCategory");
         Route::get('/getCategories',[CategoryController::class,'getCategoriesData'])->name('getCategories');
         Route::get('/list',[CategoryController::class,'list'])->name('categoryList');

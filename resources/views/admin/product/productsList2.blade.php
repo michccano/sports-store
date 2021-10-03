@@ -40,6 +40,7 @@
                                         <th>Description</th>
                                         <th>Price</th>
                                         <th>Image</th>
+                                        <th>Category</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -134,6 +135,14 @@
                     name: 'img',
                     render: function(data, type, full, meta) {
                         return "<img src={{ URL::to('/') }}/images/" + data + " width='70' class='img-thumbnail' />";
+                    }
+                },
+                {
+                    data: 'category',
+                    name: 'category',
+                    render: function(data, type, full, meta) {
+                        return data.name
+
                     }
                 },
                 {

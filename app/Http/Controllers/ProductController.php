@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -13,7 +14,7 @@ class ProductController extends Controller
 {
     public function getProductData(Request $request){
         if ($request->ajax()) {
-            return DataTables::of(Product::all())
+            return DataTables::of(Product::with('category')->get())
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $id = $row['id'];
@@ -33,7 +34,8 @@ class ProductController extends Controller
     }
 
     public function create(){
-        return view("admin.product.create");
+        $categories = Category::all();
+        return view("admin.product.create",compact("categories"));
     }
 
     public function store(ProductCreateRequest $request){
@@ -48,6 +50,7 @@ class ProductController extends Controller
             "description" => $request->description,
             "price" => $request->price,
             "img" => $imageName,
+            "category_id" => $request->category,
         ]);
 
         return redirect()->route("productList");

@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-sm-10">
                         <p id="message" class=""></p>
-                        <a href="{{route("createProduct")}}" class="btn btn-info">Add Product</a>
+                        <a href="{{route("createCategory")}}" class="btn btn-info">Add Category</a>
                     </div><!-- /.col -->
                     <div class="col-sm-2">
 

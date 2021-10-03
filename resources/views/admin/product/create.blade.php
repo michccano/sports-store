@@ -56,6 +56,14 @@
                                         <input type="file" class="form-control" name="img" placeholder="Enter Image" onchange="previewImage(this)">
                                         <img id="previewImg" style="height: 100px; width: 130px"  />
                                     </div>
+                                    <div class="form-group">
+                                        <label >Category</label>
+                                        <select name="category" class="form-control">
+                                            @foreach($categories as $category)
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
 
