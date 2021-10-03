@@ -50,6 +50,7 @@
         <div class="container">
             <div class="shop-product-inner-wrap">
                 <div class="shop-product-title">
+
                         <p id="message" class=""></p>
                     <h3>Shop</h3>
                 </div>

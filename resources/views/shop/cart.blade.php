@@ -16,6 +16,11 @@
             <div class="container">
                 <div class="shop-product-inner-wrap">
                     <div class="shop-product-title">
+                        @if(session('successMessage'))
+                            <p class="alert alert-success">{{session('successMessage')}}</p>
+                        @elseif(session('errorMessage'))
+                            <p class="alert alert-danger">{{session('errorMessage')}}</p>
+                        @endif
                         <p id="message" class=""></p>
                         <h3>Cart</h3>
                     </div>
