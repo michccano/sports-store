@@ -25,7 +25,7 @@
                             @foreach($products as $product)
                                 <div class="col-md-4" id="product{{$product->id}}">
                                     <div class="card" style="width: 18rem;">
-                                        <img class="card-img-top" src="{{asset('images/' . $product->options['img'])}}" style="height: 200px; width: 260px">
+                                        <img class="card-img-top" src="{{asset('images/' . $product->options['img'])}}" >
                                         <div class="card-body">
                                             <h5 class="card-title">Name: {{$product->name}}</h5>
                                             <p class="card-text">Price: {{$product->price}}</p>
