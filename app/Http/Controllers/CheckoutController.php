@@ -21,8 +21,22 @@ class CheckoutController extends Controller
         if($tokenLeft >=0){
             Cart::destroy();
             $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
+            if ($purchaseToken == null){
+                PurchaseToken::create([
+                    'total' => 0,
+                    'user_id' => Auth::id(),
+                ]);
+                $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
+            }
             $purchaseToken->total = $tokenLeft;
             $bonusToken = BonusToken::where('user_id',Auth::id())->first();
+            if ($bonusToken == null){
+                BonusToken::create([
+                    'total' => 0,
+                    'user_id' => Auth::id(),
+                ]);
+                $bonusToken = BonusToken::where('user_id',Auth::id())->first();
+            }
             $bonusToken->total = 0;
             $purchaseToken->save();
             $bonusToken->save();
@@ -40,8 +54,22 @@ class CheckoutController extends Controller
         if ($hasMoney !=0){
             Cart::destroy();
             $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
+            if ($purchaseToken == null){
+                PurchaseToken::create([
+                    'total' => 0,
+                    'user_id' => Auth::id(),
+                ]);
+                $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
+            }
             $purchaseToken->total = 0;
             $bonusToken = BonusToken::where('user_id',Auth::id())->first();
+            if ($bonusToken == null){
+                BonusToken::create([
+                    'total' => 0,
+                    'user_id' => Auth::id(),
+                ]);
+                $bonusToken = BonusToken::where('user_id',Auth::id())->first();
+            }
             $bonusToken->total = 0;
             $purchaseToken->save();
             $bonusToken->save();
@@ -55,7 +83,21 @@ class CheckoutController extends Controller
     public function CardCheckout(){
         $hasMoney = 1;
         $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
+        if ($purchaseToken == null){
+            PurchaseToken::create([
+                'total' => 0,
+                'user_id' => Auth::id(),
+            ]);
+            $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
+        }
         $bonusToken = BonusToken::where('user_id',Auth::id())->first();
+        if ($bonusToken == null){
+            BonusToken::create([
+                'total' => 0,
+                'user_id' => Auth::id(),
+            ]);
+            $bonusToken = BonusToken::where('user_id',Auth::id())->first();
+        }
         if ($hasMoney !=0){
             $products = Cart::content();
             foreach ($products as $product){

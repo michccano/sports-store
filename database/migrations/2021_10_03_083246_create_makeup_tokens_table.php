@@ -15,7 +15,7 @@ class CreateMakeupTokensTable extends Migration
     {
         Schema::create('makeup_tokens', function (Blueprint $table) {
             $table->id();
-            $table->integer("total");
+            $table->integer("total")->default(0);
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onUpdate('cascade')
