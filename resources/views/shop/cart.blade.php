@@ -43,11 +43,20 @@
                         </div>
                         <br>
                         @if(count($products) >0)
-                            <a href="{{route("cart.checkout")}}" class="btn btn-info" id="checkoutButton">
-                                Checkout</a>
+                            @if($hasToken != 1)
+                                <a href="#" class="btn btn-info checkoutButton">
+                                    CCheckout</a>
+                                <a id="TokenCheckout1" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">
+                                    TokenCheckout</a>
+                            @else
+                                <a href="#" class="btn btn-info checkoutButton">
+                                    CCheckout</a>
+                            @endif
                         @else
                             <p>Did not added any product to the cart</p>
                         @endif
+                        <a id="TokenCheckout2" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">
+                            TokenCheckout</a>
                         <p id="emptyMessage"></p>
                     </div>
                 </div>
@@ -57,6 +66,7 @@
 
 @section("scripts")
     <script>
+        $('#TokenCheckout2').hide();
         function removeFromCart(id){
             $.ajaxSetup({
                 headers: {
@@ -68,16 +78,20 @@
             url = url.replace(':id', id);
             $.ajax({
                 url: url,
-                {{--/*url: {{route("cart.store",id)}},*/--}}
                 type: 'GET',
                 success: function (data) {
                     $('#product'+id).hide();
+                    if (data.hasToken == 0){
+                        $('#TokenCheckout1').hide();
+                        $('#TokenCheckout2').show();
+                    }
+
                     $('#message').html("Remove From Cart");
                     $('#message').attr("class","alert alert-danger");
-                    $('#cartItemsNumber').html("Cart "+data);
-                    if (data == 0){
+                    $('#cartItemsNumber').html("Cart "+data.cartCount);
+                    if (data.cartCount == 0){
                         $('#emptyMessage').html("Removed all products from the cart");
-                        $('#checkoutButton').hide();
+                        $('.checkoutButton').hide();
                     }
 
                 },

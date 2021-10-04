@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SportsPressController;
@@ -67,6 +68,8 @@ Route::prefix("admin")->middleware("auth")->group(function (){
         Route::post('/update/{id}',[CategoryController::class,'update'])->name('updateCategory');
         Route::post('/delete',[CategoryController::class,'delete'])->name("deleteCategory");
     });
+
+    Route::get('/checkoutWithToken',[CheckoutController::class,'checkoutWithToken'])->name('checkoutWithToken');
 });
 
 Route::get('/shop',[ShopController::class,'index'])->name('shop');

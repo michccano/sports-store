@@ -24,15 +24,27 @@ class CartController extends Controller
 
     public function show(){
         $products = Cart::content();
-        return view('shop.cart',compact("products"));
+        $hasToken = 0;
+        foreach ($products as $product){
+            if ($product->options['category'] == "Memberships")
+                $hasToken = 1;
+        }
+        return view('shop.cart',compact("products","hasToken"));
     }
 
     public function delete($id){
-        $product = Cart::content()->where('id',$id)->first();
-        $rowId = $product->rowId;
+        $products = Cart::content();
+
+        $rowId = $products->where('id',$id)->first()->rowId;
         Cart::remove($rowId);
-        $cartCount = Cart::content()->count();
-        return response()->json($cartCount);
+
+        $hasToken = 0;
+        foreach ($products as $product){
+            if ($product->options['category'] == "Memberships")
+                $hasToken = 1;
+        }
+        $cartCount = $products->count();
+        return response()->json(['cartCount' => $cartCount , 'hasToken' => $hasToken]);
     }
 
     public function checkout(){
