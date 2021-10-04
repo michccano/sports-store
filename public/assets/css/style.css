@@ -247,6 +247,7 @@ a.nav-link.desktop__site_logo:after {
     line-height: 50px;
     text-align: center;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .hero-button-area a:after {
@@ -1425,3 +1426,150 @@ a.product-cart-btn {
 
 /* ------------------------------ */
 /* ===================shop page====================== */
+/* ===================cart page====================== */
+.cart-breadcrumb-area {
+    margin-top: 60px;
+    background: #1F3B79;
+    padding: 100px;
+}
+
+.breadcrumb-title h3 {
+    color: #fff;
+    font-weight: 700;
+}
+
+.breadcrumb-nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.breadcrumb-nav span {
+    color: #fff;
+    display: inline-block;
+    margin: 0px 5px;
+}
+
+.cart-product-top {
+    padding: 50px 0;
+}
+
+table.cart-product-form__contents {
+    width: 100%;
+    position: relative;
+}
+
+table.cart-product-form__contents:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: red;
+    top: -10px;
+    left: 0;
+}
+
+table.cart-product-form__contents tbody {
+    margin-bottom: 30px;
+    display: block;
+}
+
+td.product-thumbnail img {
+    height: 100px;
+    width: 100px;
+    background-color: #ddd;
+}
+
+td.product-name {
+    width: 40%;
+}
+
+tr.product-cart-form__cart-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+tr.product-cart-form__cart-item:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0;
+    background: #ddd;
+    bottom: -10px;
+}
+
+td.product-price {
+    width: 15%;
+}
+
+td.product-subtotal {
+    width: 30%;
+    text-align: center;
+}
+
+td.product-quantity {
+    width: 60px;
+}
+
+.quantity input {
+    width: 100%;
+    text-align: center;
+    height: 60px;
+    background: #ddd;
+    border: none;
+}
+
+td.product-name a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+td.product-remove a {
+    color: #000;
+}
+
+.coupon-area {
+    padding: 50px 0;
+}
+
+.coupon-right {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.coupon-right .hero-button-area {
+    margin: inherit;
+}
+
+.coupon-left {
+    position: relative;
+    width: 400px;
+    height: 50px;
+}
+
+.coupon-left input {
+    width: 100%;
+    height: 50px;
+    padding: 10px 15px;
+    background: #ddd;
+    border: none;
+    position: absolute;
+    left: 0;
+}
+
+.coupon-left button {
+    width: 120px;
+    height: 50px;
+    border: 2px solid red;
+    background: #fff;
+    position: absolute;
+    right: 0;
+    color: red;
+    font-weight: 700;
+}
+
+/* ===================cart page====================== */

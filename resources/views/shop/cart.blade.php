@@ -12,42 +12,79 @@
                 </div>
             </div>
         </section>
-        <section class="shop-product-main-area">
-            <div class="container">
-                <div class="shop-product-inner-wrap">
-                    <div class="shop-product-title">
-                        <p id="message" class=""></p>
-                        <h3>Cart</h3>
-                    </div>
-                    <div class="shop-product-item-wrap">
-                        <div class="row">
-
+        <section class="cart-product-body">
+        <div class="container">
+            <div class="cart-product-inner-wrap">
+                <div class="cart-product-top">
+                    <form class="product-cart-form" action="" method="post">
+                        <div class="cart-product-table-wrapper">
+                            <table class="cart-product-form__contents" cellspacing="0">
                             @foreach($products as $product)
-                                <div class="col-md-4" id="product{{$product->id}}">
-                                    <div class="card" style="width: 18rem;">
+                                <tbody>
+                                    <tr class="product-cart-form__cart-item">
+                                        <td class="product-thumbnail"> <a href="">
                                         <img class="card-img-top" src="{{asset('images/' . $product->options['img'])}}" >
-                                        <div class="card-body">
-                                            <h5 class="card-title">Name: {{$product->name}}</h5>
-                                            <p class="card-text">Price: {{$product->price}}</p>
-                                            <p class="card-text">Quantuty: {{$product->qty}}</p>
-                                            <button onclick="removeFromCart({{$product->id}})" class="btn btn-danger">Remove from Cart</button>
+                                            </a></td>
+                                        <td class="product-name" data-title="Product">
+                                            <a href="">Name: {{$product->name}}</a>
+                                        </td>
+                                        <td class="product-price" data-title="Price">
+                                            <span class="">
+                                                <span class="">Price: {{$product->price}}</span>
+                                            </span>
+                                        </td>
+                                        <td class="product-quantity" data-title="Quantity">
+                                            <div class="quantity">
+                                                <input type="number" id="" class="input-text " step="1" name=""
+                                                    value="1" placeholder="" inputmode="numeric">
+                                            </div>
+                                        </td>
+                                        <td class="product-subtotal" data-title="Total">
+                                            <span class="product-Price-amount amount">Quantuty: {{$product->qty}}</span>
+                                        </td>
+                                        <td class="product-remove">
+                                            <a href="" class="remove">
+                                            <button onclick="removeFromCart({{$product->id}})" class="btn btn-danger"><i class="fa fa-times"></i></button>
+
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                                @endforeach
+                            </table>
+
+                            <div class="coupon-area">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="coupon-left">
+                                            <input type="text" placeholder="Coupon code">
+                                            <button>Apply</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="coupon-right">
+                                            <div class="hero-button-area">
+                                                <a href="#">Update Cart</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
+                            @if(count($products) >0)
+                                <a href="{{route("cart.checkout")}}" class="btn btn-info" id="checkoutButton">
+                                    Checkout</a>
+                                @else
+                                    <p>Did not added any product to the cart</p>
+                                @endif
+                            <p id="emptyMessage"></p>
                         </div>
-                        <br>
-                        @if(count($products) >0)
-                            <a href="{{route("cart.checkout")}}" class="btn btn-info" id="checkoutButton">
-                                Checkout</a>
-                        @else
-                            <p>Did not added any product to the cart</p>
-                        @endif
-                        <p id="emptyMessage"></p>
-                    </div>
+                    </form>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+
 @endsection
 
 @section("scripts")
@@ -62,7 +99,7 @@
             $.ajax({
                 url: 'http://localhost:8000/cart/delete/'+id,
                 {{--/*url: {{route("cart.store",id)}},*/--}}
-                type: 'GET',
+                type: 'post',
                 success: function (data) {
                     $('#product'+id).hide();
                     $('#message').html("Remove From Cart");
