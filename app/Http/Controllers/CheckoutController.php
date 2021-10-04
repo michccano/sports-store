@@ -33,4 +33,40 @@ class CheckoutController extends Controller
             return view("checkout.remainingCardPayment",compact("payment","remainingPayment","userTotalToken"));
         }
     }
+
+    public function remainingPaymentWithCard(){
+        $hasMoney = rand(0,1);
+
+        if ($hasMoney !=0){
+            Cart::destroy();
+            $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
+            $purchaseToken->total = 0;
+            $bonusToken = BonusToken::where('user_id',Auth::id())->first();
+            $bonusToken->total = 0;
+            $purchaseToken->save();
+            $bonusToken->save();
+            return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
+        }
+        else{
+            return redirect()->route('cart.show')->with("errorMessage","You Don't Have Enough Money");
+        }
+    }
+
+    public function CardCheckout(){
+        $hasMoney = 1;
+
+        if ($hasMoney !=0){
+            Cart::destroy();
+            $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
+            $purchaseToken->total = 0;
+            $bonusToken = BonusToken::where('user_id',Auth::id())->first();
+            $bonusToken->total = 0;
+            $purchaseToken->save();
+            $bonusToken->save();
+            return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
+        }
+        else{
+            return redirect()->route('cart.show')->with("errorMessage","You Don't Have Enough Money");
+        }
+    }
 }
