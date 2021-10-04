@@ -49,7 +49,7 @@
                                 <a id="TokenCheckout1" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">
                                     TokenCheckout</a>
                             @else
-                                <a href="#" class="btn btn-info checkoutButton">
+                                <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton">
                                     CCheckout</a>
                             @endif
                         @else
