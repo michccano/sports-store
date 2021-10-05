@@ -87,15 +87,18 @@
                                     <div class="col-lg-4 mb-4">
                                         <div class="shop-single-item">
                                             <div class="card">
-                                                <img src="{{asset('images/' . $product->img)}}" class="card-img-top" style="height: 220px; width: 200px">
+                                                <img src="{{asset('images/' . $product->img)}}" class="card-img-top">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{$product->name}}</h5>
+                                                    <div class="info-area-btn">
                                                     <p class="product-cart-btn">
                                                         <span>${{$product->price}}</span>
                                                     </p>
                                                     <a href="{{route("productDetails",$product->id)}}" class="product-cart-btn">
-                                                        <span>Info</span>
+                                                        <span><i class="far fa-info"></i> Info</span>
                                                     </a>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             @if($cart->where('id',$product->id)->count())

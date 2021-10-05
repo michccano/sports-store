@@ -12,56 +12,91 @@
                 </div>
             </div>
         </section>
-        <section class="shop-product-main-area">
-            <div class="container">
-                <div class="shop-product-inner-wrap">
-                    <div class="shop-product-title">
-                        @if(session('successMessage'))
-                            <p class="alert alert-success">{{session('successMessage')}}</p>
-                        @elseif(session('errorMessage'))
-                            <p class="alert alert-danger">{{session('errorMessage')}}</p>
-                        @endif
-                        <p id="message" class=""></p>
-                        <h3>Cart</h3>
-                    </div>
-                    <div class="shop-product-item-wrap">
-                        <div class="row">
+        <section class="cart-product-body">
+        <div class="container">
+            <div class="cart-product-inner-wrap">
+                <div class="cart-product-top">
+                    @if(session('successMessage'))
+                        <p class="alert alert-success">{{session('successMessage')}}</p>
+                    @elseif(session('errorMessage'))
+                        <p class="alert alert-danger">{{session('errorMessage')}}</p>
+                    @endif
+                    <p id="message" class=""></p>
+                        <div class="cart-product-table-wrapper">
+                            <table class="cart-product-form__contents" cellspacing="0">
+                                <tbody>
+                                @foreach($products as $product)
+                                    <tr class="product-cart-form__cart-item" id="product{{$product->id}}">
+                                        <td class="product-thumbnail"> <a href="">
+                                        <img class="card-img-top" src="{{asset('images/' . $product->options['img'])}}" >
+                                            </a></td>
+                                        <td class="product-name" data-title="Product">
+                                            <a href="">Name: {{$product->name}}</a>
+                                        </td>
+                                        <td class="product-price" data-title="Price">
+                                            <span class="">
+                                                <span class=""> {{$product->price}}</span>
+                                            </span>
+                                        </td>
+                                        <td class="product-quantity" data-title="Quantity">
+                                            <div class="quantity">
+                                                <input type="number" id="" class="input-text " step="1" name=""
+                                                    value="{{$product->qty}}" placeholder="" inputmode="numeric">
+                                            </div>
+                                        </td>
+                                        <td class="product-subtotal" data-title="Total">
 
-                            @foreach($products as $product)
-                                <div class="col-md-4" id="product{{$product->id}}">
-                                    <div class="card" style="width: 18rem;">
-                                        <img class="card-img-top" src="{{asset('images/' . $product->options['img'])}}" style="height: 200px; width: 260px">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Name: {{$product->name}}</h5>
-                                            <p class="card-text">Price: {{$product->price}}</p>
-                                            <p class="card-text">Quantuty: {{$product->qty}}</p>
-                                            <button onclick="removeFromCart({{$product->id}})" class="btn btn-danger">Remove from Cart</button>
+                                        </td>
+                                        <td class="product-remove">
+                                            <a class="remove">
+                                            <button onclick="removeFromCart({{$product->id}})" class="btn btn-danger"><i class="fa fa-times"></i></button>
+
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+
+                            @if(count($products) >0)
+                                @if($hasToken != 1)
+                            <div class="coupon-area">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="coupon-left">
+                                            {{--<input type="text" placeholder="Coupon code">
+                                            <button>Apply</button>--}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="coupon-right checkoutButton">
+                                            <div class="hero-button-area">
+                                                <a href="#">Update Cart</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
-                        <br>
-                        @if(count($products) >0)
-                            @if($hasToken != 1)
-                                <a href="#" class="btn btn-info checkoutButton">
-                                    CCheckout</a>
-                                <a id="TokenCheckout1" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">
-                                    TokenCheckout</a>
+                            </div>
+                                    <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton">
+                                        CCheckout</a>
+                                    <a id="TokenCheckout1" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">
+                                        TokenCheckout</a>
+                                @else
+                                    <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton">
+                                        CCheckout</a>
+                                @endif
                             @else
-                                <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton">
-                                    CCheckout</a>
+                                <p>Did not added any product to the cart</p>
                             @endif
-                        @else
-                            <p>Did not added any product to the cart</p>
-                        @endif
-                        <a id="TokenCheckout2" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">
-                            TokenCheckout</a>
-                        <p id="emptyMessage"></p>
+                            <a id="TokenCheckout2" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">
+                                TokenCheckout</a>
+                            <p id="emptyMessage"></p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+    </section>
+
 @endsection
 
 @section("scripts")
