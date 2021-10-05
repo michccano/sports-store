@@ -16,7 +16,11 @@ use Illuminate\Support\Str;
 class AuthController extends Controller
 {
     public function register(){
-        return view("auth.register");
+        if (Auth::check()){
+            return back();
+        }
+        else
+            return view("auth.register");
     }
 
     public function store(RegisterRequest $request){
@@ -41,7 +45,11 @@ class AuthController extends Controller
     }
 
     public function login(){
-        return view("auth.login");
+        if (Auth::check()){
+            return back();
+        }
+        else
+            return view("auth.login");
     }
 
     public function login_post(LoginRequest $request){
