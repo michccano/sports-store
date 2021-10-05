@@ -89,7 +89,7 @@
                                             <div class="card">
                                                 <img src="{{asset('images/' . $product->img)}}" class="card-img-top">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">{{$product->name}}</h5>
+                                                    <h5 class="card-title text-truncate">{{$product->name}}</h5>
                                                     <div class="info-area-btn">
                                                     <p class="product-cart-btn">
                                                         <span>${{$product->price}}</span>

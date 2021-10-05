@@ -32,25 +32,14 @@
                                     <h2>Name: {{$product->name}}</h2>
                                 </div>
                                 <div class="product_page_p_code">
-                                    <h4>Category: Sports</h4>
+                                    <h4>Category: {{$product->category->name}}</h4>
                                 </div>
 
                                 <div class="product_page_product_price">
                                     <h3>Price: {{$product->price}}</h3>
                                     <span>Description: {!! $product->description !!}</span>
                                 </div>
-                                <div class="product_page_select_product">
-                                    <div class="product_page_product_quantity">
-                                        <label for="cars">Quantity:</label>
-                                        <select id="cars">
-                                            <option value="volvo" selected>Only</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="vw">VW</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                    </div>
 
-                                </div>
                                 <div class="add_to_cart_btn_p">
                                 @if($cart->where('id',$product->id)->count())
                                     <button id="inCart2" class="btn btn-info">In Cart</button>
@@ -75,32 +64,6 @@
             </div>
         </div>
     </section>
-    <section class="shop-product-main-area">
-        <div class="container">
-            <div class="card">
-                <p id="message" class=""></p>
-            <img class="card-img-top" src="{{asset('images/' . $product->img)}}" style="height: 400px; width: 360px">
-                <div class="card-body">
-                    <h5 class="card-title">Name: {{$product->name}}</h5>
-                    <p class="card-text">Price: {{$product->price}}</p>
-                    <p class="card-text">Description: {!! $product->description !!}</p>
-                    <p class="card-text">To order click on ADD TO CART below or call
-                    954.377.8000</p>
-                    @if($cart->where('id',$product->id)->count())
-                        <button id="inCart2" class="btn btn-info">In Cart</button>
-                        <button id="removeFromCart2" class="btn btn-danger" onclick="removeFromCart2({{$product->id}})">
-                            Remove from Cart</button>
-                        <button id="addCart2" class="btn btn-danger" onclick="addToCart2({{$product->id}})">Add to Cart</button>
-                    @else
-                        <button id="inCart1"  class="btn btn-info">In Cart</button>
-                        <button id="removeFromCart1" class="btn btn-danger" onclick="removeFromCart({{$product->id}})">
-                            Remove from Cart</button>
-                        <button id="addCart1" class="btn btn-danger" onclick="addToCart({{$product->id}})">Add to Cart</button>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </section>
 @endsection
 
 @section("scripts")
@@ -108,6 +71,7 @@
         $('#inCart1').hide();
         $('#removeFromCart1').hide();
         $('#addCart2').hide();
+
         function addToCart(id) {
             $.ajaxSetup({
                 headers: {
@@ -153,7 +117,7 @@
                     $('#addCart1').show();
                     $('#message').html("Remove From Cart");
                     $('#message').attr("class","alert alert-danger");
-                    $('#cartItemsNumber').html("Cart "+data);
+                    $('#cartItemsNumber').html("Cart "+data.cartCount);
                 },
                 error: function () {
                 }
@@ -179,7 +143,7 @@
                     $('#addCart2').show();
                     $('#message').html("Remove From Cart");
                     $('#message').attr("class","alert alert-danger");
-                    $('#cartItemsNumber').html("Cart "+data);
+                    $('#cartItemsNumber').html("Cart "+data.cartCount);
                 },
                 error: function () {
                 }

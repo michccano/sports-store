@@ -10,12 +10,10 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutService implements ICheckoutService{
-    private $userService;
     private $purchaseTokenService;
     private $bonusTokenService;
 
-    public function __construct(
-                                IPurchaseTokenService $purchaseTokenService,
+    public function __construct(IPurchaseTokenService $purchaseTokenService,
                                 IBonusTokenService $bonusTokenService)
     {
 
