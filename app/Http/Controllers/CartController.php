@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -47,20 +44,4 @@ class CartController extends Controller
         return response()->json(['cartCount' => $cartCount , 'hasToken' => $hasToken]);
     }
 
-    public function checkout(){
-        $payment = Cart::total();
-
-        $user = User::with('purchaseToken','bonusToken','makeupToken')->find(Auth::id());
-        $userToken = $user->token;
-        $tokenLeft = $userToken - $payment;
-        if($tokenLeft >=0){
-            Cart::destroy();
-            $user->token = $tokenLeft;
-            $user->save();
-            return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
-        }
-        else{
-            return redirect()->route('cart.show')->with("errorMessage","Don't Have Enough Token");
-        }
-    }
 }
