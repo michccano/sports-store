@@ -6,7 +6,6 @@ use App\Models\BonusToken;
 use App\Models\PurchaseToken;
 use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
