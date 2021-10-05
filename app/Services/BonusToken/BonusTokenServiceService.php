@@ -27,4 +27,11 @@ class BonusTokenServiceService implements IBonusTokenService{
         }
         return $bonusToken;
     }
+
+    public function addToken($price , $purchaseTokenQuantity){
+        $bonusToken = $this->getOwnedToken();
+        if ($price >= 5)
+            $bonusToken->total += (integer)(($purchaseTokenQuantity*20)/100);
+        $bonusToken->save();
+    }
 }

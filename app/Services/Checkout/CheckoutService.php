@@ -63,4 +63,47 @@ class CheckoutService implements ICheckoutService{
         else
             return $message = "error";
     }
+
+    public function CardCheckout()
+    {
+        $hasMoney = 1;
+        $message = null;
+        if ($hasMoney !=0){
+            $products = Cart::content();
+            foreach ($products as $product){
+                if ($product->options['category'] == "Memberships"){
+                    if ($product->name == "Playbook Playbucks Tokens - 1"){
+                        $purchaseTokenQuantity = 1*$product->qty;
+                        $this->purchaseTokenService->addToken($purchaseTokenQuantity);
+                        $this->bonusTokenService->addToken($product->price, $purchaseTokenQuantity);
+                    }
+                    elseif ($product->name == "Playbook Playbucks Tokens - 10"){
+                        $purchaseTokenQuantity = 10*$product->qty;
+                        $this->purchaseTokenService->addToken($purchaseTokenQuantity);
+                        $this->bonusTokenService->addToken($product->price, $purchaseTokenQuantity);
+                    }
+                    elseif ($product->name == "Playbook Playbucks Tokens - 50"){
+                        $purchaseTokenQuantity = 50*$product->qty;
+                        $this->purchaseTokenService->addToken($purchaseTokenQuantity);
+                        $this->bonusTokenService->addToken($product->price, $purchaseTokenQuantity);
+                    }
+                    elseif ($product->name == "Playbook Playbucks Tokens - 100"){
+                        $purchaseTokenQuantity = 100*$product->qty;
+                        $this->purchaseTokenService->addToken($purchaseTokenQuantity);
+                        $this->bonusTokenService->addToken($product->price, $purchaseTokenQuantity);
+                    }
+                    elseif ($product->name == "Playbook Playbucks Tokens - 500"){
+                        $purchaseTokenQuantity = 500*$product->qty;
+                        $this->purchaseTokenService->addToken($purchaseTokenQuantity);
+                        $this->bonusTokenService->addToken($product->price, $purchaseTokenQuantity);
+                    }
+                }
+            }
+            Cart::destroy();
+
+            return $message = "success";
+        }
+        else
+            return $message = "error";
+    }
 }

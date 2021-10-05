@@ -27,4 +27,10 @@ class PurchaseTokenService implements IPurchaseTokenService{
         }
         return $purchaseToken;
     }
+
+    public function addToken($tokenQuantity){
+        $purchaseToken = $this->getOwnedToken();
+        $purchaseToken->total += $tokenQuantity;
+        $purchaseToken->save();
+    }
 }
