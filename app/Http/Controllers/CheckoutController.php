@@ -23,43 +23,27 @@ class CheckoutController extends Controller
         $userTotalToken = $user->purchaseToken->total + $user->bonusToken->total;
         $remainingPayment = $this->checkoutService->checkoutWithToken();
 
-        if($remainingPayment == 0){
-            return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
-        }
-        else{
-            return view("checkout.remainingCardPayment",compact("payment","remainingPayment","userTotalToken"));
+        if ($remainingPayment != null){
+            if($remainingPayment == 0){
+                return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
+            }
+            else{
+                return view("checkout.remainingCardPayment",compact("payment","remainingPayment","userTotalToken"));
+            }
         }
     }
 
     public function remainingPaymentWithCard(){
-        $hasMoney = rand(0,1);
+        $message = $this->checkoutService->remainingPaymentWithCard();
 
-        if ($hasMoney !=0){
-            Cart::destroy();
-            $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
-            if ($purchaseToken == null){
-                PurchaseToken::create([
-                    'total' => 0,
-                    'user_id' => Auth::id(),
-                ]);
-                $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
+        if ($message != null){
+            if ($message == "success"){
+
+                return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
             }
-            $purchaseToken->total = 0;
-            $bonusToken = BonusToken::where('user_id',Auth::id())->first();
-            if ($bonusToken == null){
-                BonusToken::create([
-                    'total' => 0,
-                    'user_id' => Auth::id(),
-                ]);
-                $bonusToken = BonusToken::where('user_id',Auth::id())->first();
+            else{
+                return redirect()->route('cart.show')->with("errorMessage","You Don't Have Enough Money");
             }
-            $bonusToken->total = 0;
-            $purchaseToken->save();
-            $bonusToken->save();
-            return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
-        }
-        else{
-            return redirect()->route('cart.show')->with("errorMessage","You Don't Have Enough Money");
         }
     }
 

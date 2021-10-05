@@ -45,4 +45,22 @@ class CheckoutService implements ICheckoutService{
             return $remainingPayment = $payment - $userTotalToken;
         }
     }
+
+    public function remainingPaymentWithCard()
+    {
+        $hasMoney = rand(0, 1);
+        $message = null;
+        if ($hasMoney !=0){
+            Cart::destroy();
+            $purchaseToken = $this->purchaseTokenService->getOwnedToken();
+            $purchaseToken->total = 0;
+            $bonusToken = $this->bonusTokenService->getOwnedToken();
+            $bonusToken->total = 0;
+            $purchaseToken->save();
+            $bonusToken->save();
+            return $message = "success";
+        }
+        else
+            return $message = "error";
+    }
 }
