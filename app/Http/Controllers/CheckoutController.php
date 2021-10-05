@@ -5,44 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\BonusToken;
 use App\Models\PurchaseToken;
 use App\Models\User;
+use App\Services\Checkout\ICheckoutService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
+    private $checkoutService;
+    public function __construct(ICheckoutService $checkoutService){
+        $this->checkoutService = $checkoutService;
+    }
     public function checkoutWithToken(){
+
         $payment = Cart::total();
-
-        $user = User::with('purchaseToken','bonusToken','makeupToken')->find(Auth::id());
+        $user = User::with('purchaseToken','bonusToken','makeupToken')
+            ->find(Auth::id());
         $userTotalToken = $user->purchaseToken->total + $user->bonusToken->total;
+        $remainingPayment = $this->checkoutService->checkoutWithToken();
 
-        $tokenLeft = $userTotalToken- $payment;
-        if($tokenLeft >=0){
-            Cart::destroy();
-            $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
-            if ($purchaseToken == null){
-                PurchaseToken::create([
-                    'total' => 0,
-                    'user_id' => Auth::id(),
-                ]);
-                $purchaseToken = PurchaseToken::where('user_id',Auth::id())->first();
-            }
-            $purchaseToken->total = $tokenLeft;
-            $bonusToken = BonusToken::where('user_id',Auth::id())->first();
-            if ($bonusToken == null){
-                BonusToken::create([
-                    'total' => 0,
-                    'user_id' => Auth::id(),
-                ]);
-                $bonusToken = BonusToken::where('user_id',Auth::id())->first();
-            }
-            $bonusToken->total = 0;
-            $purchaseToken->save();
-            $bonusToken->save();
+        if($remainingPayment == 0){
             return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
         }
         else{
-            $remainingPayment = $payment - $userTotalToken;
             return view("checkout.remainingCardPayment",compact("payment","remainingPayment","userTotalToken"));
         }
     }

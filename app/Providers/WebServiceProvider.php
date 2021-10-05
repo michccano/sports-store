@@ -13,6 +13,8 @@ use App\Repository\Category\ICategoryRepository;
 use App\Repository\MakeupToken\IMakeupTokenRepository;
 use App\Repository\Product\IProductRepository;
 use App\Repository\Product\ProductRepository;
+use App\Repository\PurchaseToken\IPurchaseTokenRepository;
+use App\Repository\PurchaseToken\PurchaseTokenRepository;
 use App\Repository\User\IUserRepository;
 use App\Repository\User\UserRepository;
 use App\Services\BonusToken\BonusTokenServiceService;
@@ -37,6 +39,7 @@ class WebServiceProvider extends ServiceProvider
         $this->app->bind(IUserRepository::class,UserRepository::class);
         $this->app->bind(IProductRepository::class,ProductRepository::class);
         $this->app->bind(ICategoryRepository::class,CategoryRepository::class);
+        $this->app->bind(IPurchaseTokenRepository::class,PurchaseTokenRepository::class);
         $this->app->bind(IBonusTokenRepository::class,BonusTokenRepository::class);
         $this->app->bind(IMakeupTokenRepository::class,MakeupToken::class);
         $this->app->bind(ICheckoutService::class,CheckoutService::class);
