@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/css/smoothproducts.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
     <link rel="stylesheet" href="/assets/css/video-popup.css">
@@ -71,7 +72,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('cart.show')}}" id="cartItemsNumber">
-                            Cart {{\Gloudemans\Shoppingcart\Facades\Cart::content()->count()}}</a>
+                            Cart <span class="product-count">{{\Gloudemans\Shoppingcart\Facades\Cart::content()->count()}}</span> </a>
                     </li>
 
                 </ul>
@@ -123,6 +124,8 @@
 <script src="/assets/js/jquery.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/jquery.cycle.js"></script>
+<script src="/assets/js/smoothproducts.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 <script src="/assets/js/main.js"></script>
