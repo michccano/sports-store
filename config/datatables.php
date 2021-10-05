@@ -70,7 +70,7 @@ return [
     'nulls_last_sql' => ':column :direction NULLS LAST',
 
     /*
-     * User friendly message to be displayed on user if error occurs.
+     * UserService friendly message to be displayed on user if error occurs.
      * Possible values:
      * null             - The exception message will be used on error response.
      * 'throw'          - Throws a \Yajra\DataTables\Exceptions\Exception. Use your custom error handler if needed.

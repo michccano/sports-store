@@ -14,12 +14,12 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('products')->delete();
-        
+
         \DB::table('products')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'name' => 'Marc\'s Preferred Picks Executive Football Service',
@@ -51,7 +51,7 @@ class ProductsTableSeeder extends Seeder
                 'created_at' => '2021-10-03 12:34:42',
                 'updated_at' => '2021-10-03 12:34:42',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'name' => '2021 Playbook Football Preview Guide Magazine',
@@ -81,11 +81,11 @@ class ProductsTableSeeder extends Seeder
                 'created_at' => '2021-10-03 12:47:46',
                 'updated_at' => '2021-10-03 12:47:46',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'name' => 'Playbook Playbucks Tokens - 1',
-                'description' => '<p>Welcome to the PlaybookSports.com Rewards program where you can now use convenient Playbucks Tokens for major purchases on the website. The more you use the more rewards you earn. For example: when you purchase 50 Tokens you receive 10 Award Tokens as a bonus. When you purchase 100 Green Tokens you receive 20 Gold Award Tokens as a bonus. If you have any questions or comments feel free to contact us at support@playbooksports.com.<br /><br />Thank you and enjoy all the added benefits of your Playbucks Tokens. This purchase = 1 Green Token. Zero Gold Award Tokens<br /><br /><strong>Type in quantity requested and hit Update Cart. Confirm that your Qty and Price match, then click Checkout.</strong></p>',
+                'description' => '<p>Welcome to the PlaybookSports.com Rewards program where you can now use convenient Playbucks Tokens for major purchases on the website. The more you use the more rewards you earn. For example: when you purchase 50 Tokens you receive 10 Award Tokens as a bonus. When you purchase 100 Green Tokens you receive 20 Gold Award Tokens as a bonus. If you have any questions or comments feel free to contact us at support@playbooksports.com.<br /><br />Thank you and enjoy all the added benefits of your Playbucks Tokens. This purchase = 1 Green Token. Zero Gold Award Tokens<br /><br /><strong>Type in quantity requested and hit Update Cart. Confirm that your Qty and Price match, then click CheckoutService.</strong></p>',
                 'price' => '1',
                 'img' => '1633331339-PlaybookPlaybucksTokens1.png',
                 'status' => 1,
@@ -93,7 +93,7 @@ class ProductsTableSeeder extends Seeder
                 'created_at' => '2021-10-04 07:08:59',
                 'updated_at' => '2021-10-04 07:08:59',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'name' => 'Playbook Playbucks Tokens - 100',
@@ -106,7 +106,7 @@ class ProductsTableSeeder extends Seeder
                 'updated_at' => '2021-10-04 12:26:49',
             ),
         ));
-        
-        
+
+
     }
 }

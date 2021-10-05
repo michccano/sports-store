@@ -82,14 +82,14 @@ CodeMirror.defineMode("gfm", function(config, modeConfig) {
         state.ateSpace = false;
         if (modeConfig.gitHubSpice !== false) {
           if(stream.match(/^(?:[a-zA-Z0-9\-_]+\/)?(?:[a-zA-Z0-9\-_]+@)?(?=.{0,6}\d)(?:[a-f0-9]{7,40}\b)/)) {
-            // User/Project@SHA
-            // User@SHA
+            // UserService/Project@SHA
+            // UserService@SHA
             // SHA
             state.combineTokens = true;
             return "link";
           } else if (stream.match(/^(?:[a-zA-Z0-9\-_]+\/)?(?:[a-zA-Z0-9\-_]+)?#[0-9]+\b/)) {
-            // User/Project#Num
-            // User#Num
+            // UserService/Project#Num
+            // UserService#Num
             // #Num
             state.combineTokens = true;
             return "link";

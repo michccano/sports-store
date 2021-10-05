@@ -3996,7 +3996,7 @@ book-spells:
 book-user:
   changes:
     - 5.7.0
-  label: Book with User
+  label: Book with UserService
   search:
     terms:
       - address
@@ -8059,7 +8059,7 @@ clipboard-prescription:
 clipboard-user:
   changes:
     - 5.7.0
-  label: Clipboard with User
+  label: Clipboard with UserService
   search:
     terms:
       - attendance
@@ -14458,7 +14458,7 @@ file-user:
   changes:
     - 5.3.0
     - 5.10.2
-  label: User File
+  label: UserService File
   search:
     terms:
       - account
@@ -19411,7 +19411,7 @@ hospital-symbol:
 hospital-user:
   changes:
     - 5.7.0
-  label: Hospital with User
+  label: Hospital with UserService
   search:
     terms:
       - covid-19
@@ -19750,7 +19750,7 @@ house-signal:
 house-user:
   changes:
     - 5.13.0
-  label: House User
+  label: House UserService
   search:
     terms:
       - covid-19
@@ -37892,7 +37892,7 @@ user:
     - 5.0.0
     - 5.0.3
     - 5.0.11
-  label: User
+  label: UserService
   search:
     terms:
       - account
@@ -37912,7 +37912,7 @@ user:
 user-alien:
   changes:
     - 5.12.0
-  label: User Alien
+  label: UserService Alien
   search:
     terms:
       - ET
@@ -37934,7 +37934,7 @@ user-alt:
     - 5.0.0
     - 5.0.3
     - 5.0.11
-  label: Alternate User
+  label: Alternate UserService
   search:
     terms:
       - account
@@ -37954,7 +37954,7 @@ user-alt:
 user-alt-slash:
   changes:
     - 5.0.11
-  label: Alternate User Slash
+  label: Alternate UserService Slash
   search:
     terms:
       - account
@@ -37974,7 +37974,7 @@ user-alt-slash:
 user-astronaut:
   changes:
     - 5.0.11
-  label: User Astronaut
+  label: UserService Astronaut
   search:
     terms:
       - avatar
@@ -37993,7 +37993,7 @@ user-astronaut:
 user-chart:
   changes:
     - 5.3.0
-  label: User Chart
+  label: UserService Chart
   search:
     terms:
       - chart
@@ -38010,7 +38010,7 @@ user-chart:
 user-check:
   changes:
     - 5.0.11
-  label: User Check
+  label: UserService Check
   search:
     terms:
       - accept
@@ -38032,7 +38032,7 @@ user-circle:
     - 5.0.11
     - 5.11.0
     - 5.11.1
-  label: User Circle
+  label: UserService Circle
   search:
     terms:
       - account
@@ -38052,7 +38052,7 @@ user-circle:
 user-clock:
   changes:
     - 5.0.11
-  label: User Clock
+  label: UserService Clock
   search:
     terms:
       - alert
@@ -38069,7 +38069,7 @@ user-clock:
 user-cog:
   changes:
     - 5.0.11
-  label: User Cog
+  label: UserService Cog
   search:
     terms:
       - admin
@@ -38086,7 +38086,7 @@ user-cog:
 user-cowboy:
   changes:
     - 5.11.0
-  label: User Cowboy
+  label: UserService Cowboy
   search:
     terms:
       - buckaroo
@@ -38113,7 +38113,7 @@ user-cowboy:
 user-crown:
   changes:
     - 5.3.0
-  label: User Crown
+  label: UserService Crown
   search:
     terms:
       - admin
@@ -38130,7 +38130,7 @@ user-crown:
 user-edit:
   changes:
     - 5.0.11
-  label: User Edit
+  label: UserService Edit
   search:
     terms:
       - edit
@@ -38149,7 +38149,7 @@ user-edit:
 user-friends:
   changes:
     - 5.0.11
-  label: User Friends
+  label: UserService Friends
   search:
     terms:
       - group
@@ -38167,7 +38167,7 @@ user-friends:
 user-graduate:
   changes:
     - 5.0.11
-  label: User Graduate
+  label: UserService Graduate
   search:
     terms:
       - cap
@@ -38204,7 +38204,7 @@ user-hard-hat:
 user-headset:
   changes:
     - 5.7.0
-  label: User Headset
+  label: UserService Headset
   search:
     terms:
       - gaming
@@ -38224,7 +38224,7 @@ user-headset:
 user-injured:
   changes:
     - 5.4.0
-  label: User Injured
+  label: UserService Injured
   search:
     terms:
       - cast
@@ -38244,7 +38244,7 @@ user-lock:
   changes:
     - 5.0.11
     - 5.9.0
-  label: User Lock
+  label: UserService Lock
   search:
     terms:
       - admin
@@ -38305,7 +38305,7 @@ user-md-chat:
 user-minus:
   changes:
     - 5.0.11
-  label: User Minus
+  label: UserService Minus
   search:
     terms:
       - delete
@@ -38321,7 +38321,7 @@ user-minus:
 user-music:
   changes:
     - 5.11.0
-  label: User Music
+  label: UserService Music
   search:
     terms:
       - artist
@@ -38338,7 +38338,7 @@ user-music:
 user-ninja:
   changes:
     - 5.0.11
-  label: User Ninja
+  label: UserService Ninja
   search:
     terms:
       - assassin
@@ -38378,7 +38378,7 @@ user-plus:
     - 5.0.0
     - 5.0.3
     - 5.0.11
-  label: User Plus
+  label: UserService Plus
   search:
     terms:
       - add
@@ -38397,7 +38397,7 @@ user-plus:
 user-robot:
   changes:
     - 5.12.0
-  label: User Robot
+  label: UserService Robot
   search:
     terms:
       - android
@@ -38418,7 +38418,7 @@ user-secret:
     - 5.0.0
     - 5.0.3
     - 5.0.11
-  label: User Secret
+  label: UserService Secret
   search:
     terms:
       - clothing
@@ -38439,7 +38439,7 @@ user-secret:
 user-shield:
   changes:
     - 5.0.11
-  label: User Shield
+  label: UserService Shield
   search:
     terms:
       - admin
@@ -38457,7 +38457,7 @@ user-shield:
 user-slash:
   changes:
     - 5.0.11
-  label: User Slash
+  label: UserService Slash
   search:
     terms:
       - ban
@@ -38473,7 +38473,7 @@ user-slash:
 user-tag:
   changes:
     - 5.0.11
-  label: User Tag
+  label: UserService Tag
   search:
     terms:
       - avatar
@@ -38492,7 +38492,7 @@ user-tag:
 user-tie:
   changes:
     - 5.0.11
-  label: User Tie
+  label: UserService Tie
   search:
     terms:
       - avatar
@@ -38514,7 +38514,7 @@ user-times:
     - 5.0.0
     - 5.0.3
     - 5.0.11
-  label: Remove User
+  label: Remove UserService
   search:
     terms:
       - archive
@@ -38531,7 +38531,7 @@ user-times:
 user-unlock:
   changes:
     - 5.12.1
-  label: User Unlock
+  label: UserService Unlock
   search:
     terms:
       - admin
@@ -38549,7 +38549,7 @@ user-unlock:
 user-visor:
   changes:
     - 5.12.0
-  label: User Visor
+  label: UserService Visor
   search:
     terms:
       - geordi la forge
