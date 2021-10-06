@@ -70,7 +70,7 @@ Route::prefix("admin")->middleware("auth")->group(function (){
     });
 
     Route::get('/checkoutWithToken',[CheckoutController::class,'checkoutWithToken'])->name('checkoutWithToken');
-    Route::get('/remainingPaymentWithCard',[CheckoutController::class,'remainingPaymentWithCard'])->name("remainingPaymentWithCard");
+    Route::post('/remainingPaymentWithCard',[CheckoutController::class,'remainingPaymentWithCard'])->name("remainingPaymentWithCard");
     Route::get('/ccheckout',[CheckoutController::class,'CardCheckout'])->name("CardCheckout");
 });
 

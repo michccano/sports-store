@@ -2,21 +2,24 @@
 
 namespace App\Services\Checkout;
 
+use App\Models\Order;
 use App\Models\User;
 use App\Services\BonusToken\IBonusTokenService;
+use App\Services\Order\IOrderService;
 use App\Services\PurchaseToken\IPurchaseTokenService;
-use App\Services\User\IUserService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutService implements ICheckoutService{
     private $purchaseTokenService;
     private $bonusTokenService;
+    private $orderService;
 
     public function __construct(IPurchaseTokenService $purchaseTokenService,
-                                IBonusTokenService $bonusTokenService)
+                                IBonusTokenService $bonusTokenService,
+                                IOrderService $orderService)
     {
-
+        $this->orderService = $orderService;
         $this->purchaseTokenService = $purchaseTokenService;
         $this->bonusTokenService = $bonusTokenService;
     }
@@ -30,6 +33,7 @@ class CheckoutService implements ICheckoutService{
         $remainingPayment = null;
         $tokenLeft = $userTotalToken- $payment;
         if($tokenLeft >=0){
+            $this->orderService->create($payment , 0);
             Cart::destroy();
             $purchaseToken = $this->purchaseTokenService->getOwnedToken();
             $purchaseToken->total = $tokenLeft;
@@ -44,11 +48,13 @@ class CheckoutService implements ICheckoutService{
         }
     }
 
-    public function remainingPaymentWithCard()
+    public function remainingPaymentWithCard($payment, $remainingPayment)
     {
-        $hasMoney = rand(0, 1);
+        $hasMoney = 1;
         $message = null;
         if ($hasMoney !=0){
+            $this->orderService->create($payment-$remainingPayment , $remainingPayment);
+
             Cart::destroy();
             $purchaseToken = $this->purchaseTokenService->getOwnedToken();
             $purchaseToken->total = 0;
@@ -64,9 +70,11 @@ class CheckoutService implements ICheckoutService{
 
     public function CardCheckout()
     {
+        $payment = Cart::total();
         $hasMoney = 1;
         $message = null;
         if ($hasMoney !=0){
+            $this->orderService->create(0 , $payment);
             $products = Cart::content();
             foreach ($products as $product){
                 if ($product->options['category'] == "Memberships"){

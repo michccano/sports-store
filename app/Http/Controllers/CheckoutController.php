@@ -7,6 +7,7 @@ use App\Models\PurchaseToken;
 use App\Models\User;
 use App\Services\Checkout\ICheckoutService;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Http\Request;;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
@@ -22,19 +23,16 @@ class CheckoutController extends Controller
             ->find(Auth::id());
         $userTotalToken = $user->purchaseToken->total + $user->bonusToken->total;
         $remainingPayment = $this->checkoutService->checkoutWithToken();
-
-        if ($remainingPayment != null){
             if($remainingPayment == 0){
                 return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
             }
             else{
                 return view("checkout.remainingCardPayment",compact("payment","remainingPayment","userTotalToken"));
             }
-        }
     }
 
-    public function remainingPaymentWithCard(){
-        $message = $this->checkoutService->remainingPaymentWithCard();
+    public function remainingPaymentWithCard(Request $request){
+        $message = $this->checkoutService->remainingPaymentWithCard($request->payment,$request->remainingPayment);
 
         if ($message != null){
             if ($message == "success"){

@@ -9,7 +9,13 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "total_bill",
+        "card_payment_amount",
+        "token_payment_amount",
+        'user_id',
+    ];
     public function products(){
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot('quantity','price');
     }
 }
