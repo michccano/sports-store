@@ -14,7 +14,7 @@ class OrderController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $id = $row['id'];
-                    $actionBtn = '<a href="/admin/product/edit/' . $id .'" data-id="' . $id . '" class="btn btn-xs btn-info"><i class="fas fa-eye"></i></a>';
+                    $actionBtn = '<a href="/admin/order/details/' . $id .'" data-id="' . $id . '" class="btn btn-xs btn-info"><i class="fas fa-eye"></i></a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -25,5 +25,10 @@ class OrderController extends Controller
     }
     public function list(){
         return view("admin.order.list");
+    }
+
+    public function orderDetails($id){
+        $order = Order::with('products','user')->where("id",$id)->first();
+        return view("admin.order.detail",compact("order"));
     }
 }

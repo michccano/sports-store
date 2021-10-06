@@ -73,6 +73,7 @@ Route::prefix("admin")->middleware("auth")->group(function (){
     Route::prefix("order")->group(function (){
         Route::get('/getOrders',[OrderController::class,'getOrderData'])->name('getOrders');
         Route::get('/list',[OrderController::class,'list'])->name('orderList');
+        Route::get('/details/{id}',[OrderController::class,'orderDetails']);
     });
 
     Route::get('/checkoutWithToken',[CheckoutController::class,'checkoutWithToken'])->name('checkoutWithToken');

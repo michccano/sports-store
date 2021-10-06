@@ -75,7 +75,7 @@
                     <li class="nav-header">Product Managment</li>
                     <li class="nav-item">
                         <a href="{{route("productList")}}" class="nav-link">
-                            <i class="nav-icon far fa-calendar-alt"></i>
+                            <i class="fab fa-product-hunt"></i>
                             <p>
                                 Products
                             </p>
@@ -83,9 +83,18 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{route("categoryList")}}" class="nav-link">
-                            <i class="nav-icon far fa-calendar-alt"></i>
+                            <i class="fas fa-certificate"></i>
                             <p>
                                 Categories
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-header">Order Managment</li>
+                    <li class="nav-item">
+                        <a href="{{route("orderList")}}" class="nav-link">
+                            <i class="fas fa-cart-arrow-down"></i>
+                            <p>
+                                Orders
                             </p>
                         </a>
                     </li>
