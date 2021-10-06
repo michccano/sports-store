@@ -484,7 +484,7 @@
                     $('#addCart'+id).hide();
                     $('#message').html("Added To Cart");
                     $('#message').attr("class","alert alert-success");
-                    $('#cartItemsNumber').html("Cart "+data);
+                    $('#cartItemsNumber').html(`<span class="product-count">Cart ${+data}</span>`);
                 },
                 error: function () {
                     console.log('error');

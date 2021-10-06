@@ -13,7 +13,7 @@
             </div>
         </section>
         <section class="cart-product-body">
-        <div class="container">
+        <div class="container-md container-fluid">
             <div class="cart-product-inner-wrap">
                 <div class="cart-product-top">
                     @if(session('successMessage'))
@@ -40,8 +40,10 @@
                                         </td>
                                         <td class="product-quantity" data-title="Quantity">
                                             <div class="quantity">
-                                                <input type="number" id="" class="input-text " step="1" name=""
-                                                    value="{{$product->qty}}" placeholder="" inputmode="numeric">
+                                                <button class="btn" type=button  onclick="button2()" ><i class="fal fa-minus"></i></button>
+                                                <span id="output-area">{{$product->qty}}</span>
+                                                <button class="btn" type=button  onclick="button1()" ><i class="fal fa-plus"></i></button>
+
                                             </div>
                                         </td>
                                         <td class="product-subtotal" data-title="Total">
@@ -62,25 +64,28 @@
                                 @if($hasToken != 1)
                             <div class="coupon-area">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <!-- <div class="col-md-6">
                                         <div class="coupon-left">
                                             {{--<input type="text" placeholder="Coupon code">
                                             <button>Apply</button>--}}
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
+                                    </div> -->
+                                    <div class="col-md-12">
                                         <div class="coupon-right checkoutButton">
                                             <div class="hero-button-area">
-                                                <a href="#">Update Cart</a>
+                                                <!-- <a href="#">Update Cart</a> -->
+                                                <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton"> CCheckout</a>
+                                            </div>
+                                            <div class="hero-button-area">
+                                                <!-- <a href="#">Update Cart</a> -->
+                                                <a id="TokenCheckout1" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">TokenCheckout</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                                    <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton">
-                                        CCheckout</a>
-                                    <a id="TokenCheckout1" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">
-                                        TokenCheckout</a>
+
+
                                 @else
                                     <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton">
                                         CCheckout</a>
@@ -133,6 +138,16 @@
                 error: function () {
                 }
             });
+        }
+    </script>
+    <script>
+        var x = 0;
+        document.getElementById('output-area').innerHTML = x;
+        function button1() {
+        document.getElementById('output-area').innerHTML = ++x;
+        }
+        function button2() {
+        document.getElementById('output-area').innerHTML = --x;
         }
     </script>
 @endsection
