@@ -24,7 +24,7 @@
                     <p id="message" class=""></p>
                 </div>
                 <p>Your Total Bill is: {{$payment}}</p>
-                <p>Your Total Token is: {{$userTotalToken}}</p>
+                <p>Your Total Token is: {{$payment - $remainingPayment}}</p>
                 <p>Your remaininng payment is : {{$remainingPayment}}. Do you agree to pay from Card?</p>
                 <form action="{{route('remainingPaymentWithCard')}}" method="post">
                     @csrf

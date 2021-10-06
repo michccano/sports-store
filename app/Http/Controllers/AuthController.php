@@ -45,6 +45,7 @@ class AuthController extends Controller
     }
 
     public function login(){
+        session(['link' => url()->previous()]);
         if (Auth::check()){
             return back();
         }
@@ -60,9 +61,15 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->role == 1)
-                return redirect()->route('dashboard');
+                if (session('link') == route("register"))
+                    return redirect()->route('dashboard');
+                else
+                    return redirect(session('link'));
             else{
-                return redirect()->route('home');
+                if (session('link') == route("register"))
+                    return redirect()->route('home');
+                else
+                    return redirect(session('link'));
             }
         }
         else {

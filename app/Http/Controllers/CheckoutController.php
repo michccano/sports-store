@@ -19,15 +19,12 @@ class CheckoutController extends Controller
     public function checkoutWithToken(){
 
         $payment = Cart::total();
-        $user = User::with('purchaseToken','bonusToken','makeupToken')
-            ->find(Auth::id());
-        $userTotalToken = $user->purchaseToken->total + $user->bonusToken->total;
         $remainingPayment = $this->checkoutService->checkoutWithToken();
             if($remainingPayment == 0){
                 return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
             }
             else{
-                return view("checkout.remainingCardPayment",compact("payment","remainingPayment","userTotalToken"));
+                return view("checkout.remainingCardPayment",compact("payment","remainingPayment"));
             }
     }
 
