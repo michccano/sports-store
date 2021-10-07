@@ -22,3 +22,35 @@
         text-align: center;
     }
 }
+
+@media only screen and (max-width: 768px) {
+    td.product-thumbnail {
+        display: none;
+    }
+
+    td.product-name {
+        width: 70%;
+    }
+
+    td.product-subtotal {
+        width: 15%;
+        text-align: center;
+    }
+
+    .quantity button {
+        line-height: 15px;
+        font-size: 14px;
+    }
+
+    td.product-remove a button {
+        font-size: 14px;
+        line-height: 15px;
+        padding: 10px 10px;
+    }
+
+    td.product-name a {
+
+        padding-left: 0px;
+
+    }
+}
