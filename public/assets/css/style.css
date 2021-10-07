@@ -101,13 +101,16 @@ a.nav-link.desktop__site_logo::before {
 }
 
 a.nav-link.desktop__site_logo img {
-    width: 120px;
+    height: 70px;
     position: absolute;
     z-index: 9999;
+    display: block;
+    transform: translateX(50%);
 }
 
 a.nav-link.desktop__site_logo {
     width: 150px;
+    text-align: center;
 }
 
 a.nav-link.desktop__site_logo:after {
@@ -118,7 +121,7 @@ a.nav-link.desktop__site_logo:after {
     position: absolute;
     bottom: -130px;
     left: -70px;
-    border-top: 80px solid #ffffff;
+    border-top: 40px solid #ffffff;
     border-left: 37px solid transparent;
     border-right: 37px solid transparent;
 }
