@@ -128,7 +128,7 @@
 
                     $('#message').html("Remove From Cart");
                     $('#message').attr("class","alert alert-danger");
-                    $('#cartItemsNumber').html("Cart "+data.cartCount);
+                    $('#cartItemsNumber').html(`Cart<span class="product-count"> ${data.cartCount}</span>`);
                     if (data.cartCount == 0){
                         $('#emptyMessage').html("Removed all products from the cart");
                         $('.checkoutButton').hide();

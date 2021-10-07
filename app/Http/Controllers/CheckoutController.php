@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BonusToken;
-use App\Models\PurchaseToken;
-use App\Models\User;
 use App\Services\Checkout\ICheckoutService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;;
-use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
