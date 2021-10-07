@@ -1523,6 +1523,7 @@ tr.product-cart-form__cart-item {
     display: flex;
     align-items: center;
     /* justify-content: space-between; */
+    margin-bottom: 24px;
 }
 
 tr.product-cart-form__cart-item:after {
