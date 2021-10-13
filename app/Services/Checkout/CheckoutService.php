@@ -27,29 +27,17 @@ class CheckoutService implements ICheckoutService{
     public function checkoutWithToken()
     {
         $payment = Cart::total();
-        $userTotalToken = 0;
-
-        $user = User::with('purchaseToken','bonusToken','makeupToken')
-            ->find(Auth::id());
-        if($user->purchaseToken != null) {
-            if ($user->bonusToken != null)
-                $userTotalToken = $user->purchaseToken->total + $user->bonusToken->total;
-            else
-                $this->bonusTokenService->create();
-        }
-        else{
-            $this->purchaseTokenService->create();
-            $userTotalToken = $user->purchaseToken->total + $user->bonusToken->total;
-        }
+        $purchaseToken = $this->purchaseTokenService->getOwnedToken();
+        $bonusToken = $this->bonusTokenService->getOwnedToken();
+        $userTotalToken = $purchaseToken->total + $bonusToken->total;
 
         $remainingPayment = null;
         $tokenLeft = $userTotalToken- $payment;
         if($tokenLeft >=0){
             $this->orderService->create($payment , 0);
             Cart::destroy();
-            $purchaseToken = $this->purchaseTokenService->getOwnedToken();
             $purchaseToken->total = $tokenLeft;
-            $bonusToken = $this->bonusTokenService->getOwnedToken();
+
             $bonusToken->total = 0;
             $purchaseToken->save();
             $bonusToken->save();
