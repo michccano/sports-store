@@ -55,6 +55,7 @@ Route::prefix("admin")->middleware("auth")->group(function (){
     Route::prefix("user")->group(function (){
         Route::get('/list',[UserController::class,'list'])->name("userList");
         Route::get('/getUsers',[UserController::class,'getUserData'])->name("getUsers");
+        Route::get('/details/{id}',[UserController::class,'userDetails']);
     });
 
     Route::prefix("product")->group(function (){
