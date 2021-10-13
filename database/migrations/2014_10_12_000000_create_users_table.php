@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('evephone')->nullable()->unique();
             $table->integer('status')->default(1);
             $table->integer('reg_verify')->default(0);
+            $table->integer('level')->default(0);
             $table->integer('role')->default(2);
             $table->integer('pick')->default(0);
             $table->integer("token")->nullable();

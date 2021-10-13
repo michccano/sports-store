@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SportsPressController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,12 @@ Route::prefix("admin")->middleware("auth")->group(function (){
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name("dashboard");
+
+    Route::prefix("user")->group(function (){
+        Route::get('/list',[UserController::class,'list'])->name("userList");
+        Route::get('/getUsers',[UserController::class,'getUserData'])->name("getUsers");
+    });
+
     Route::prefix("product")->group(function (){
         Route::get('/list',[ProductController::class,'list'])->name("productList");
         Route::get('/getProducts',[ProductController::class,'getProductData'])->name("getProducts");
