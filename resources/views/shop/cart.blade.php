@@ -64,21 +64,13 @@
                                 @if($hasToken != 1)
                             <div class="coupon-area">
                                 <div class="row">
-                                    <!-- <div class="col-md-6">
-                                        <div class="coupon-left">
-                                            {{--<input type="text" placeholder="Coupon code">
-                                            <button>Apply</button>--}}
-                                        </div>
-                                    </div> -->
                                     <div class="col-md-12">
                                         <div class="coupon-right checkoutButton">
                                             <div class="hero-button-area">
-                                                <!-- <a href="#">Update Cart</a> -->
-                                                <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton"> CCheckout</a>
+                                                <a id="TokenCheckout1" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">TokenCheckout</a>
                                             </div>
                                             <div class="hero-button-area">
-                                                <!-- <a href="#">Update Cart</a> -->
-                                                <a id="TokenCheckout1" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">TokenCheckout</a>
+                                                <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton"> CCheckout</a>
                                             </div>
                                         </div>
                                     </div>
@@ -87,14 +79,20 @@
 
 
                                 @else
-                                    <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton">
-                                        CCheckout</a>
+                                    <div class="coupon-right checkoutButton">
+                                        <div class="hero-button-area">
+                                            <a id="TokenCheckout2" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">
+                                                TokenCheckout</a>
+                                        </div>
+                                        <div class="hero-button-area">
+                                            <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton">
+                                                CCheckout</a>
+                                        </div>
+                                    </div>
                                 @endif
                             @else
                                 <p>Did not added any product to the cart</p>
                             @endif
-                            <a id="TokenCheckout2" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">
-                                TokenCheckout</a>
                             <p id="emptyMessage"></p>
                         </div>
                     </div>
