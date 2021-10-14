@@ -55,7 +55,7 @@
                     @elseif(session('errorMessage'))
                         <p class="alert alert-danger">{{session('errorMessage')}}</p>
                     @endif
-                        <p id="message" class=""></p>
+                    <p id="message" class=""></p>
                     <h3>Shop</h3>
                 </div>
                 <div class="shop-product-item-wrap">
@@ -63,7 +63,8 @@
                         <div class="col-lg-8">
                             <div class="shop-product-items">
                                 <div class="row">
-                                    <div class="col-lg-4 mb-4">
+
+                                    {{--<div class="col-lg-4 mb-4">
                                         <div class="shop-single-item">
                                             <span class="onsale ">Sale!</span>
                                             <div class="card">
@@ -82,26 +83,29 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    @foreach($products as $product)
-                                    <div class="col-lg-4 mb-4">
-                                        <div class="shop-single-item">
-                                            <div class="card">
-                                                <img src="{{asset('images/' . $product->img)}}" class="card-img-top">
-                                                <div class="card-body">
-                                                    <h5 class="card-title text-truncate">{{$product->name}}</h5>
-                                                    <div class="info-area-btn">
-                                                    <p class="product-cart-btn">
-                                                        <span>${{$product->price}}</span>
-                                                    </p>
-                                                    <a href="{{route("productDetails",$product->id)}}" class="product-cart-btn">
-                                                        <span><i class="far fa-info"></i> Info</span>
-                                                    </a>
-                                                    </div>
+                                    </div>--}}
 
+                                    @foreach($products as $product)
+                                        <div class="col-lg-4 mb-4">
+                                            <div class="shop-single-item">
+                                                <div class="card">
+                                                    <img src="{{asset('images/' . $product->img)}}"
+                                                         class="card-img-top">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-truncate">{{$product->name}}</h5>
+                                                        <div class="info-area-btn">
+                                                            <p class="product-cart-btn">
+                                                                <span>${{$product->price}}</span>
+                                                            </p>
+                                                            <a href="{{route("productDetails",$product->id)}}"
+                                                               class="product-cart-btn">
+                                                                <span><i class="far fa-info"></i> Info</span>
+                                                            </a>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            @if($cart->where('id',$product->id)->count())
+                                                @if($cart->where('id',$product->id)->count())
                                                 <div id="" class="add-to-cart-btn-wrap">
                                                     <div class="hero-button-area">
                                                         <a class="">In Cart</a>
