@@ -10,6 +10,7 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
+        "invoice",
         "total_bill",
         "card_payment_amount",
         "token_payment_amount",

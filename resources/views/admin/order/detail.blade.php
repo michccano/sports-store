@@ -24,6 +24,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                <p><b>Invoice No: </b>{{$order->invoice}}</p>
                                 <p><b>Customer Name : </b>{{$order->user->firstname}} {{$order->user->lastname}}</p>
                                 <p><b>Total Bill: </b>{{$order->total_bill}}</p>
                                 <p><b>Card Payment: </b>{{$order->card_payment_amount}}</p>
