@@ -31,4 +31,18 @@ class UserController extends Controller
         $user = User::where("id",$id)->first();
         return view("admin.user.detail",compact("user"));
     }
+
+    public function suspend($id){
+        $user = User::where("id",$id)->first();
+        $user->status = 0;
+        $user->save();
+        return response()->json($user->status);
+    }
+
+    public function unsuspend($id){
+        $user = User::where("id",$id)->first();
+        $user->status = 1;
+        $user->save();
+        return response()->json($user->status);
+    }
 }

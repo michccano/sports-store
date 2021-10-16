@@ -27,7 +27,7 @@
                             <div class="card-body">
                                 <div>
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-8 g-5">
                                             <div class="row">
                                                 <b>Member Details :</b>
                                                 <table class="table table-bordered table-striped">
@@ -83,19 +83,39 @@
                                                     <tr>
                                                         <td>Suspended :</td>
                                                         @if($user->status == 1)
-                                                            <td><div class="row">
+                                                            <td id="suspend1">
+                                                                <div class="row">
                                                                     <div class="col-md-9">
                                                                         <p>No</p>
                                                                     </div>
-                                                                    <a href="#" class="text-danger">Suspend</a>
-                                                                </div></td>
-                                                        @else
-                                                            <td><div class="row">
+                                                                    <button onclick="suspend1({{$user->id}})" class="btn btn-danger btn-xs">Suspend</button>
+                                                                </div>
+                                                            </td>
+                                                            <td id="unsuspend1">
+                                                                <div class="row">
                                                                     <div class="col-md-9">
                                                                         <p>Yes</p>
                                                                     </div>
-                                                                    <a href="#" class="text-success">Unsuspend</a>
-                                                                </div></td>
+                                                                    <button onclick="unsuspend1({{$user->id}})" class="btn btn-success btn-xs">Unsuspend</button>
+                                                                </div>
+                                                            </td>
+                                                        @else
+                                                            <td id="suspend2">
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        <p>No</p>
+                                                                    </div>
+                                                                    <button onclick="suspend2({{$user->id}})" class="btn btn-danger btn-xs">Suspend</button>
+                                                                </div>
+                                                            </td>
+                                                            <td id="unsuspend2">
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        <p>Yes</p>
+                                                                    </div>
+                                                                    <button onclick="unsuspend2({{$user->id}})" class="btn btn-success btn-xs">Unsuspend</button>
+                                                                </div>
+                                                            </td>
                                                         @endif
                                                     </tr>
                                                     </tbody>
@@ -203,4 +223,102 @@
         </section>
     </div>
 @endsection
+@section('scripts')
+    <script>
+        $('#suspend2').hide();
+        $('#unsuspend1').hide();
 
+        function suspend1(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let url = "{{ route('suspendUser', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    if (data == 0){
+                        $('#unsuspend1').show();
+                        $('#suspend1').hide();
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+
+        function unsuspend1(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let url = "{{ route('unsuspendUser', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    if (data == 1){
+                        $('#unsuspend1').hide();
+                        $('#suspend1').show();
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+
+        function suspend2(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let url = "{{ route('suspendUser', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    if (data == 0){
+                        $('#unsuspend2').show();
+                        $('#suspend2').hide();
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+
+        function unsuspend2(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let url = "{{ route('unsuspendUser', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    if (data == 1){
+                        $('#unsuspend2').hide();
+                        $('#suspend2').show();
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+    </script>
+
+@endsection

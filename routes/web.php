@@ -73,6 +73,8 @@ Route::prefix("admin")->middleware("auth")->group(function (){
         Route::get('/list',[UserController::class,'list'])->name("userList");
         Route::get('/getUsers',[UserController::class,'getUserData'])->name("getUsers");
         Route::get('/details/{id}',[UserController::class,'userDetails']);
+        Route::get('/suspend/{id}',[UserController::class,'suspend'])->name("suspendUser");
+        Route::get('/unsuspend/{id}',[UserController::class,'unsuspend'])->name("unsuspendUser");
     });
 
     Route::prefix("product")->group(function (){
