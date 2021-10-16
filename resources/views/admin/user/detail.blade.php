@@ -70,7 +70,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Dayphone :</td>
-                                                        <td>{{$user->dayphoney}}</td>
+                                                        <td>{{$user->dayphone}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Evephone :</td>
@@ -83,9 +83,19 @@
                                                     <tr>
                                                         <td>Suspended :</td>
                                                         @if($user->status == 1)
-                                                            <td>No</td>
+                                                            <td><div class="row">
+                                                                    <div class="col-md-9">
+                                                                        <p>No</p>
+                                                                    </div>
+                                                                    <a href="#" class="text-danger">Suspend</a>
+                                                                </div></td>
                                                         @else
-                                                            <td>Yes</td>
+                                                            <td><div class="row">
+                                                                    <div class="col-md-9">
+                                                                        <p>Yes</p>
+                                                                    </div>
+                                                                    <a href="#" class="text-success">Unsuspend</a>
+                                                                </div></td>
                                                         @endif
                                                     </tr>
                                                     </tbody>
@@ -94,7 +104,6 @@
                                             <div class="row">
                                                 <b>Purchase Details :</b>
                                                 <table class="table table-bordered table-striped">
-                                                    <tbody>
                                                     <tr>
                                                         <td>Current Purchase Count:</td>
                                                         <td></td>
@@ -106,6 +115,33 @@
                                                     <tr>
                                                         <td>Current Level :</td>
                                                         <td>{{$user->level}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="#" class="text-info">Purchase Picks History</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" class="text-info">Purchase Store History</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </div>
+                                            <div class="row">
+                                                <b>Credit Card Details :</b>
+                                                <table class="table table-bordered table-striped">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>Card Type :</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Card Number :</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Card Expiration :</td>
+                                                        <td></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
