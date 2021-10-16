@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Login')
+@section('title', 'Forgot Password')
 
 @section('content')
     <br>
@@ -19,7 +19,7 @@
                             @csrf
 
                             @if (session('status'))
-                                <p class="alert alert-ssuccess">
+                                <p class="alert alert-success">
                                     {{ session('status') }}
                                 </p>
                             @endif

@@ -10,8 +10,8 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SportsPressController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 /*
@@ -31,6 +31,23 @@ Route::get('/', function () {
 
 Route::get('/register',[AuthController::class,'register'])->name("register");
 Route::post('/register',[AuthController::class,'store'])->name("storeUser");
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return redirect("/email/verify")->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 Route::get('/login',[AuthController::class,'login'])->name('login');
 Route::post('/login',[AuthController::class,'login_post'])->name('loginPost');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');

@@ -12,6 +12,7 @@ use Mockery\Exception;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
@@ -39,7 +40,12 @@ class AuthController extends Controller
             "evephone" => $request->evephone ,
         ]);
         if($user!=null)
-            return redirect()->route('login');
+        {
+            Auth::login($user);
+            $request->session()->regenerate();
+            event(new Registered($user));
+            return view("auth.verify-email");
+        }
         else
             throw new Exception("Cannot Create Account");
     }
