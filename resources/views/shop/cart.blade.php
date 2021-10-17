@@ -70,7 +70,7 @@
                                                 <a id="TokenCheckout1" href="{{route("checkoutWithToken")}}" class="btn btn-info checkoutButton">TokenCheckout</a>
                                             </div>
                                             <div class="hero-button-area">
-                                                <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton"> CCheckout</a>
+                                                <a href="{{route("cardPayment")}}" class="btn btn-info checkoutButton"> CCheckout</a>
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@
                                                 TokenCheckout</a>
                                         </div>
                                         <div class="hero-button-area">
-                                            <a href="{{route("CardCheckout")}}" class="btn btn-info checkoutButton">
+                                            <a href="{{route("cardPayment")}}" class="btn btn-info checkoutButton">
                                                 CCheckout</a>
                                         </div>
                                     </div>

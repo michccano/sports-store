@@ -26,7 +26,7 @@
                 <p>Your Total Bill is: {{$payment}}</p>
                 <p>Your Total Token is: {{$payment - $remainingPayment}}</p>
                 <p>Your remaininng payment is : {{$remainingPayment}}. Do you agree to pay from Card?</p>
-                <form action="{{route('remainingPaymentWithCard')}}" method="post">
+                <form action="{{route('remainingCardPayment')}}" method="post">
                     @csrf
                     <input type="hidden" name="payment" value="{{$payment}}">
                     <input type="hidden" name="remainingPayment" value="{{$remainingPayment}}">

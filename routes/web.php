@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SportsPressController;
@@ -125,7 +126,14 @@ Route::prefix("service")->middleware('auth')->group(function (){
         return view('services.error');
     })->name("service.error");
 });
-
+Route::get('cardpayment', [PaymentController::class ,'index'])
+    ->middleware("auth")
+    ->name("cardPayment");
+Route::post('remainingCardpayment', [PaymentController::class ,'remainingPayment'])
+    ->middleware("auth")
+    ->name("remainingCardPayment");
+Route::post('charge', [PaymentController::class,'charge'])->name("charge");
+Route::post('remainingcharge', [PaymentController::class,'remainingCharge'])->name("remainingCharge");
 
 
 
