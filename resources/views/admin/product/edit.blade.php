@@ -60,6 +60,19 @@
                                                onchange="previewImage(this)">
                                         <img id="previewImg" style="height: 100px; width: 130px" src="{{asset('images/' . $product->img)}}" />
                                     </div>
+
+                                    <div class="form-group">
+                                        <label >Category</label>
+                                        <select name="category" class="form-control">
+                                            @foreach($categories as $category)
+                                                @if($category->name == $product->category->name)
+                                                    <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                                                @else
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label >Status</label>
                                         <select name="status" class="form-control">

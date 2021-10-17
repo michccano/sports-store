@@ -64,7 +64,8 @@ class ProductController extends Controller
 
     public function edit($id){
         $product = Product::find($id);
-        return view("admin.product.edit",compact('product'));
+        $categories = Category::all();
+        return view("admin.product.edit",compact('product','categories'));
     }
 
     public function update(ProductUpdateRequest $request, $id){
@@ -86,6 +87,9 @@ class ProductController extends Controller
             $request->img->move(public_path('images'), $imageName);
             $dataToUpdate["img"] = $imageName;
         }
+
+        if ($request->category != null)
+            $dataToUpdate["category_id"] = $request->category;
 
         if($request->status !=null) {
             if ($request->status == "Active")
