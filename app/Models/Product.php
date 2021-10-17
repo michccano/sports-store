@@ -13,8 +13,11 @@ class Product extends Model
         'name',
         'description',
         "price",
+        "weekly_price",
         "img",
         "status",
+        "expire_date",
+        "delivery_method",
         "category_id"
     ];
 

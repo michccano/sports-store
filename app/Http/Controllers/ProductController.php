@@ -49,7 +49,10 @@ class ProductController extends Controller
             "name" => $request->name,
             "description" => $request->description,
             "price" => $request->price,
+            "weekly_price" => $request->weekly_price,
             "img" => $imageName,
+            "expire_date" => $request->expire_date,
+            "delivery_method" => $request->delivery_method,
             "category_id" => $request->category,
         ]);
 
