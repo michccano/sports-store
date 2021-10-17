@@ -56,11 +56,6 @@ And, for admin panel we used **AdminLTE**
    ```bash
    php artisan migrate --seed
    ```
-5. Generate & Publish JWT Secret Key
-   ```bash
-   php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
-   php artisan jwt:secret
-   ```
 
 ___
 
