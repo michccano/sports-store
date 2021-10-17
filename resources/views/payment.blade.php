@@ -18,7 +18,6 @@
                 <div class="shop-product-title">
                     <form action="{{ route('charge') }}" method="post">
                         @csrf
-                        <p><input type="hidden" name="amount" placeholder="Enter Amount" value="{{$payment}}" /></p>
                         <p><input type="text" name="cc_number" placeholder="Card Number" /></p>
                         <p><input type="text" name="expiry_month" placeholder="Month" /></p>
                         <p><input type="text" name="expiry_year" placeholder="Year" /></p>

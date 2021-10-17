@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\IdGenerator;
+use App\Services\BonusToken\IBonusTokenService;
 use App\Services\Checkout\ICheckoutService;
+use App\Services\PurchaseToken\IPurchaseTokenService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Omnipay\Common\CreditCard;
@@ -15,8 +17,12 @@ class PaymentController extends Controller
 {
     public $gateway;
     public $checkoutService;
+    private $purchaseTokenService;
+    private $bonusTokenService;
 
-    public function __construct(ICheckoutService $checkoutService)
+    public function __construct(ICheckoutService $checkoutService,
+                                IPurchaseTokenService $purchaseTokenService,
+                                IBonusTokenService $bonusTokenService)
     {
         $this->gateway = Omnipay::create('AuthorizeNetApi_Api');
         $this->gateway->setAuthName(env('ANET_API_LOGIN_ID'));
@@ -24,22 +30,22 @@ class PaymentController extends Controller
         $this->gateway->setTestMode(true); //comment this line when move to 'live'
 
         $this->checkoutService = $checkoutService;
+        $this->purchaseTokenService = $purchaseTokenService;
+        $this->bonusTokenService = $bonusTokenService;
     }
 
     public function index()
     {
-        $payment = Cart::total();
-        return view('payment',compact("payment"));
+        return view('payment');
     }
 
-    public function remainingPayment(Request $request){
-        $payment = $request->input('payment');
-        $remainingPaymant = $request->input('remainingPayment');
-        return view('payment2',compact("payment","remainingPaymant"));
+    public function remainingPayment(){
+        return view('payment2');
     }
 
     public function charge(Request $request)
     {
+        $payment = Cart::total();
         try {
             $creditCard = new CreditCard([
                 'number' => $request->input('cc_number'),
@@ -52,7 +58,7 @@ class PaymentController extends Controller
             $transactionId =IdGenerator::IDGenerator(new Payment, 'transaction_id', 8, 'TRN');
 
             $response = $this->gateway->authorize([
-                'amount' => $request->input('amount'),
+                'amount' => $payment,
                 'currency' => 'USD',
                 'transactionId' => $transactionId,
                 'card' => $creditCard,
@@ -64,7 +70,7 @@ class PaymentController extends Controller
                 $transactionReference = $response->getTransactionReference();
 
                 $response = $this->gateway->capture([
-                    'amount' => $request->input('amount'),
+                    'amount' => $payment,
                     'currency' => 'USD',
                     'transactionReference' => $transactionReference,
                 ])->send();
@@ -82,8 +88,12 @@ class PaymentController extends Controller
 
     public function remainingCharge(Request $request)
     {
-        $payment=$request->input('payment');
-        $remainingPaymant =$request->input('amount');
+        $payment=Cart::total();
+        $purchaseToken = $this->purchaseTokenService->getOwnedToken();
+        $bonusToken = $this->bonusTokenService->getOwnedToken();
+        $userTotalToken = $purchaseToken->total + $bonusToken->total;
+        $remainingPaymant =$payment - $userTotalToken;
+
         try {
             $creditCard = new CreditCard([
                 'number' => $request->input('cc_number'),
@@ -96,7 +106,7 @@ class PaymentController extends Controller
             $transactionId =IdGenerator::IDGenerator(new Payment, 'transaction_id', 8, 'TRN');
 
             $response = $this->gateway->authorize([
-                'amount' => $request->input('amount'),
+                'amount' => $remainingPaymant,
                 'currency' => 'USD',
                 'transactionId' => $transactionId,
                 'card' => $creditCard,
@@ -108,7 +118,7 @@ class PaymentController extends Controller
                 $transactionReference = $response->getTransactionReference();
 
                 $response = $this->gateway->capture([
-                    'amount' => $request->input('amount'),
+                    'amount' => $payment,
                     'currency' => 'USD',
                     'transactionReference' => $transactionReference,
                 ])->send();
