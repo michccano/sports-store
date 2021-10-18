@@ -36,22 +36,44 @@
                                 </div>
 
                                 <div class="product_page_product_price">
-                                    <h3>Price: {{$product->price}}</h3>
-                                    <span>Description: {!! $product->description !!}</span>
+                                    @if($product->weekly_price == null)
+                                        <h3>Price: {{$product->price}}</h3>
+                                        <span>Description: {!! $product->description !!}</span>
+                                    @else
+                                        <h4>Single Price: {{$product->price}}</h4>
+                                        <h4>Seasonal Price: {{$product->weekly_price}}</h4>
+                                        <span>Description: {!! $product->description !!}</span>
+                                    @endif
                                 </div>
 
                                 <div class="add_to_cart_btn_p">
-                                @if($cart->where('id',$product->id)->count())
-                                    <p id="inCart2" >In Cart</p>
-                                    <button id="removeFromCart2" class="btn btn-danger" onclick="removeFromCart2({{$product->id}})">
-                                        Remove from Cart</button>
-                                    <button id="addCart2" class="btn btn-danger" onclick="addToCart2({{$product->id}})">Add to Cart</button>
-                                @else
-                                    <p id="inCart1"  >In Cart</p>
-                                    <button id="removeFromCart1" class="btn btn-danger" onclick="removeFromCart({{$product->id}})">
-                                        Remove from Cart</button>
-                                    <button id="addCart1" class="btn btn-danger" onclick="addToCart({{$product->id}})">Add to Cart</button>
-                                @endif
+                                    @if($product->weekly_price == null)
+                                        @if($cart->where('id',$product->id)->count())
+                                            <p id="inCart2" >In Cart</p>
+                                            <button id="removeFromCart2" class="btn btn-danger" onclick="removeFromCart2({{$product->id}})">
+                                                Remove from Cart</button>
+                                            <button id="addCart2" class="btn btn-danger" onclick="addToCart2({{$product->id}})">Add to Cart</button>
+                                        @else
+                                            <p id="inCart1"  >In Cart</p>
+                                            <button id="removeFromCart1" class="btn btn-danger" onclick="removeFromCart({{$product->id}})">
+                                                Remove from Cart</button>
+                                            <button id="addCart1" class="btn btn-danger" onclick="addToCart({{$product->id}})">Add to Cart</button>
+                                        @endif
+                                    @else
+                                        @if($cart->where('id',$product->id)->count())
+                                            <p id="inCart2" >In Cart</p>
+                                            <button id="removeFromCart2" class="btn btn-danger" onclick="removeFromCart2({{$product->id}})">
+                                                Remove from Cart</button>
+                                            <button id="addCart2" class="btn btn-danger" onclick="addToCart2({{$product->id}})">Add to Cart Single</button>
+                                            <button id="addCartSeasonal2" class="btn btn-danger" onclick="addToCartSeasonal2({{$product->id}})">Add to Cart Seasonal</button>
+                                        @else
+                                            <p id="inCart1"  >In Cart</p>
+                                            <button id="removeFromCart1" class="btn btn-danger" onclick="removeFromCart({{$product->id}})">
+                                                Remove from Cart</button>
+                                            <button id="addCart1" class="btn btn-danger" onclick="addToCart({{$product->id}})">Add to Cart Single</button>
+                                            <button id="addCartSeasonal1" class="btn btn-danger" onclick="addToCartSeasonal({{$product->id}})">Add to Cart Seasonal</button>
+                                        @endif
+                                    @endif
 
                                 </div>
 
@@ -71,6 +93,8 @@
         $('#inCart1').hide();
         $('#removeFromCart1').hide();
         $('#addCart2').hide();
+        $('#addCartSeasonal2').hide();
+
 
         function addToCart(id) {
             $.ajaxSetup({
@@ -88,6 +112,34 @@
                     $('#inCart1').show();
                     $('#removeFromCart1').show();
                     $('#addCart1').hide();
+                    $('#addCartSeasonal1').hide();
+
+                    $('#message').html("Added To Cart");
+                    $('#message').attr("class","alert alert-success");
+                    $('#cartItemsNumber').html(`Cart<span class="product-count"> ${data}</span>`);;
+                },
+                error: function () {
+                }
+            });
+        }
+
+        function addToCartSeasonal(id) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let url = "{{ route('cart.storeSeasonal', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    $('#inCart1').show();
+                    $('#removeFromCart1').show();
+                    $('#addCart1').hide();
+                    $('#addCartSeasonal1').hide();
                     $('#message').html("Added To Cart");
                     $('#message').attr("class","alert alert-success");
                     $('#cartItemsNumber').html(`Cart<span class="product-count"> ${data}</span>`);;
@@ -115,6 +167,7 @@
                     $('#inCart1').hide();
                     $('#removeFromCart1').hide();
                     $('#addCart1').show();
+                    $('#addCartSeasonal1').show();
                     $('#message').html("Remove From Cart");
                     $('#message').attr("class","alert alert-danger");
                     $('#cartItemsNumber').html(`Cart<span class="product-count"> ${data.cartCount}</span>`);
@@ -141,6 +194,7 @@
                     $('#inCart2').hide();
                     $('#removeFromCart2').hide();
                     $('#addCart2').show();
+                    $('#addCartSeasonal2').show();
                     $('#message').html("Remove From Cart");
                     $('#message').attr("class","alert alert-danger");
                     $('#cartItemsNumber').html(`Cart<span class="product-count"> ${data.cartCount}</span>`);
@@ -167,6 +221,7 @@
                     $('#inCart2').show();
                     $('#removeFromCart2').show();
                     $('#addCart2').hide();
+                    $('#addCartSeasonal2').hide();
                     $('#message').html("Added To Cart");
                     $('#message').attr("class","alert alert-success");
                     $('#cartItemsNumber').html(`Cart<span class="product-count"> ${data}</span>`);
@@ -175,6 +230,34 @@
                 }
             });
         }
+
+        function addToCartSeasonal2(id) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let url = "{{ route('cart.storeSeasonal', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                {{--/*url: {{route("cart.store",id)}},*/--}}
+                type: 'GET',
+                success: function (data) {
+                    $('#inCart2').show();
+                    $('#removeFromCart2').show();
+                    $('#addCart2').hide();
+                    $('#addCartSeasonal2').hide();
+                    $('#message').html("Added To Cart");
+                    $('#message').attr("class","alert alert-success");
+                    $('#cartItemsNumber').html(`Cart<span class="product-count"> ${data}</span>`);
+                },
+                error: function () {
+                }
+            });
+        }
+
         $(function () {
             $(".sp-wrap").smoothproducts();
         });

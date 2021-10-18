@@ -23,4 +23,8 @@ class Order extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function seasonalProduct(){
+        return $this->products()->wherePivot('type', 'seasonal');
+    }
 }

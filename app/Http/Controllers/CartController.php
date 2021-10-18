@@ -14,7 +14,19 @@ class CartController extends Controller
             'name' => $product->name,
             'qty' => 1,
             'price' => $product->price,
-            'weight' => 0, 'options' => ['img' => $product->img, 'category' => $product->category->name]]);
+            'weight' => 0, 'options' => ['img' => $product->img, 'category' => $product->category->name, 'type' => 'single']]);
+        $cartCount = Cart::content()->count();
+        return response()->json($cartCount);
+    }
+
+    public function storeSeasonal($id){
+        $product =Product::with('category')->findOrFail($id);
+        Cart::add([
+            'id' => $product->id,
+            'name' => $product->name,
+            'qty' => 1,
+            'price' => $product->weekly_price,
+            'weight' => 0, 'options' => ['img' => $product->img, 'category' => $product->category->name, 'type' => 'seasonal']]);
         $cartCount = Cart::content()->count();
         return response()->json($cartCount);
     }
