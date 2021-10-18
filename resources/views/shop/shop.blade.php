@@ -84,46 +84,74 @@
                                         </div>
                                     </div>
                                     @foreach($products as $product)
-                                    <div class="col-lg-4 mb-4">
-                                        <div class="shop-single-item">
-                                            <div class="card">
-                                                <img src="{{asset('images/' . $product->img)}}" class="card-img-top">
-                                                <div class="card-body">
-                                                    <h5 class="card-title text-truncate">{{$product->name}}</h5>
-                                                    <div class="info-area-btn">
-                                                    <p class="product-cart-btn">
-                                                        <span>${{$product->price}}</span>
-                                                    </p>
-                                                    <a href="{{route("productDetails",$product->id)}}" class="product-cart-btn">
-                                                        <span><i class="far fa-info"></i> Info</span>
-                                                    </a>
-                                                    </div>
+                                        @if($product->weekly_price !=null)
+                                        <div class="col-lg-4 mb-4">
+                                            <div class="shop-single-item">
+                                                <div class="card">
+                                                    <img src="{{asset('images/' . $product->img)}}" class="card-img-top">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-truncate">{{$product->name}}</h5>
+                                                        <div class="info-area-btn">
+                                                            <p class="product-cart-btn">
+                                                                <span style="font-size: small">single: ${{$product->price}}</span>
+                                                                <span style="font-size: small">weekly: ${{$product->weekly_price}}</span>
+                                                            </p>
+                                                            <a href="{{route("productDetails",$product->id)}}" class="product-cart-btn">
+                                                                <span><i class="far fa-info"></i> Info</span>
+                                                            </a>
+                                                        </div>
 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            @if($cart->where('id',$product->id)->count())
                                                 <div id="" class="add-to-cart-btn-wrap">
                                                     <div class="hero-button-area">
-                                                        <a class="">In Cart</a>
+                                                        <a href="{{route("productDetails",$product->id)}}" >View Details</a>
                                                     </div>
                                                 </div>
-                                            @else
-                                                <div id="inCart{{$product->id}}" class="add-to-cart-btn-wrap">
-                                                    <div class="hero-button-area">
-                                                        <a class="">In Cart</a>
-                                                    </div>
-                                                </div>
-                                                <div id="addCart{{$product->id}}" class="add-to-cart-btn-wrap">
-                                                    <div class="hero-button-area">
-                                                        <a  class="" onclick="addToCart({{$product->id}})">Add to cart</a>
-                                                    </div>
-                                                </div>
-
-                                            @endif
-
-
+                                            </div>
                                         </div>
-                                    </div>
+                                        @else
+                                        <div class="col-lg-4 mb-4">
+                                            <div class="shop-single-item">
+                                                <div class="card">
+                                                    <img src="{{asset('images/' . $product->img)}}" class="card-img-top">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-truncate">{{$product->name}}</h5>
+                                                        <div class="info-area-btn">
+                                                            <p class="product-cart-btn">
+                                                                <span>${{$product->price}}</span>
+                                                            </p>
+                                                            <a href="{{route("productDetails",$product->id)}}" class="product-cart-btn">
+                                                                <span><i class="far fa-info"></i> Info</span>
+                                                            </a>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                @if($cart->where('id',$product->id)->count())
+                                                    <div id="" class="add-to-cart-btn-wrap">
+                                                        <div class="hero-button-area">
+                                                            <a class="">In Cart</a>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <div id="inCart{{$product->id}}" class="add-to-cart-btn-wrap">
+                                                        <div class="hero-button-area">
+                                                            <a class="">In Cart</a>
+                                                        </div>
+                                                    </div>
+                                                    <div id="addCart{{$product->id}}" class="add-to-cart-btn-wrap">
+                                                        <div class="hero-button-area">
+                                                            <a  class="" onclick="addToCart({{$product->id}})">Add to cart</a>
+                                                        </div>
+                                                    </div>
+
+                                                @endif
+
+
+                                            </div>
+                                        </div>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>

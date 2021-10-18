@@ -25,6 +25,7 @@ class CreateOrderProductTable extends Migration
                 ->onDelete('cascade');
             $table->integer('quantity');
             $table->integer('price');
+            $table->integer('type');
             $table->timestamps();
         });
     }
