@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\IdGenerator;
+use App\Models\Order;
 use App\Services\BonusToken\IBonusTokenService;
 use App\Services\Checkout\ICheckoutService;
 use App\Services\PurchaseToken\IPurchaseTokenService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Omnipay\Common\CreditCard;
 use Omnipay\Omnipay;
 use App\Models\Payment;
@@ -36,11 +38,13 @@ class PaymentController extends Controller
 
     public function index()
     {
-        return view('payment');
+        $user = Auth::user();
+        return view('payment',compact('user'));
     }
 
     public function remainingPayment(){
-        return view('payment2');
+        $user = Auth::user();
+        return view('payment2',compact('user'));
     }
 
     public function charge(Request $request)
@@ -48,6 +52,14 @@ class PaymentController extends Controller
         $payment = Cart::total();
         try {
             $creditCard = new CreditCard([
+                'firstName' => $request->input('firstname'),
+                'lastName' => $request->input('lastname'),
+                'billingAddress1' => $request->input('address'),
+                'billingCity' => $request->input('city'),
+                'billingPostcode' => $request->input('postal'),
+                'billingState' => $request->input('state'),
+                'billingCountry' => $request->input('country'),
+                'billingPhone' => $request->input('phone'),
                 'number' => $request->input('cc_number'),
                 'expiryMonth' => $request->input('expiry_month'),
                 'expiryYear' => $request->input('expiry_year'),
@@ -55,12 +67,15 @@ class PaymentController extends Controller
             ]);
 
             // Generate a unique merchant site transaction ID.
-            $transactionId =IdGenerator::IDGenerator(new Payment, 'transaction_id', 8, 'TRN');
+            $transactionId =IdGenerator::IDGenerator(new Order, 'transaction_id', 8, 'ORD');
+            $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD');
 
             $response = $this->gateway->authorize([
                 'amount' => $payment,
                 'currency' => 'USD',
-                'transactionId' => $transactionId,
+                'description' => 'Product Payment',
+                'invoiceNumber' => $invoiceId,
+                'transactionReference' => $transactionId,
                 'card' => $creditCard,
             ])->send();
 
@@ -96,6 +111,14 @@ class PaymentController extends Controller
 
         try {
             $creditCard = new CreditCard([
+                'firstName' => $request->input('firstname'),
+                'lastName' => $request->input('lastname'),
+                'billingAddress1' => $request->input('address'),
+                'billingCity' => $request->input('city'),
+                'billingPostcode' => $request->input('postal'),
+                'billingState' => $request->input('state'),
+                'billingCountry' => $request->input('country'),
+                'billingPhone' => $request->input('phone'),
                 'number' => $request->input('cc_number'),
                 'expiryMonth' => $request->input('expiry_month'),
                 'expiryYear' => $request->input('expiry_year'),
@@ -104,11 +127,14 @@ class PaymentController extends Controller
 
             // Generate a unique merchant site transaction ID.
             $transactionId =IdGenerator::IDGenerator(new Payment, 'transaction_id', 8, 'TRN');
+            $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD');
 
             $response = $this->gateway->authorize([
                 'amount' => $remainingPaymant,
                 'currency' => 'USD',
-                'transactionId' => $transactionId,
+                'description' => 'Product Payment',
+                'invoiceNumber' => $invoiceId,
+                'transactionReference' => $transactionId,
                 'card' => $creditCard,
             ])->send();
 
