@@ -35,13 +35,15 @@
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
+                                    <th>Purchase Type</th>
                                     </thead>
                                     <tbody>
                                     @foreach($order->products as $product)
                                         <tr>
-                                        <td>{{$product->name}}</td>
-                                        <td>{{$product->pivot->price}}</td>
-                                        <td>{{$product->pivot->quantity}}</td>
+                                            <td>{{$product->name}}</td>
+                                            <td>{{$product->pivot->price}}</td>
+                                            <td>{{$product->pivot->quantity}}</td>
+                                            <td>{{$product->pivot->type}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
