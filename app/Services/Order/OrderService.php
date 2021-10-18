@@ -33,7 +33,7 @@ class OrderService implements IOrderService {
 
         foreach ($products as $product){
             $order->products()->attach($product->id,
-                ['quantity' => $product->qty,'price'=> $product->price]);
+                ['quantity' => $product->qty,'price'=> $product->price, 'type' => $product->options['type']]);
         }
     }
 }
