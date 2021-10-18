@@ -54,6 +54,22 @@
                                         <input type="text" class="form-control" name="price"
                                                placeholder="Enter Price" value="{{$product->price}}">
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Price</label>
+                                                <input type="text" class="form-control" name="price"
+                                                       placeholder="Enter Price" value="{{$product->price}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Weekly Price</label>
+                                                <input type="text" class="form-control" name="weekly_price"
+                                                       placeholder="Enter Weekly Price" value="{{$product->weekly_price}}">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label >Image</label>
                                         <input type="file" class="form-control" name="img" placeholder="Enter Image"
@@ -71,6 +87,18 @@
                                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                                 @endif
                                             @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label >Expire Date</label>
+                                        <input type="date" class="form-control" name="expire_date"  value="{{ $product->expire_date }}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label >Delivery Method</label>
+                                        <select name="delivery_method" class="form-control">
+                                            <option>Online</option>
+                                            <option>Email</option>
                                         </select>
                                     </div>
                                     <div class="form-group">

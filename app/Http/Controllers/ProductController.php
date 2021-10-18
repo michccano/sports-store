@@ -82,6 +82,9 @@ class ProductController extends Controller
         if ($request->price != null)
             $dataToUpdate["price"] = $request->price;
 
+        if ($request->weekly_price != null)
+            $dataToUpdate["weekly_price"] = $request->weekly_price;
+
         if ($request->img != null) {
             $title = preg_replace('/\s+/', '', $request->name);
             $titleWithOutRegExpression= str_replace( array( '\'', '!','”','#','$','%','&','’','(', '*','+',',',
@@ -93,6 +96,12 @@ class ProductController extends Controller
 
         if ($request->category != null)
             $dataToUpdate["category_id"] = $request->category;
+
+        if ($request->expire_date != null)
+            $dataToUpdate["expire_date"] = $request->expire_date;
+
+        if ($request->delivery_method != null)
+            $dataToUpdate["delivery_method"] = $request->delivery_method;
 
         if($request->status !=null) {
             if ($request->status == "Active")
