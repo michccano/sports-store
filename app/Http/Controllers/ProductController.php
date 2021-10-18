@@ -82,8 +82,7 @@ class ProductController extends Controller
         if ($request->price != null)
             $dataToUpdate["price"] = $request->price;
 
-        if ($request->weekly_price != null)
-            $dataToUpdate["weekly_price"] = $request->weekly_price;
+        $dataToUpdate["weekly_price"] = $request->weekly_price;
 
         if ($request->img != null) {
             $title = preg_replace('/\s+/', '', $request->name);
