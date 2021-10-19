@@ -24,6 +24,7 @@
                                     <a href="{{asset('images/' . $product->img)}}"><img src="{{asset('images/' . $product->img)}}"
                                             alt=""></a>
                                 </div>
+                                <h4>Available : {{$product->created_at}}</h4>
                             </div>
                         </div>
                         <div class="col-md-7">
@@ -38,12 +39,12 @@
                                 <div class="product_page_product_price">
                                     @if($product->weekly_price == null)
                                         <h3>Price: {{$product->price}}</h3>
-                                        <span>Description: {!! $product->description !!}</span>
                                     @else
                                         <h4>Single Price: {{$product->price}}</h4>
                                         <h4>Seasonal Price: {{$product->weekly_price}}</h4>
-                                        <span>Description: {!! $product->description !!}</span>
                                     @endif
+                                        <h3>Description: </h3><span> {!! $product->description !!}</span>
+                                        <b>Delivery Method: <span>{!! $product->delivery_method !!} </span> </b>
                                 </div>
 
                                 <div class="add_to_cart_btn_p">

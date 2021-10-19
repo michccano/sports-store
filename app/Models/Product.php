@@ -17,6 +17,7 @@ class Product extends Model
         "img",
         "status",
         "expire_date",
+        "display_date",
         "delivery_method",
         "category_id"
     ];

@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->string("img");
             $table->integer("status")->default(1);
             $table->date("expire_date");
+            $table->date("display_date");
             $table->string("delivery_method");
             $table->foreignId('category_id')
                 ->constrained('categories')
