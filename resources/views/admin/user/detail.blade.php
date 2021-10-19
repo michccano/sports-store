@@ -129,8 +129,8 @@
                                                         <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Total Purchases :</td>
-                                                        <td></td>
+                                                        <td>Total Purchases : </td>
+                                                        <td>{{$user->orders->count()}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Current Level :</td>
