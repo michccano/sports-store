@@ -43,6 +43,7 @@
                                         <th>Image</th>
                                         <th>Category</th>
                                         <th>Delivery</th>
+                                        <th>Display Date</th>
                                         <th>Expire Date</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -155,6 +156,10 @@
                 {
                     data: 'delivery_method',
                     name: 'delivery_method'
+                },
+                {
+                    data: 'display_date',
+                    name: 'display_date'
                 },
                 {
                     data: 'expire_date',

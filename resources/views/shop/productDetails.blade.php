@@ -24,7 +24,7 @@
                                     <a href="{{asset('images/' . $product->img)}}"><img src="{{asset('images/' . $product->img)}}"
                                             alt=""></a>
                                 </div>
-                                <h4>Available : {{$product->created_at}}</h4>
+                                <h4>Available : {{$product->display_date}}</h4>
                             </div>
                         </div>
                         <div class="col-md-7">
