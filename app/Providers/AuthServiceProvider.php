@@ -33,5 +33,11 @@ class AuthServiceProvider extends ServiceProvider
                 ? Response::allow()
                 : Response::deny('You have no access to the service');
         });
+
+        Gate::define('emailVerification', function (User $user) {
+            return $user->email_verified_at !== null
+                ? Response::allow()
+                : Response::deny('You have not verified your email address');
+        });
     }
 }

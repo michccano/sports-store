@@ -18,8 +18,12 @@ class CreateProductsTable extends Migration
             $table->string("name");
             $table->longText("description");
             $table->string("price");
+            $table->string("weekly_price")->nullable();
             $table->string("img");
             $table->integer("status")->default(1);
+            $table->date("expire_date");
+            $table->date("display_date");
+            $table->string("delivery_method");
             $table->foreignId('category_id')
                 ->constrained('categories')
                 ->onUpdate('cascade')

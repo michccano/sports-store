@@ -35,7 +35,7 @@
                                 <table id="order_dataTable" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>SL No.</th>
+                                        <th>Invoice No.</th>
                                         <th>Total Bill</th>
                                         <th>Card Payment</th>
                                         <th>Token Payment</th>
@@ -82,8 +82,8 @@
                 ajax: "{{ route('getOrders') }}",
                 columns: [
                     {
-                        data: 'id',
-                        name: 'id'
+                        data: 'invoice',
+                        name: 'invoice'
                     },
                     {
                         data: 'total_bill',

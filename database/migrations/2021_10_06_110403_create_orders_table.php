@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string("invoice");
             $table->integer("total_bill");
             $table->integer("card_payment_amount")->nullable();
             $table->integer("token_payment_amount")->nullable();

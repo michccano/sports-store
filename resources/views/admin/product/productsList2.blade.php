@@ -39,8 +39,12 @@
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>Price</th>
+                                        <th>Weekly Price</th>
                                         <th>Image</th>
                                         <th>Category</th>
+                                        <th>Delivery</th>
+                                        <th>Display Date</th>
+                                        <th>Expire Date</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -131,6 +135,10 @@
                     name: 'price'
                 },
                 {
+                    data: 'weekly_price',
+                    name: 'weekly_price'
+                },
+                {
                     data: 'img',
                     name: 'img',
                     render: function(data, type, full, meta) {
@@ -144,6 +152,18 @@
                         return data.name
 
                     }
+                },
+                {
+                    data: 'delivery_method',
+                    name: 'delivery_method'
+                },
+                {
+                    data: 'display_date',
+                    name: 'display_date'
+                },
+                {
+                    data: 'expire_date',
+                    name: 'expire_date'
                 },
                 {
                     data: 'status',

@@ -24,6 +24,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                <p><b>Invoice No: </b>{{$order->invoice}}</p>
                                 <p><b>Customer Name : </b>{{$order->user->firstname}} {{$order->user->lastname}}</p>
                                 <p><b>Total Bill: </b>{{$order->total_bill}}</p>
                                 <p><b>Card Payment: </b>{{$order->card_payment_amount}}</p>
@@ -34,13 +35,15 @@
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
+                                    <th>Purchase Type</th>
                                     </thead>
                                     <tbody>
                                     @foreach($order->products as $product)
                                         <tr>
-                                        <td>{{$product->name}}</td>
-                                        <td>{{$product->pivot->price}}</td>
-                                        <td>{{$product->pivot->quantity}}</td>
+                                            <td>{{$product->name}}</td>
+                                            <td>{{$product->pivot->price}}</td>
+                                            <td>{{$product->pivot->quantity}}</td>
+                                            <td>{{$product->pivot->type}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

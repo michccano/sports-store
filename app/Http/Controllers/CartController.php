@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
@@ -14,7 +15,19 @@ class CartController extends Controller
             'name' => $product->name,
             'qty' => 1,
             'price' => $product->price,
-            'weight' => 0, 'options' => ['img' => $product->img, 'category' => $product->category->name]]);
+            'weight' => 0, 'options' => ['img' => $product->img, 'category' => $product->category->name, 'type' => 'single']]);
+        $cartCount = Cart::content()->count();
+        return response()->json($cartCount);
+    }
+
+    public function storeSeasonal($id){
+        $product =Product::with('category')->findOrFail($id);
+        Cart::add([
+            'id' => $product->id,
+            'name' => $product->name,
+            'qty' => 1,
+            'price' => $product->weekly_price,
+            'weight' => 0, 'options' => ['img' => $product->img, 'category' => $product->category->name, 'type' => 'seasonal']]);
         $cartCount = Cart::content()->count();
         return response()->json($cartCount);
     }
@@ -27,6 +40,15 @@ class CartController extends Controller
                 $hasToken = 1;
         }
         return view('shop.cart',compact("products","hasToken"));
+    }
+
+    public function update($id, Request $request){
+        $products = Cart::content();
+        $product = $products->where('id',$id)->first();
+        $rowId = $product->rowId;
+        Cart::update($rowId, $request->qty);
+        $price = $product->price * $product->qty;
+        return response()->json($price);
     }
 
     public function delete($id){

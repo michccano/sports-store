@@ -54,11 +54,63 @@
                                         <input type="text" class="form-control" name="price"
                                                placeholder="Enter Price" value="{{$product->price}}">
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Price</label>
+                                                <input type="text" class="form-control" name="price"
+                                                       placeholder="Enter Price" value="{{$product->price}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Weekly Price</label>
+                                                <input type="text" class="form-control" name="weekly_price"
+                                                       placeholder="Enter Weekly Price" value="{{$product->weekly_price}}">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label >Image</label>
                                         <input type="file" class="form-control" name="img" placeholder="Enter Image"
                                                onchange="previewImage(this)">
                                         <img id="previewImg" style="height: 100px; width: 130px" src="{{asset('images/' . $product->img)}}" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label >Category</label>
+                                        <select name="category" class="form-control">
+                                            @foreach($categories as $category)
+                                                @if($category->name == $product->category->name)
+                                                    <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                                                @else
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Display Date</label>
+                                                <input type="date" class="form-control" name="display_date"  value="{{ $product->display_date }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Expire Date</label>
+                                                <input type="date" class="form-control" name="expire_date"  value="{{ $product->expire_date }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label >Delivery Method</label>
+                                        <select name="delivery_method" class="form-control">
+                                            <option>Online</option>
+                                            <option>Email</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label >Status</label>

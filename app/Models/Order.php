@@ -10,16 +10,21 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
+        "invoice",
         "total_bill",
         "card_payment_amount",
         "token_payment_amount",
         'user_id',
     ];
     public function products(){
-        return $this->belongsToMany(Product::class)->withPivot('quantity','price');
+        return $this->belongsToMany(Product::class)->withPivot('quantity','price','type');
     }
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function seasonalProduct(){
+        return $this->products()->wherePivot('type', 'seasonal');
     }
 }

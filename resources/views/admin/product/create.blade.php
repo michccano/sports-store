@@ -47,9 +47,19 @@
                                         <label >Description</label>
                                         <textarea class="form-control description" name="description" placeholder="Enter Description" value="{{ old('description') }}"></textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label >Price</label>
-                                        <input type="text" class="form-control" name="price" placeholder="Enter Price" value="{{ old('price') }}">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Price</label>
+                                                <input type="text" class="form-control" name="price" placeholder="Enter Price" value="{{ old('price') }}">
+                                            </div>
+                                        </div>
+                                       <div class="col-md-6">
+                                           <div class="form-group">
+                                               <label >Weekly Price</label>
+                                               <input type="text" class="form-control" name="weekly_price" placeholder="Enter Weekly Price" value="{{ old('weekly_price') }}">
+                                           </div>
+                                       </div>
                                     </div>
                                     <div class="form-group">
                                         <label >Image</label>
@@ -62,6 +72,29 @@
                                             @foreach($categories as $category)
                                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Display Date</label>
+                                                <input type="date" class="form-control" name="display_date"  value="{{ old('display_date') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Expire Date</label>
+                                                <input type="date" class="form-control" name="expire_date"  value="{{ old('expire_date') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label >Delivery Method</label>
+                                        <select name="delivery_method" class="form-control">
+                                            <option>Online</option>
+                                            <option>Email</option>
                                         </select>
                                     </div>
                                 </div>

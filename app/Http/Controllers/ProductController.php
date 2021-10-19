@@ -49,7 +49,11 @@ class ProductController extends Controller
             "name" => $request->name,
             "description" => $request->description,
             "price" => $request->price,
+            "weekly_price" => $request->weekly_price,
             "img" => $imageName,
+            "display_date" => $request->display_date,
+            "expire_date" => $request->expire_date,
+            "delivery_method" => $request->delivery_method,
             "category_id" => $request->category,
         ]);
 
@@ -64,7 +68,8 @@ class ProductController extends Controller
 
     public function edit($id){
         $product = Product::find($id);
-        return view("admin.product.edit",compact('product'));
+        $categories = Category::all();
+        return view("admin.product.edit",compact('product','categories'));
     }
 
     public function update(ProductUpdateRequest $request, $id){
@@ -78,6 +83,8 @@ class ProductController extends Controller
         if ($request->price != null)
             $dataToUpdate["price"] = $request->price;
 
+        $dataToUpdate["weekly_price"] = $request->weekly_price;
+
         if ($request->img != null) {
             $title = preg_replace('/\s+/', '', $request->name);
             $titleWithOutRegExpression= str_replace( array( '\'', '!','”','#','$','%','&','’','(', '*','+',',',
@@ -86,6 +93,18 @@ class ProductController extends Controller
             $request->img->move(public_path('images'), $imageName);
             $dataToUpdate["img"] = $imageName;
         }
+
+        if ($request->category != null)
+            $dataToUpdate["category_id"] = $request->category;
+
+        if ($request->display_date != null)
+            $dataToUpdate["display_date"] = $request->display_date;
+
+        if ($request->expire_date != null)
+            $dataToUpdate["expire_date"] = $request->expire_date;
+
+        if ($request->delivery_method != null)
+            $dataToUpdate["delivery_method"] = $request->delivery_method;
 
         if($request->status !=null) {
             if ($request->status == "Active")
