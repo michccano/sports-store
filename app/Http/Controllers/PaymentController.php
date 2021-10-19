@@ -67,7 +67,7 @@ class PaymentController extends Controller
             ]);
 
             // Generate a unique merchant site transaction ID.
-            $transactionId =IdGenerator::IDGenerator(new Order, 'transaction_id', 8, 'ORD');
+            $transactionId =IdGenerator::IDGenerator(new Order, 'transaction_id', 8, 'TRN');
             $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD');
 
             $response = $this->gateway->authorize([
@@ -75,7 +75,7 @@ class PaymentController extends Controller
                 'currency' => 'USD',
                 'description' => 'Product Payment',
                 'invoiceNumber' => $invoiceId,
-                'transactionReference' => $transactionId,
+                'transactionId' => $transactionId,
                 'card' => $creditCard,
             ])->send();
 
@@ -83,6 +83,11 @@ class PaymentController extends Controller
 
                 // Captured from the authorization response.
                 $transactionReference = $response->getTransactionReference();
+                $transactionId = $response->getTransactionId();
+                $transaction = $this->gateway->fetchTransaction([
+                    'transactionReference' => $transactionReference,
+                ])->send();
+
 
                 $response = $this->gateway->capture([
                     'amount' => $payment,
