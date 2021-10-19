@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
@@ -39,6 +40,15 @@ class CartController extends Controller
                 $hasToken = 1;
         }
         return view('shop.cart',compact("products","hasToken"));
+    }
+
+    public function update($id, Request $request){
+        $products = Cart::content();
+        $product = $products->where('id',$id)->first();
+        $rowId = $product->rowId;
+        Cart::update($rowId, $request->qty);
+        $price = $product->price * $product->qty;
+        return response()->json($price);
     }
 
     public function delete($id){

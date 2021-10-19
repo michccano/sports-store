@@ -35,15 +35,14 @@
                                         </td>
                                         <td class="product-price" data-title="Price">
                                             <span class="">
-                                                <span class=""> {{$product->price}}</span>
+                                                <span class="" id="price{{$product->id}}"> {{$product->price * $product->qty}}</span>
                                             </span>
                                         </td>
                                         <td class="product-quantity" data-title="Quantity">
                                             <div class="quantity">
-                                                <button class="btn" type=button  onclick="button2()" ><i class="fal fa-minus"></i></button>
-                                                <span id="output-area">{{$product->qty}}</span>
-                                                <button class="btn" type=button  onclick="button1()" ><i class="fal fa-plus"></i></button>
-
+                                                <button class="btn" id="decrement-btn{{$product->id}}" type=button  onclick="button2({{$product->id}})" ><i class="fal fa-minus"></i></button>
+                                                <input type="text" id="qty-input{{$product->id}}" value="{{$product->qty}}" min="1" max="10" maxlength="2"/>
+                                                <button class="btn" id="increment-btn{{$product->id}}" type=button  onclick="button1({{$product->id}})" ><i class="fal fa-plus"></i></button>
                                             </div>
                                         </td>
                                         <td class="product-subtotal" data-title="Total">
@@ -139,13 +138,61 @@
         }
     </script>
     <script>
-        var x = 0;
-        document.getElementById('output-area').innerHTML = x;
-        function button1() {
-        document.getElementById('output-area').innerHTML = ++x;
+        function button1(id) {
+
+            var incre_value = $('#qty-input'+id).val();
+            var value = parseInt(incre_value, 10);
+            value = isNaN(value) ? 0 : value;
+            if(value<100){
+                value++;
+                $('#qty-input'+id).val(value);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                let url = "{{ route('update', ':id') }}";
+                url = url.replace(':id', id);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {qty: value},
+                    success: function (data) {
+                            $('#price'+id).html(data);
+                    },
+                    error: function () {
+                    }
+                });
+            }
         }
-        function button2() {
-        document.getElementById('output-area').innerHTML = --x;
+        function button2(id) {
+            var decre_value = $('#qty-input'+id).val();
+            var value = parseInt(decre_value, 10);
+            value = isNaN(value) ? 0 : value;
+            if(value>1){
+                value--;
+                $('#qty-input'+id).val(value);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                let url = "{{ route('update', ':id') }}";
+                url = url.replace(':id', id);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {qty: value},
+                    success: function (data) {
+                        $('#price'+id).html(data);
+                    },
+                    error: function () {
+                    }
+                });
+            }
         }
     </script>
 @endsection
