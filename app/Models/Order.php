@@ -14,6 +14,9 @@ class Order extends Model
         "total_bill",
         "card_payment_amount",
         "token_payment_amount",
+        "transactionReference",
+        "transactionId",
+        "cardNumber",
         'user_id',
     ];
     public function products(){

@@ -15,6 +15,7 @@
                 <div class="row">
                     <div class="col-sm-10">
                         <p id="message" class=""></p>
+                        <a href="{{route("refundView")}}" class="btn btn-info">Refund</a>
                     </div><!-- /.col -->
                     <div class="col-sm-2">
 
@@ -39,6 +40,9 @@
                                         <th>Total Bill</th>
                                         <th>Card Payment</th>
                                         <th>Token Payment</th>
+                                        <th>Card</th>
+                                        <th>Transaction Id</th>
+                                        <th>Transaction Reference</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -96,6 +100,18 @@
                     {
                         data: 'token_payment_amount',
                         name: 'token_payment_amount'
+                    },
+                    {
+                        data: 'cardNumber',
+                        name: 'cardNumber'
+                    },
+                    {
+                        data: 'transactionId',
+                        name: 'transactionId'
+                    },
+                    {
+                        data: 'transactionReference',
+                        name: 'transactionReference'
                     },
                     {
                         data: 'action',

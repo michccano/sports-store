@@ -71,6 +71,9 @@ Route::prefix("admin")->middleware("auth")->group(function (){
         return view('admin.dashboard');
     })->name("dashboard");
 
+    Route::get("/refund",[PaymentController::class,'refundView'])->name('refundView');
+    Route::post("/refund",[PaymentController::class,'refund'])->name("refund");
+
     Route::prefix("user")->group(function (){
         Route::get('/list',[UserController::class,'list'])->name("userList");
         Route::get('/getUsers',[UserController::class,'getUserData'])->name("getUsers");

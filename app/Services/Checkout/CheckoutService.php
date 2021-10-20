@@ -68,13 +68,13 @@ class CheckoutService implements ICheckoutService{
             return $message = "error";
     }
 
-    public function CardCheckout()
+    public function CardCheckout($invoice, $transactionReference, $transactionId, $cardNumber)
     {
         $payment = Cart::total();
         $hasMoney = 1;
         $message = null;
         if ($hasMoney !=0){
-            $this->orderService->create(0 , $payment);
+            $this->orderService->create(0 , $payment, $invoice, $transactionReference, $transactionId, $cardNumber);
             $products = Cart::content();
             foreach ($products as $product){
                 if ($product->options['category'] == "Memberships"){

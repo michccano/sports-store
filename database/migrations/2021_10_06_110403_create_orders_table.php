@@ -19,6 +19,9 @@ class CreateOrdersTable extends Migration
             $table->integer("total_bill");
             $table->integer("card_payment_amount")->nullable();
             $table->integer("token_payment_amount")->nullable();
+            $table->string("transactionReference");
+            $table->string("transactionId");
+            $table->string("cardNumber");
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onUpdate('cascade')

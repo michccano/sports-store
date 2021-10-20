@@ -67,7 +67,7 @@ class PaymentController extends Controller
             ]);
 
             // Generate a unique merchant site transaction ID.
-            $transactionId =IdGenerator::IDGenerator(new Order, 'transaction_id', 8, 'TRN');
+            $transactionId =IdGenerator::IDGenerator(new Order, 'transactionId', 8, 'TRN');
             $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD');
 
             $response = $this->gateway->authorize([
@@ -84,9 +84,7 @@ class PaymentController extends Controller
                 // Captured from the authorization response.
                 $transactionReference = $response->getTransactionReference();
                 $transactionId = $response->getTransactionId();
-                $transaction = $this->gateway->fetchTransaction([
-                    'transactionReference' => $transactionReference,
-                ])->send();
+
 
 
                 $response = $this->gateway->capture([
@@ -95,7 +93,7 @@ class PaymentController extends Controller
                     'transactionReference' => $transactionReference,
                 ])->send();
 
-                $placeorder = $this->checkoutService->CardCheckout();
+                $placeorder = $this->checkoutService->CardCheckout($invoiceId, $transactionReference, $transactionId, $request->input('cc_number'));
                 return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
             } else {
                 // not successful
@@ -131,7 +129,7 @@ class PaymentController extends Controller
             ]);
 
             // Generate a unique merchant site transaction ID.
-            $transactionId =IdGenerator::IDGenerator(new Payment, 'transaction_id', 8, 'TRN');
+            $transactionId =IdGenerator::IDGenerator(new Order, 'transactionId', 8, 'TRN');
             $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD');
 
             $response = $this->gateway->authorize([
@@ -148,13 +146,14 @@ class PaymentController extends Controller
                 // Captured from the authorization response.
                 $transactionReference = $response->getTransactionReference();
 
+
                 $response = $this->gateway->capture([
                     'amount' => $payment,
                     'currency' => 'USD',
                     'transactionReference' => $transactionReference,
                 ])->send();
 
-                $placeorder = $this->checkoutService->remainingPaymentWithCard($payment, $remainingPaymant);
+                $placeorder = $this->checkoutService->CardCheckout($invoiceId, $transactionReference, $transactionId, $request->input('cc_number'));
                 return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
             } else {
                 // not successful
@@ -162,6 +161,32 @@ class PaymentController extends Controller
             }
         } catch(Exception $e) {
             return redirect()->route('cart.show')->with("errorMessage",$e->getMessage());
+        }
+    }
+
+    public function refundView(){
+        return view('admin.refund');
+    }
+
+    public function refund(Request $request){
+       try{
+           $response = $this->gateway->refund([
+               'amount' => $request->amount,
+               'currency' => 'USD',
+               'transactionReference' => $request->transactionReference,
+               'numberLastFour' => $request->cc_number,
+           ])->send();
+
+           if($response->isSuccessful()) {
+               dd($response);
+               return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
+           } else {
+               // not successful
+               return redirect()->route('refundView')->with("errorMessage",$response->getMessage());
+           }
+       }
+        catch(Exception $e) {
+            return redirect()->route('refundView')->with("errorMessage",$e->getMessage());
         }
     }
 }
