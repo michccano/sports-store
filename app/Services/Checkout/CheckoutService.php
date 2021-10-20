@@ -77,7 +77,7 @@ class CheckoutService implements ICheckoutService{
             $this->orderService->create(0 , $payment, $invoice, $transactionReference, $transactionId, $cardNumber);
             $products = Cart::content();
             foreach ($products as $product){
-                if ($product->options['category'] == "Memberships"){
+                if ($product->options['category'] == "Memberships" || $product->options['category'] == "Tokens"){
                     if ($product->name == "Playbook Playbucks Tokens - 1"){
                         $purchaseTokenQuantity = 1*$product->qty;
                         $this->purchaseTokenService->addToken($purchaseTokenQuantity);

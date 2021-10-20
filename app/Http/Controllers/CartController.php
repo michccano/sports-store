@@ -36,7 +36,7 @@ class CartController extends Controller
         $products = Cart::content();
         $hasToken = 0;
         foreach ($products as $product){
-            if ($product->options['category'] == "Memberships")
+            if ($product->options['category'] == "Memberships" || $product->options['category'] == "Tokens")
                 $hasToken = 1;
         }
         return view('shop.cart',compact("products","hasToken"));
