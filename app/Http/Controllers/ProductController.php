@@ -19,7 +19,8 @@ class ProductController extends Controller
                 ->addColumn('action', function ($row) {
                     $id = $row['id'];
                     $actionBtn = '<a href="/admin/product/edit/' . $id .'" data-id="' . $id . '" class="btn btn-xs btn-warning edit"><i class="far fa-edit"></i></a>
-                                  <button type="submit" class="btn btn-xs btn-danger" data-productid="' . $id . '" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>';
+                                  <button type="submit" class="btn btn-xs btn-danger" data-productid="' . $id . '" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
+                                  <a href="#" data-id="' . $id . '" class="btn btn-xs btn-info"><i class="fas fa-file-pdf"></i></a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
