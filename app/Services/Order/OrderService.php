@@ -32,10 +32,15 @@ class OrderService implements IOrderService {
 
     public function addOrderProduct($order){
         $products = Cart::content();
+        $user = Auth::user();
 
         foreach ($products as $product){
             $order->products()->attach($product->id,
-                ['quantity' => $product->qty,'price'=> $product->price, 'type' => $product->options['type']]);
+                ['quantity' => $product->qty,'price'=> $product->price,
+                    'type' => $product->options['type']]);
+
+            $user->products()->attach($product->id,
+                ['type' => $product->options['type']]);
         }
     }
 }
