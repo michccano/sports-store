@@ -29,6 +29,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
+                                @if(session('successMessage'))
+                                    <p class="alert alert-success">{{session('successMessage')}}</p>
+                                @elseif(session('errorMessage'))
+                                    <p class="alert alert-danger">{{session('errorMessage')}}</p>
+                                @endif
                                 <h3 class="card-title">Orders List</h3>
                             </div>
                             <!-- /.card-header -->

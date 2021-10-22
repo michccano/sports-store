@@ -173,20 +173,20 @@ class PaymentController extends Controller
            $response = $this->gateway->refund([
                'amount' => $request->amount,
                'currency' => 'USD',
+               'description' => 'Payment Refund',
                'transactionReference' => $request->transactionReference,
                'numberLastFour' => $request->cc_number,
            ])->send();
 
            if($response->isSuccessful()) {
-               dd($response);
-               return redirect()->route('shop')->with("successMessage","Order Placed Successfully");
+               return redirect()->route('orderList')->with("successMessage",$response->getMessage()."Refund successfully");
            } else {
                // not successful
-               return redirect()->route('refundView')->with("errorMessage",$response->getMessage());
+               return redirect()->route('refundView')->with("errorMessage",$response->getMessage()."or the transaction is not settled");
            }
        }
         catch(Exception $e) {
-            return redirect()->route('refundView')->with("errorMessage",$e->getMessage());
+            return redirect()->route('refundView')->with("errorMessage",$e->getMessage()."or the transaction is not settled");
         }
     }
 }
