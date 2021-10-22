@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiAuthController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -29,6 +30,12 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 Route::get('/', function () {
     return view('home');
 })->name("home");
+
+Route::post('/loginApi',[ApiAuthController::class,'login'])
+    ->name('loginApi');
+Route::post('/registerApi',[ApiAuthController::class,'register'])
+    ->name('registerApi');
+Route::get('/logoutApi',[ApiAuthController::class,'logout'])->name('logoutApi');
 
 Route::get('/register',[AuthController::class,'register'])->name("register");
 Route::post('/register',[AuthController::class,'store'])->name("storeUser");
