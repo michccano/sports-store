@@ -45,10 +45,7 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">ABOUT</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">TEAM</a>
+                        <a class="nav-link" href="/shop">Shop</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route("sportsPress")}}">SportsPress</a>
@@ -62,13 +59,17 @@
                     </li>
                     <!-- site logo  -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/shop">Shop</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Donations</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ABOUT</a>
+                    </li>
+                    <li class="nav-item">
+                        @auth
+                            <a class="nav-link" href="{{route('profile')}}">Profile</a>
+                        @else
+                            <a class="nav-link" href="{{route('login')}}">Login</a>
+                        @endauth
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('cart.show')}}" id="cartItemsNumber">

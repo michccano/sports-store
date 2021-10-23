@@ -45,4 +45,9 @@ class UserController extends Controller
         $user->save();
         return response()->json($user->status);
     }
+
+    public function profile()
+    {
+        return view('profile');
+    }
 }
