@@ -31,6 +31,7 @@ Route::get('/', function () {
     return view('home');
 })->name("home");
 
+
 Route::post('/loginApi',[ApiAuthController::class,'login'])
     ->name('loginApi');
 Route::post('/registerApi',[ApiAuthController::class,'register'])
@@ -74,10 +75,12 @@ Route::get('/reset-password/{token}', function ($token) {
 
 Route::post('/reset-password', [AuthController::class,'resetPassword'])->name('password.update');
 
+Route::get('/{admin?}', function () {
+    return view('admin.dashboard');
+})->where('admin', 'admin|admin/dashboard')
+    ->middleware("auth")->name("dashboard");
+
 Route::prefix("admin")->middleware("auth")->group(function (){
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name("dashboard");
 
     Route::get("/refund",[PaymentController::class,'refundView'])->name('refundView');
     Route::post("/refund",[PaymentController::class,'refund'])->name("refund");

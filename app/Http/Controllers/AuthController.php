@@ -67,7 +67,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->role == 1)
-                return redirect()->route('dashboard');
+                return redirect('/admin');
             else{
                 if (session('link') == route("register"))
                     return redirect()->route('home');
