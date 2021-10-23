@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label >Description</label>
-                                        <textarea class="form-control description" name="description" placeholder="Enter Description" value="{{ old('description') }}"></textarea>
+                                        <textarea class="form-control description" name="description" placeholder="Enter Description" value="">{{ old('description') }}</textarea>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">

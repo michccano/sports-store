@@ -27,8 +27,8 @@ class PaymentController extends Controller
                                 IBonusTokenService $bonusTokenService)
     {
         $this->gateway = Omnipay::create('AuthorizeNetApi_Api');
-        $this->gateway->setAuthName(env('ANET_API_LOGIN_ID'));
-        $this->gateway->setTransactionKey(env('ANET_TRANSACTION_KEY'));
+        $this->gateway->setAuthName(strval(env('ANET_API_LOGIN_ID')));
+        $this->gateway->setTransactionKey(strval(env('ANET_TRANSACTION_KEY')));
         $this->gateway->setTestMode(true); //comment this line when move to 'live'
 
         $this->checkoutService = $checkoutService;
