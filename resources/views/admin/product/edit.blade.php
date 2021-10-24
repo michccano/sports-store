@@ -50,9 +50,15 @@
                                                   placeholder="Enter Description" value="">{!! $product->description !!}</textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label >Price</label>
-                                        <input type="text" class="form-control" name="price"
-                                               placeholder="Enter Price" value="{{$product->price}}">
+                                        <label >Image</label>
+                                        <input type="file" class="form-control" name="img" placeholder="Enter Image"
+                                               onchange="previewImage(this)">
+                                        <img id="previewImg" style="height: 100px; width: 130px" src="{{asset('images/' . $product->img)}}" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label >Display Date</label>
+                                        <input type="date" class="form-control" name="display_date"  value="{{ $product->display_date }}">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -64,17 +70,26 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label >Single Price</label>
-                                                <input type="text" class="form-control" name="weekly_price"
-                                                       placeholder="Enter Weekly Price" value="{{$product->weekly_price}}">
+                                                <label >Expire Date</label>
+                                                <input type="date" class="form-control" name="expire_date"  value="{{ $product->expire_date }}">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label >Image</label>
-                                        <input type="file" class="form-control" name="img" placeholder="Enter Image"
-                                               onchange="previewImage(this)">
-                                        <img id="previewImg" style="height: 100px; width: 130px" src="{{asset('images/' . $product->img)}}" />
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Single Price</label>
+                                                <input type="text" class="form-control" name="weekly_price"
+                                                       placeholder="Enter Price" value="{{$product->weekly_price}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Expire Date</label>
+                                                <input type="date" class="form-control" name="weekly_price_expire_date"  value="{{ $product->weekly_price_expire_date }}">
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
@@ -88,21 +103,6 @@
                                                 @endif
                                             @endforeach
                                         </select>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >Display Date</label>
-                                                <input type="date" class="form-control" name="display_date"  value="{{ $product->display_date }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >Expire Date</label>
-                                                <input type="date" class="form-control" name="expire_date"  value="{{ $product->expire_date }}">
-                                            </div>
-                                        </div>
                                     </div>
 
                                     <div class="form-group">

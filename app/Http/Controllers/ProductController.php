@@ -36,7 +36,12 @@ class ProductController extends Controller
 
     public function create(){
         $categories = Category::all();
-        return view("admin.product.create",compact("categories"));
+        $month = date('m');
+        $day = date('d');
+        $year = date('Y');
+
+        $today = $year . '-' . $month . '-' . $day;
+        return view("admin.product.create",compact("categories","today"));
     }
 
     public function store(ProductCreateRequest $request){
@@ -54,6 +59,7 @@ class ProductController extends Controller
             "img" => $imageName,
             "display_date" => $request->display_date,
             "expire_date" => $request->expire_date,
+            "weekly_price_expire_date" => $request->weekly_price_expire_date,
             "delivery_method" => $request->delivery_method,
             "category_id" => $request->category,
         ]);
@@ -103,6 +109,9 @@ class ProductController extends Controller
 
         if ($request->expire_date != null)
             $dataToUpdate["expire_date"] = $request->expire_date;
+
+        if ($request->weekly_price_expire_date !=null)
+            $dataToUpdate["weekly_price_expire_date"] = $request->weekly_price_expire_date;
 
         if ($request->delivery_method != null)
             $dataToUpdate["delivery_method"] = $request->delivery_method;

@@ -31,6 +31,7 @@ Route::get('/', function () {
     return view('home');
 })->name("home");
 
+Route::get("/images/{path?}")->middleware("auth");
 
 Route::post('/login-api',[ApiAuthController::class,'login'])
     ->name('loginApi');

@@ -47,39 +47,23 @@
                                         <label >Description</label>
                                         <textarea class="form-control description" name="description" placeholder="Enter Description" value="">{{ old('description') }}</textarea>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >Season Price</label>
-                                                <input type="text" class="form-control" name="price" placeholder="Enter Price" value="{{ old('price') }}">
-                                            </div>
-                                        </div>
-                                       <div class="col-md-6">
-                                           <div class="form-group">
-                                               <label >Single Price</label>
-                                               <input type="text" class="form-control" name="weekly_price" placeholder="Enter Weekly Price" value="{{ old('weekly_price') }}">
-                                           </div>
-                                       </div>
-                                    </div>
+
                                     <div class="form-group">
                                         <label >Image</label>
                                         <input type="file" class="form-control" name="img" placeholder="Enter Image" onchange="previewImage(this)">
                                         <img id="previewImg" style="height: 100px; width: 130px"  />
                                     </div>
+
                                     <div class="form-group">
-                                        <label >Category</label>
-                                        <select name="category" class="form-control">
-                                            @foreach($categories as $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
-                                            @endforeach
-                                        </select>
+                                        <label >Display Date</label>
+                                        <input type="date" class="form-control" name="display_date"  value="{{ $today }}">
                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label >Display Date</label>
-                                                <input type="date" class="form-control" name="display_date"  value="{{ old('display_date') }}">
+                                                <label >Season Price</label>
+                                                <input type="text" class="form-control" name="price" placeholder="Enter Price" value="{{ old('price') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -88,6 +72,30 @@
                                                 <input type="date" class="form-control" name="expire_date"  value="{{ old('expire_date') }}">
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="row">
+                                       <div class="col-md-6">
+                                           <div class="form-group">
+                                               <label >Single Price</label>
+                                               <input type="text" class="form-control" name="weekly_price" placeholder="Enter Single Price" value="{{ old('weekly_price') }}">
+                                           </div>
+                                       </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label >Expire Date</label>
+                                                <input type="date" class="form-control" name="weekly_price_expire_date"  value="{{ old('weekly_price_expire_date') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label >Category</label>
+                                        <select name="category" class="form-control">
+                                            @foreach($categories as $category)
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="form-group">

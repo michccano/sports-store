@@ -93,8 +93,10 @@
                                                         <h5 class="card-title text-truncate">{{$product->name}}</h5>
                                                         <div class="info-area-btn">
                                                             <p class="product-cart-btn">
-                                                                <span style="font-size: small">single: ${{$product->price}}</span>
-                                                                <span style="font-size: small">weekly: ${{$product->weekly_price}}</span>
+                                                                <span style="font-size: small">season: ${{$product->price}}</span>
+                                                                @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()))
+                                                                <span style="font-size: small">single: ${{$product->weekly_price}}</span>
+                                                                @endif
                                                             </p>
                                                             <a href="{{route("productDetails",$product->id)}}" class="product-cart-btn">
                                                                 <span><i class="far fa-info"></i> Info</span>

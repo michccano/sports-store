@@ -48,7 +48,7 @@
                                 </div>
 
                                 <div class="add_to_cart_btn_p">
-                                    @if($product->weekly_price == null)
+                                    @if($product->price == null)
                                         @if($cart->where('id',$product->id)->count())
                                             <p id="inCart2" >In Cart</p>
                                             <button id="removeFromCart2" class="btn btn-danger" onclick="removeFromCart2({{$product->id}})">
@@ -65,13 +65,17 @@
                                             <p id="inCart2" >In Cart</p>
                                             <button id="removeFromCart2" class="btn btn-danger" onclick="removeFromCart2({{$product->id}})">
                                                 Remove from Cart</button>
+                                            @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()))
                                             <button id="addCart2" class="btn btn-danger" onclick="addToCart2({{$product->id}})">Add to Cart Single</button>
+                                            @endif
                                             <button id="addCartSeasonal2" class="btn btn-danger" onclick="addToCartSeasonal2({{$product->id}})">Add to Cart Seasonal</button>
                                         @else
                                             <p id="inCart1"  >In Cart</p>
                                             <button id="removeFromCart1" class="btn btn-danger" onclick="removeFromCart({{$product->id}})">
                                                 Remove from Cart</button>
+                                            @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()))
                                             <button id="addCart1" class="btn btn-danger" onclick="addToCart({{$product->id}})">Add to Cart Single</button>
+                                            @endif
                                             <button id="addCartSeasonal1" class="btn btn-danger" onclick="addToCartSeasonal({{$product->id}})">Add to Cart Seasonal</button>
                                         @endif
                                     @endif
