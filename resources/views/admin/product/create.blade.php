@@ -50,13 +50,13 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label >Price</label>
+                                                <label >Season Price</label>
                                                 <input type="text" class="form-control" name="price" placeholder="Enter Price" value="{{ old('price') }}">
                                             </div>
                                         </div>
                                        <div class="col-md-6">
                                            <div class="form-group">
-                                               <label >Weekly Price</label>
+                                               <label >Single Price</label>
                                                <input type="text" class="form-control" name="weekly_price" placeholder="Enter Weekly Price" value="{{ old('weekly_price') }}">
                                            </div>
                                        </div>

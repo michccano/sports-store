@@ -32,11 +32,11 @@ Route::get('/', function () {
 })->name("home");
 
 
-Route::post('/loginApi',[ApiAuthController::class,'login'])
+Route::post('/login-api',[ApiAuthController::class,'login'])
     ->name('loginApi');
-Route::post('/registerApi',[ApiAuthController::class,'register'])
+Route::post('/register-api',[ApiAuthController::class,'register'])
     ->name('registerApi');
-Route::get('/logoutApi',[ApiAuthController::class,'logout'])->name('logoutApi');
+Route::get('/logout-api',[ApiAuthController::class,'logout'])->name('logoutApi');
 
 Route::get('/register',[AuthController::class,'register'])->name("register");
 Route::post('/register',[AuthController::class,'store'])->name("storeUser");
@@ -87,7 +87,7 @@ Route::prefix("admin")->middleware("auth")->group(function (){
 
     Route::prefix("user")->group(function (){
         Route::get('/list',[UserController::class,'list'])->name("userList");
-        Route::get('/getUsers',[UserController::class,'getUserData'])->name("getUsers");
+        Route::get('/get-users',[UserController::class,'getUserData'])->name("getUsers");
         Route::get('/details/{id}',[UserController::class,'userDetails']);
         Route::get('/suspend/{id}',[UserController::class,'suspend'])->name("suspendUser");
         Route::get('/unsuspend/{id}',[UserController::class,'unsuspend'])->name("unsuspendUser");
@@ -95,7 +95,7 @@ Route::prefix("admin")->middleware("auth")->group(function (){
 
     Route::prefix("product")->group(function (){
         Route::get('/list',[ProductController::class,'list'])->name("productList");
-        Route::get('/getProducts',[ProductController::class,'getProductData'])->name("getProducts");
+        Route::get('/get-products',[ProductController::class,'getProductData'])->name("getProducts");
         Route::get('/create',[ProductController::class,'create'])->name("createProduct");
         Route::post('/store',[ProductController::class,'store'])->name("storeProduct");
         Route::post('/delete',[ProductController::class,'delete'])->name("deleteProduct");
@@ -106,7 +106,7 @@ Route::prefix("admin")->middleware("auth")->group(function (){
     Route::prefix("category")->group(function (){
         Route::get('/create',[CategoryController::class,'create'])->name('createCategory');
         Route::post('/store',[CategoryController::class,'store'])->name("storeCategory");
-        Route::get('/getCategories',[CategoryController::class,'getCategoriesData'])->name('getCategories');
+        Route::get('/get-categories',[CategoryController::class,'getCategoriesData'])->name('getCategories');
         Route::get('/list',[CategoryController::class,'list'])->name('categoryList');
         Route::get('/edit/{id}',[CategoryController::class,'edit']);
         Route::post('/update/{id}',[CategoryController::class,'update'])->name('updateCategory');
@@ -114,7 +114,7 @@ Route::prefix("admin")->middleware("auth")->group(function (){
     });
 
     Route::prefix("order")->group(function (){
-        Route::get('/getOrders',[OrderController::class,'getOrderData'])->name('getOrders');
+        Route::get('/get-orders',[OrderController::class,'getOrderData'])->name('getOrders');
         Route::get('/list',[OrderController::class,'list'])->name('orderList');
         Route::get('/details/{id}',[OrderController::class,'orderDetails']);
     });

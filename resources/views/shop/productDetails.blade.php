@@ -37,11 +37,11 @@
                                 </div>
 
                                 <div class="product_page_product_price">
-                                    @if($product->weekly_price == null)
-                                        <h3>Price: {{$product->price}}</h3>
+                                    @if($product->price == null)
+                                        <h3>Price: {{$product->weekly_price}}</h3>
                                     @else
-                                        <h4>Single Price: {{$product->price}}</h4>
-                                        <h4>Seasonal Price: {{$product->weekly_price}}</h4>
+                                        <h4>Single Price: {{$product->weekly_price}}</h4>
+                                        <h4>Seasonal Price: {{$product->price}}</h4>
                                     @endif
                                         <h3>Description: </h3><span> {!! $product->description !!}</span>
                                         <b>Delivery Method: <span>{!! $product->delivery_method !!} </span> </b>
