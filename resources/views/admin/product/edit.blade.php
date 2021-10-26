@@ -56,16 +56,12 @@
                                         <img id="previewImg" style="height: 100px; width: 130px" src="{{asset('images/' . $product->img)}}" />
                                     </div>
 
-                                    <div class="form-group">
-                                        <label >Display Date</label>
-                                        <input type="date" class="form-control" name="display_date"  value="{{ $product->display_date }}">
-                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label >Season Price</label>
-                                                <input type="text" class="form-control" name="price"
-                                                       placeholder="Enter Price" value="{{$product->price}}">
+                                                <label >Display Date</label>
+                                                <input type="date" class="form-control" name="display_date"  value="{{ $product->display_date }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -76,10 +72,16 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label >Season Price</label>
+                                        <input type="text" class="form-control" name="price"
+                                               placeholder="Enter Season Price" value="{{$product->price}}">
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label >Single Price</label>
+                                                <label >Single/Weekly Price</label>
                                                 <input type="text" class="form-control" name="weekly_price"
                                                        placeholder="Enter Price" value="{{$product->weekly_price}}">
                                             </div>

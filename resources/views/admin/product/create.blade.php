@@ -54,16 +54,11 @@
                                         <img id="previewImg" style="height: 100px; width: 130px"  />
                                     </div>
 
-                                    <div class="form-group">
-                                        <label >Display Date</label>
-                                        <input type="date" class="form-control" name="display_date"  value="{{ $today }}">
-                                    </div>
-
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label >Season Price</label>
-                                                <input type="text" class="form-control" name="price" placeholder="Enter Price" value="{{ old('price') }}">
+                                                <label >Display Date</label>
+                                                <input type="date" class="form-control" name="display_date"  value="{{ $today }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -74,10 +69,15 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label >Season Price</label>
+                                        <input type="text" class="form-control" name="price" placeholder="Enter Season Price" value="{{ old('price') }}">
+                                    </div>
+
                                     <div class="row">
                                        <div class="col-md-6">
                                            <div class="form-group">
-                                               <label >Single Price</label>
+                                               <label >Single/Weekly Price</label>
                                                <input type="text" class="form-control" name="weekly_price" placeholder="Enter Single Price" value="{{ old('weekly_price') }}">
                                            </div>
                                        </div>
