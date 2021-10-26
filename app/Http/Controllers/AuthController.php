@@ -53,7 +53,10 @@ class AuthController extends Controller
     public function login(){
         session(['link' => url()->previous()]);
         if (Auth::check()){
-            return back();
+            if (session('link') == route("register"))
+                return view("auth.login");
+            else
+                return back();
         }
         else
             return view("auth.login");
