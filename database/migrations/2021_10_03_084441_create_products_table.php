@@ -17,8 +17,8 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string("name");
             $table->longText("description");
-            $table->string("price");
-            $table->string("weekly_price")->nullable();
+            $table->string("price")->nullable();
+            $table->string("weekly_price");
             $table->string("img");
             $table->integer("status")->default(1);
             $table->date("expire_date")->nullable();

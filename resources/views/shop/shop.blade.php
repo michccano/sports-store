@@ -63,28 +63,8 @@
                         <div class="col-lg-8">
                             <div class="shop-product-items">
                                 <div class="row">
-                                    <div class="col-lg-4 mb-4">
-                                        <div class="shop-single-item">
-                                            <span class="onsale ">Sale!</span>
-                                            <div class="card">
-                                                <img src="/assets/img/product-1.jpg" class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <a href="#" class="product-cart-btn">
-                                                        <del>$4.00</del>
-                                                        <span>$3.00</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="add-to-cart-btn-wrap">
-                                                <div class="hero-button-area">
-                                                    <a href="#">Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     @foreach($products as $product)
-                                        @if($product->weekly_price !=null)
+                                        @if($product->price !=null)
                                         <div class="col-lg-4 mb-4">
                                             <div class="shop-single-item">
                                                 <div class="card">
@@ -94,7 +74,7 @@
                                                         <div class="info-area-btn">
                                                             <p class="product-cart-btn">
                                                                 <span style="font-size: small">season: ${{$product->price}}</span>
-                                                                @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()))
+                                                                @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
                                                                 <span style="font-size: small">single: ${{$product->weekly_price}}</span>
                                                                 @endif
                                                             </p>
@@ -121,7 +101,7 @@
                                                         <h5 class="card-title text-truncate">{{$product->name}}</h5>
                                                         <div class="info-area-btn">
                                                             <p class="product-cart-btn">
-                                                                <span>${{$product->price}}</span>
+                                                                <span>${{$product->weekly_price}}</span>
                                                             </p>
                                                             <a href="{{route("productDetails",$product->id)}}" class="product-cart-btn">
                                                                 <span><i class="far fa-info"></i> Info</span>
@@ -500,6 +480,7 @@
 @section("scripts")
     <script>
         function addToCart(id) {
+            console.log("2");
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

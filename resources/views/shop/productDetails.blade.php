@@ -65,7 +65,7 @@
                                             <p id="inCart2" >In Cart</p>
                                             <button id="removeFromCart2" class="btn btn-danger" onclick="removeFromCart2({{$product->id}})">
                                                 Remove from Cart</button>
-                                            @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()))
+                                            @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
                                             <button id="addCart2" class="btn btn-danger" onclick="addToCart2({{$product->id}})">Add to Cart Single</button>
                                             @endif
                                             <button id="addCartSeasonal2" class="btn btn-danger" onclick="addToCartSeasonal2({{$product->id}})">Add to Cart Seasonal</button>
@@ -73,7 +73,7 @@
                                             <p id="inCart1"  >In Cart</p>
                                             <button id="removeFromCart1" class="btn btn-danger" onclick="removeFromCart({{$product->id}})">
                                                 Remove from Cart</button>
-                                            @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()))
+                                            @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
                                             <button id="addCart1" class="btn btn-danger" onclick="addToCart({{$product->id}})">Add to Cart Single</button>
                                             @endif
                                             <button id="addCartSeasonal1" class="btn btn-danger" onclick="addToCartSeasonal({{$product->id}})">Add to Cart Seasonal</button>

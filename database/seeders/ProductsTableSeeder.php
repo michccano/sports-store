@@ -44,8 +44,8 @@ class ProductsTableSeeder extends Seeder
 </tr>
 </tbody>
 </table>',
-                'price' => '500',
-                'weekly_price' => NULL,
+                'price' => NULL,
+                'weekly_price' => '500',
                 'img' => '1633264482-MarcsPreferredPicksExecutiveFootballService.jpg',
                 'status' => 1,
                 "display_date" =>  '2021-10-28',
@@ -78,8 +78,8 @@ class ProductsTableSeeder extends Seeder
 </tr>
 </tbody>
 </table>',
-                'price' => '110',
-                'weekly_price' => NULL,
+                'price' => NULL,
+                'weekly_price' => '110',
                 'img' => '1633265266-2021PlaybookFootballPreviewGuideMagazine.jpg',
                 'status' => 1,
                 "display_date" =>  '2021-10-28',
@@ -94,8 +94,8 @@ class ProductsTableSeeder extends Seeder
                 'id' => 3,
                 'name' => 'Playbook Playbucks Tokens - 1',
                 'description' => '<p>Welcome to the PlaybookSports.com Rewards program where you can now use convenient Playbucks Tokens for major purchases on the website. The more you use the more rewards you earn. For example: when you purchase 50 Tokens you receive 10 Award Tokens as a bonus. When you purchase 100 Green Tokens you receive 20 Gold Award Tokens as a bonus. If you have any questions or comments feel free to contact us at support@playbooksports.com.<br /><br />Thank you and enjoy all the added benefits of your Playbucks Tokens. This purchase = 1 Green Token. Zero Gold Award Tokens<br /><br /><strong>Type in quantity requested and hit Update Cart. Confirm that your Qty and Price match, then click CheckoutService.</strong></p>',
-                'price' => '1',
-                'weekly_price' => NULL,
+                'price' => NULL,
+                'weekly_price' => '1',
                 'img' => '1633331339-PlaybookPlaybucksTokens1.png',
                 'status' => 1,
                 "display_date" =>  '2021-10-28',
@@ -110,8 +110,8 @@ class ProductsTableSeeder extends Seeder
                 'id' => 4,
                 'name' => 'Playbook Playbucks Tokens - 100',
                 'description' => '<p><strong>Playbook Playbucks Tokens - 100</strong></p>',
-                'price' => '100',
-                'weekly_price' => NULL,
+                'price' => NULL,
+                'weekly_price' => '100',
                 'img' => '1633350408-PlaybookPlaybucksTokens100.png',
                 'status' => 1,
                 "display_date" =>  '2021-10-28',

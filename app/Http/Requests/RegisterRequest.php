@@ -29,13 +29,12 @@ class RegisterRequest extends FormRequest
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'address1' => 'required|string',
-            'address2' => 'string',
             'city' => 'required|string',
             'state' => 'required|string',
             'postal' => 'required',
             'country' => 'required|string',
-            'dayphone' => 'required|numeric|min:10|unique:users',
-            'evephone' => 'numeric|min:10|unique:users',
+            'dayphone' => 'required|string|min:10|unique:users',
+            'evephone' => 'required|string|min:10|unique:users',
         ];
     }
 }
