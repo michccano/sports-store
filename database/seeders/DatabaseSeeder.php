@@ -31,10 +31,10 @@ class DatabaseSeeder extends Seeder
             "role" => 1,
             "pick" => 1,
         ]);
-        $this->call(CategoriesTableSeeder::class);
+        /*$this->call(CategoriesTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
-        /*$this->call(PUblishedCategoriesTableSeeder::class);
-        $this->call(PublishedProductsTableSeeder::class);*/
-        $this->call(OrdersTableSeeder::class);
+        $this->call(OrdersTableSeeder::class);*/
+        $this->call(PUblishedCategoriesTableSeeder::class);
+        $this->call(PublishedProductsTableSeeder::class);
     }
 }
