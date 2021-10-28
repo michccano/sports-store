@@ -47,6 +47,11 @@
         </div>
     </div>
 </section>
+@if(session('successMessage'))
+    <p class="alert alert-success">{{session('successMessage')}}</p>
+@elseif(session('errorMessage'))
+    <p class="alert alert-danger">{{session('errorMessage')}}</p>
+@endif
 <section class="fixer-main-area">
     <div class="container-fluid g-0">
         <div class="fixer-slider-main-wrap owl-carousel">

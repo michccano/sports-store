@@ -12,6 +12,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SportsPressController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -77,7 +78,10 @@ Route::get('/reset-password/{token}', function ($token) {
 Route::post('/reset-password', [AuthController::class,'resetPassword'])->name('password.update');
 
 Route::get('/{admin?}', function () {
-    return view('admin.dashboard');
+    if (Gate::allows("admin"))
+        return view('admin.dashboard');
+    else
+        return redirect()->route("home")->with("errorMessage","You are not an Admin");
 })->where('admin', 'admin|admin/dashboard')
     ->middleware("auth")->name("dashboard");
 

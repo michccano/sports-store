@@ -39,5 +39,11 @@ class AuthServiceProvider extends ServiceProvider
                 ? Response::allow()
                 : Response::deny('You have not verified your email address');
         });
+
+        Gate::define('admin', function (User $user) {
+            return $user->role === 1
+                ? Response::allow()
+                : Response::deny('You are not an admin');
+        });
     }
 }
