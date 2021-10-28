@@ -69,7 +69,8 @@ Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->name('password.request');
 
-Route::post('/forgot-password', [AuthController::class,'forgetPassword'])->name('password.email');
+Route::post('/forgot-password', [AuthController::class,'forgetPassword'])
+    ->name('password.email');
 
 Route::get('/reset-password/{token}', function ($token) {
     return view('auth.reset-password', ['token' => $token]);
@@ -123,10 +124,23 @@ Route::prefix("admin")->middleware("auth")->group(function (){
         Route::get('/list',[OrderController::class,'list'])->name('orderList');
         Route::get('/details/{id}',[OrderController::class,'orderDetails']);
     });
+});
 
-    Route::get('/checkoutWithToken',[CheckoutController::class,'checkoutWithToken'])->name('checkoutWithToken');
-    Route::post('/remainingPaymentWithCard',[CheckoutController::class,'remainingPaymentWithCard'])->name("remainingPaymentWithCard");
-    Route::get('/ccheckout',[CheckoutController::class,'CardCheckout'])->name("CardCheckout");
+Route::middleware("auth")->group(function (){
+    Route::get('/checkoutWithToken',[CheckoutController::class,'checkoutWithToken'])
+        ->name('checkoutWithToken');
+    Route::post('/remainingPaymentWithCard',[CheckoutController::class,'remainingPaymentWithCard'])
+        ->name("remainingPaymentWithCard");
+    Route::get('/ccheckout',[CheckoutController::class,'CardCheckout'])
+        ->name("CardCheckout");
+    Route::get('cardpayment', [PaymentController::class ,'index'])
+        ->name("cardPayment");
+    Route::post('remainingCardpayment', [PaymentController::class ,'remainingPayment'])
+        ->name("remainingCardPayment");
+    Route::post('charge', [PaymentController::class,'charge'])
+        ->name("charge");
+    Route::post('remainingcharge', [PaymentController::class,'remainingCharge'])
+        ->name("remainingCharge");
 });
 
 Route::get('/shop',[ShopController::class,'index'])->name('shop');
@@ -138,8 +152,7 @@ Route::prefix("cart")->group(function (){
     Route::get('/show',[CartController::class,'show'])->name('cart.show');
     Route::post('/update/{id}',[CartController::class,'update'])->name('update');
     Route::get('/delete/{id}',[CartController::class,'delete'])->name('cart.remove');
-    Route::get('/checkout',[CartController::class,'checkout'])->name('cart.checkout')
-        ->middleware("auth");
+
 });
 
 Route::prefix("service")->middleware('auth')->group(function (){
@@ -148,14 +161,7 @@ Route::prefix("service")->middleware('auth')->group(function (){
         return view('services.error');
     })->name("service.error");
 });
-Route::get('cardpayment', [PaymentController::class ,'index'])
-    ->middleware("auth")
-    ->name("cardPayment");
-Route::post('remainingCardpayment', [PaymentController::class ,'remainingPayment'])
-    ->middleware("auth")
-    ->name("remainingCardPayment");
-Route::post('charge', [PaymentController::class,'charge'])->name("charge");
-Route::post('remainingcharge', [PaymentController::class,'remainingCharge'])->name("remainingCharge");
+
 
 
 

@@ -72,10 +72,16 @@ class AuthController extends Controller
             if (Auth::user()->role == 1)
                 return redirect('/admin');
             else{
-                if (session('link') == route("register"))
-                    return redirect()->route('home');
-                else
+                if (session('link') == route("checkoutWithToken") ||
+                    session('link') == route('remainingPaymentWithCard') ||
+                    session('link') == route('CardCheckout') ||
+                    session('link') == route('cardPayment') ||
+                    session('link') == route('remainingCardPayment') ||
+                    session('link') == route('charge') ||
+                    session('link') == route('remainingCharge'))
                     return redirect(session('link'));
+                else
+                    return redirect()->route('home');
             }
         }
         else {

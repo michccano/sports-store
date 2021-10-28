@@ -64,7 +64,7 @@
                             <div class="shop-product-items">
                                 <div class="row">
                                     @foreach($products as $product)
-                                        @if($product->price !=null)
+                                        @if($product->price !=null || $product->price != 0)
                                         <div class="col-lg-4 mb-4">
                                             <div class="shop-single-item">
                                                 <div class="card">

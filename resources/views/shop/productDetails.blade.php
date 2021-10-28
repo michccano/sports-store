@@ -48,7 +48,7 @@
                                 </div>
 
                                 <div class="add_to_cart_btn_p">
-                                    @if($product->price == null)
+                                    @if($product->price == null || $product->price == 0)
                                         @if($cart->where('id',$product->id)->count())
                                             <p id="inCart2" >In Cart</p>
                                             <button id="removeFromCart2" class="btn btn-danger" onclick="removeFromCart2({{$product->id}})">

@@ -26,7 +26,6 @@ class ProductCreateRequest extends FormRequest
         return [
             'name' => 'required',
             'description' => 'required',
-            "weekly_price" => 'required|numeric',
             "img" => 'required',
             "expire_date" => 'required|date|after:today'
         ];
