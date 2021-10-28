@@ -37,10 +37,12 @@
                                 </div>
 
                                 <div class="product_page_product_price">
-                                    @if($product->price == null)
+                                    @if($product->price == null || $product->price == 0)
                                         <h3>Price: {{$product->weekly_price}}</h3>
                                     @else
+                                        @if($product->weekly_price != null || $product->weekly_price != 0)
                                         <h4>Single Price: {{$product->weekly_price}}</h4>
+                                        @endif
                                         <h4>Seasonal Price: {{$product->price}}</h4>
                                     @endif
                                         <h3>Description: </h3><span> {!! $product->description !!}</span>
@@ -66,7 +68,9 @@
                                             <button id="removeFromCart2" class="btn btn-danger" onclick="removeFromCart2({{$product->id}})">
                                                 Remove from Cart</button>
                                             @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
-                                            <button id="addCart2" class="btn btn-danger" onclick="addToCart2({{$product->id}})">Add to Cart Single</button>
+                                                @if($product->weekly_price != null && $product->weekly_price != 0)
+                                                    <button id="addCart2" class="btn btn-danger" onclick="addToCart2({{$product->id}})">Add to Cart Single</button>
+                                                @endif
                                             @endif
                                             <button id="addCartSeasonal2" class="btn btn-danger" onclick="addToCartSeasonal2({{$product->id}})">Add to Cart Seasonal</button>
                                         @else
@@ -74,7 +78,9 @@
                                             <button id="removeFromCart1" class="btn btn-danger" onclick="removeFromCart({{$product->id}})">
                                                 Remove from Cart</button>
                                             @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
-                                            <button id="addCart1" class="btn btn-danger" onclick="addToCart({{$product->id}})">Add to Cart Single</button>
+                                                @if($product->weekly_price != null && $product->weekly_price != 0)
+                                                    <button id="addCart1" class="btn btn-danger" onclick="addToCart({{$product->id}})">Add to Cart Single</button>
+                                                @endif
                                             @endif
                                             <button id="addCartSeasonal1" class="btn btn-danger" onclick="addToCartSeasonal({{$product->id}})">Add to Cart Seasonal</button>
                                         @endif

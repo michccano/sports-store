@@ -75,7 +75,9 @@
                                                             <p class="product-cart-btn">
                                                                 <span style="font-size: small">season: ${{$product->price}}</span>
                                                                 @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
-                                                                <span style="font-size: small">single: ${{$product->weekly_price}}</span>
+                                                                    @if($product->weekly_price != null && $product->weekly_price != 0)
+                                                                        <span style="font-size: small">single: ${{$product->weekly_price}}</span>
+                                                                    @endif
                                                                 @endif
                                                             </p>
                                                             <a href="{{route("productDetails",$product->id)}}" class="product-cart-btn">
