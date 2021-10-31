@@ -29,6 +29,8 @@ class PaymentController extends Controller
         $this->gateway = Omnipay::create('AuthorizeNetApi_Api');
         $this->gateway->setAuthName(strval(env('ANET_API_LOGIN_ID')));
         $this->gateway->setTransactionKey(strval(env('ANET_TRANSACTION_KEY')));
+        $this->gateway->setUsername('insidescores');
+        $this->gateway->setPassword('5I4n3s2I!!$$aP8668');
         //$this->gateway->setTestMode(true); //comment this line when move to 'live'
 
         $this->checkoutService = $checkoutService;
