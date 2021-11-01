@@ -32,8 +32,8 @@ class PaymentController extends Controller
         /*$this->gateway->setUsername('insidescores');
         $this->gateway->setPassword('5I4n3s2I!!$$aP8668');*/
         $this->gateway->initialize([
-            'username' => 'insidescores',
-            'password' => '5I4n3s2I!!$$aP8668',
+            'username' => strval("insidescores"),
+            'password' => strval('5I4n3s2I!!$$aP8668'),
         ]);
         //$this->gateway->setTestMode(true); //comment this line when move to 'live'
 
