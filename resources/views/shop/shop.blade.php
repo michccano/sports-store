@@ -11,36 +11,14 @@
                 </div>
                 <div class="shop-category-list">
                     <ul>
-                        <li>
-                            <a href="#">
-                                <span>UNCATEGORIZED </span>
-                                <span class="category-count">(0)</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>ACCESSORIES </span>
-                                <span class="category-count">(0)</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>CLOTHING </span>
-                                <span class="category-count">(0)</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>SHOES </span>
-                                <span class="category-count">(0)</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>T-SHIRTS </span>
-                                <span class="category-count">(0)</span>
-                            </a>
-                        </li>
+                        @foreach($categories as $category)
+                            <li>
+                                <a href="#">
+                                    <span class="text-capitalize">{{ $category->name }}</span>
+                                    <span class="category-count">(0)</span>
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -55,7 +33,7 @@
                     @elseif(session('errorMessage'))
                         <p class="alert alert-danger">{{session('errorMessage')}}</p>
                     @endif
-                        <p id="message" class=""></p>
+                    <p id="message" class=""></p>
                     <h3>Shop</h3>
                 </div>
                 <div class="shop-product-item-wrap">
@@ -65,76 +43,84 @@
                                 <div class="row">
                                     @foreach($products as $product)
                                         @if($product->price !=null || $product->price != 0)
-                                        <div class="col-lg-4 mb-4">
-                                            <div class="shop-single-item">
-                                                <div class="card">
-                                                    <img src="{{asset('images/' . $product->img)}}" class="card-img-top">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title text-truncate">{{$product->name}}</h5>
-                                                        <div class="info-area-btn">
-                                                            <p class="product-cart-btn">
-                                                                <span style="font-size: small">season: ${{$product->price}}</span>
-                                                                @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
-                                                                    @if($product->weekly_price != null && $product->weekly_price != 0)
-                                                                        <span style="font-size: small">single: ${{$product->weekly_price}}</span>
+                                            <div class="col-lg-4 mb-4">
+                                                <div class="shop-single-item">
+                                                    <div class="card">
+                                                        <img src="{{asset('images/' . $product->img)}}"
+                                                             class="card-img-top">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title text-truncate">{{$product->name}}</h5>
+                                                            <div class="info-area-btn">
+                                                                <p class="product-cart-btn">
+                                                                    <span
+                                                                        style="font-size: small">season: ${{$product->price}}</span>
+                                                                    @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
+                                                                        @if($product->weekly_price != null && $product->weekly_price != 0)
+                                                                            <span
+                                                                                style="font-size: small">single: ${{$product->weekly_price}}</span>
+                                                                        @endif
                                                                     @endif
-                                                                @endif
-                                                            </p>
-                                                            <a href="{{route("productDetails",$product->id)}}" class="product-cart-btn">
-                                                                <span><i class="far fa-info"></i> Info</span>
-                                                            </a>
-                                                        </div>
+                                                                </p>
+                                                                <a href="{{route("productDetails",$product->id)}}"
+                                                                   class="product-cart-btn">
+                                                                    <span><i class="far fa-info"></i> Info</span>
+                                                                </a>
+                                                            </div>
 
-                                                    </div>
-                                                </div>
-                                                <div id="" class="add-to-cart-btn-wrap">
-                                                    <div class="hero-button-area">
-                                                        <a href="{{route("productDetails",$product->id)}}" >View Details</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @else
-                                        <div class="col-lg-4 mb-4">
-                                            <div class="shop-single-item">
-                                                <div class="card">
-                                                    <img src="{{asset('images/' . $product->img)}}" class="card-img-top">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title text-truncate">{{$product->name}}</h5>
-                                                        <div class="info-area-btn">
-                                                            <p class="product-cart-btn">
-                                                                <span>${{$product->weekly_price}}</span>
-                                                            </p>
-                                                            <a href="{{route("productDetails",$product->id)}}" class="product-cart-btn">
-                                                                <span><i class="far fa-info"></i> Info</span>
-                                                            </a>
                                                         </div>
-
                                                     </div>
-                                                </div>
-                                                @if($cart->where('id',$product->id)->count())
                                                     <div id="" class="add-to-cart-btn-wrap">
                                                         <div class="hero-button-area">
-                                                            <a class="">In Cart</a>
+                                                            <a href="{{route("productDetails",$product->id)}}">View
+                                                                Details</a>
                                                         </div>
                                                     </div>
-                                                @else
-                                                    <div id="inCart{{$product->id}}" class="add-to-cart-btn-wrap">
-                                                        <div class="hero-button-area">
-                                                            <a class="">In Cart</a>
-                                                        </div>
-                                                    </div>
-                                                    <div id="addCart{{$product->id}}" class="add-to-cart-btn-wrap">
-                                                        <div class="hero-button-area">
-                                                            <a  class="" onclick="addToCart({{$product->id}})">Add to cart</a>
-                                                        </div>
-                                                    </div>
-
-                                                @endif
-
-
+                                                </div>
                                             </div>
-                                        </div>
+                                        @else
+                                            <div class="col-lg-4 mb-4">
+                                                <div class="shop-single-item">
+                                                    <div class="card">
+                                                        <img src="{{asset('images/' . $product->img)}}"
+                                                             class="card-img-top">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title text-truncate">{{$product->name}}</h5>
+                                                            <div class="info-area-btn">
+                                                                <p class="product-cart-btn">
+                                                                    <span>${{$product->weekly_price}}</span>
+                                                                </p>
+                                                                <a href="{{route("productDetails",$product->id)}}"
+                                                                   class="product-cart-btn">
+                                                                    <span><i class="far fa-info"></i> Info</span>
+                                                                </a>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    @if($cart->where('id',$product->id)->count())
+                                                        <div id="" class="add-to-cart-btn-wrap">
+                                                            <div class="hero-button-area">
+                                                                <a class="">In Cart</a>
+                                                            </div>
+                                                        </div>
+                                                    @else
+                                                        <div id="inCart{{$product->id}}" class="add-to-cart-btn-wrap">
+                                                            <div class="hero-button-area">
+                                                                <a class="">In Cart</a>
+                                                            </div>
+                                                        </div>
+                                                        <div id="addCart{{$product->id}}" class="add-to-cart-btn-wrap">
+                                                            <div class="hero-button-area">
+                                                                <a class="" onclick="addToCart({{$product->id}})">Add to
+                                                                    cart</a>
+                                                            </div>
+                                                        </div>
+
+                                                    @endif
+
+
+                                                </div>
+                                            </div>
                                         @endif
                                     @endforeach
                                 </div>
@@ -490,13 +476,13 @@
             });
 
             $.ajax({
-                url: 'cart/store/'+id,
+                url: 'cart/store/' + id,
                 type: 'GET',
                 success: function (data) {
-                    $('#inCart'+id).show();
-                    $('#addCart'+id).hide();
+                    $('#inCart' + id).show();
+                    $('#addCart' + id).hide();
                     $('#message').html("Added To Cart");
-                    $('#message').attr("class","alert alert-success");
+                    $('#message').attr("class", "alert alert-success");
                     $('#cartItemsNumber').html(`Cart <span class="product-count"> ${+data}</span>`);
                 },
                 error: function () {
