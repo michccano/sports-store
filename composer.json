@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "academe/omnipay-authorizenetapi": " ~3.0",
+        "authorizenet/authorizenet": "^2.0",
         "bumbummen99/shoppingcart": "^4.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",

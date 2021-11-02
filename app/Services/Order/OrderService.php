@@ -16,13 +16,13 @@ class OrderService implements IOrderService {
         $this->orderRepository = $orderRepository;
     }
 
-    public function create($tokenBill , $cardBill, $invoice, $transactionReference, $transactionId, $cardNumber){
+    public function create($tokenBill , $cardBill, $invoice, $message_code, $transactionId, $cardNumber){
         $order = $this->orderRepository->create([
             "invoice" => $invoice,
             "total_bill" => Cart::total(),
             "token_payment_amount" => $tokenBill,
             "card_payment_amount" => $cardBill,
-            "transactionReference" => $transactionReference,
+            "message_code" => $message_code,
             "transactionId" => $transactionId,
             "cardNumber" => $cardNumber,
             'user_id' => Auth::id(),

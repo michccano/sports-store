@@ -14,7 +14,7 @@ class Order extends Model
         "total_bill",
         "card_payment_amount",
         "token_payment_amount",
-        "transactionReference",
+        "message_code",
         "transactionId",
         "cardNumber",
         'user_id',
