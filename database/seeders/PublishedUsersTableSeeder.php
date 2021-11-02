@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class 02112021UsersTableSeeder extends Seeder
+class PublishedUsersTableSeeder extends Seeder
 {
 
     /**
