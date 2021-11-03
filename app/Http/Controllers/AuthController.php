@@ -74,8 +74,6 @@ class AuthController extends Controller
             else{
                 if (session('link') == route("cart.show") ||
                     session('link') == route("checkoutWithToken") ||
-                    session('link') == route('remainingPaymentWithCard') ||
-                    session('link') == route('CardCheckout') ||
                     session('link') == route('cardPayment') ||
                     session('link') == route('remainingCardPayment') ||
                     session('link') == route('charge') ||

@@ -129,19 +129,20 @@ Route::prefix("admin")->middleware("auth")->group(function (){
 Route::middleware("auth")->group(function (){
     Route::get('/checkoutWithToken',[CheckoutController::class,'checkoutWithToken'])
         ->name('checkoutWithToken');
-    Route::post('/remainingPaymentWithCard',[CheckoutController::class,'remainingPaymentWithCard'])
-        ->name("remainingPaymentWithCard");
-    Route::get('/ccheckout',[CheckoutController::class,'CardCheckout'])
-        ->name("CardCheckout");
-    Route::get('cardpayment', [PaymentController::class ,'index'])
+    Route::get('card-payment', [PaymentController::class ,'checkoutView'])
         ->name("cardPayment");
-    Route::post('remainingCardpayment', [PaymentController::class ,'remainingPayment'])
+    Route::post('remaining-card-payment', [PaymentController::class ,'remainingPayment'])
         ->name("remainingCardPayment");
     Route::post('charge', [PaymentController::class,'charge'])
         ->name("charge");
-    Route::post('remainingcharge', [PaymentController::class,'remainingCharge'])
+    Route::post('remaining-charge', [PaymentController::class,'remainingCharge'])
         ->name("remainingCharge");
 });
+
+Route::get('check-product-category', [PaymentController::class ,'checkProductCategory'])
+    ->name("checkProductCategory");
+Route::get('guest-card-payment', [PaymentController::class ,'guestPaymentView'])
+    ->name("guestCardPayment");
 
 Route::get('/shop',[ShopController::class,'index'])->name('shop');
 Route::get('/detail/{id}',[ShopController::class,'productDetail'])->name('productDetails');

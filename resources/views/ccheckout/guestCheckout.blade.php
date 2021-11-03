@@ -16,29 +16,41 @@
         <div class="container">
             <div class="shop-product-inner-wrap">
                 <div class="shop-product-title">
-                    <form action="{{ route('remainingCharge') }}" method="post">
+
+                    <form action="{{ route('charge') }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">First Name</label>
                                     <input type="text" class="form-control" name="firstname"
-                                           placeholder="Enter First Name" value="{{$user->firstname}}">
+                                           placeholder="Enter First Name" value="{{ old('firstname') }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Last Name</label>
                                     <input type="text" class="form-control" name="lastname"
-                                           placeholder="Enter Last Name" value="{{$user->lastname}}">
+                                           placeholder="Enter Last Name" value="{{ old('lastname') }}">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Address</label>
-                            <input type="text" class="form-control" name="address"
-                                   placeholder="Enter Address" value="{{$user->address1}}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email Address</label>
+                                    <input type="email" class="form-control" name="email"
+                                           placeholder="Enter Email Address" value="{{ old('email') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Address</label>
+                                    <input type="text" class="form-control" name="address"
+                                           placeholder="Enter Address" value="{{ old('address') }}">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -46,28 +58,28 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">City</label>
                                     <input type="text" class="form-control" name="city"
-                                           placeholder="Enter City" value="{{$user->city}}">
+                                           placeholder="Enter City" value="{{ old('city') }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Post Code</label>
                                     <input type="text" class="form-control" name="postal"
-                                           placeholder="Enter Post Code" value="{{$user->postal}}">
+                                           placeholder="Enter Post Code" value="{{ old('postal') }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">State</label>
                                     <input type="text" class="form-control" name="state"
-                                           placeholder="Enter State" value="{{$user->state}}">
+                                           placeholder="Enter State" value="{{ old('state') }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Country</label>
                                     <input type="text" class="form-control" name="country"
-                                           placeholder="Enter Country" value="{{$user->country}}">
+                                           placeholder="Enter Country" value="{{ old('country') }}">
                                 </div>
                             </div>
                         </div>
@@ -75,7 +87,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Phone Number</label>
                             <input type="text" class="form-control" name="phone"
-                                   placeholder="Enter Phone Number" value="{{$user->dayphone}}">
+                                   placeholder="Enter Phone Number" value="{{ old('phone') }}">
                         </div>
 
                         <div class="form-group">
