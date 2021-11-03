@@ -47,7 +47,6 @@
                                         <th>Token Payment</th>
                                         <th>Card</th>
                                         <th>Transaction Id</th>
-                                        <th>Transaction Reference</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -113,10 +112,6 @@
                     {
                         data: 'transactionId',
                         name: 'transactionId'
-                    },
-                    {
-                        data: 'transactionReference',
-                        name: 'transactionReference'
                     },
                     {
                         data: 'action',

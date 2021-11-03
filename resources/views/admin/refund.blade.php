@@ -44,6 +44,17 @@
                                         <input type="text" class="form-control" name="cc_number"
                                                placeholder="Enter Last Four Card Digit" value="{{ old('cc_number') }}">
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Expire Month</label>
+                                            <input type="text" class="form-control"  name="expiry_month" placeholder="Enter Month" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Expire Year</label>
+                                            <input type="text" class="form-control"  name="expiry_year" placeholder="Enter Year" />
+                                        </div>
+                                    </div>
+                                    <br>
                                     <div class="form-group">
                                         <button type="submit" class="form-control btn-info" >Submit</button>
                                     </div>

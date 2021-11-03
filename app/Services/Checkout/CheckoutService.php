@@ -48,12 +48,12 @@ class CheckoutService implements ICheckoutService{
         }
     }
 
-    public function remainingPaymentWithCard($payment, $remainingPayment)
+    public function remainingPaymentWithCard($payment, $remainingPayment, $invoice, $transactionReference, $transactionId, $cardNumber)
     {
         $hasMoney = 1;
         $message = null;
         if ($hasMoney !=0){
-            $this->orderService->create($payment-$remainingPayment , $remainingPayment);
+            $this->orderService->create($payment-$remainingPayment , $remainingPayment, $invoice, $transactionReference, $transactionId, $cardNumber);
 
             Cart::destroy();
             $purchaseToken = $this->purchaseTokenService->getOwnedToken();
