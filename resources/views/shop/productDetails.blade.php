@@ -72,18 +72,28 @@
                                                     <button id="addCart2" class="btn btn-danger" onclick="addToCart2({{$product->id}})">Add to Cart Single</button>
                                                 @endif
                                             @endif
+
+                                            @if(!($product->season_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->season_price_expire_date == null)
                                             <button id="addCartSeasonal2" class="btn btn-danger" onclick="addToCartSeasonal2({{$product->id}})">Add to Cart Seasonal</button>
+                                            @endif
+
                                         @else
                                             <p id="inCart1"  >In Cart</p>
                                             <button id="removeFromCart1" class="btn btn-danger" onclick="removeFromCart({{$product->id}})">
                                                 Remove from Cart</button>
+
                                             @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
                                                 @if($product->weekly_price != null && $product->weekly_price != 0)
                                                     <button id="addCart1" class="btn btn-danger" onclick="addToCart({{$product->id}})">Add to Cart Single</button>
                                                 @endif
                                             @endif
+
+                                            @if(!($product->season_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->season_price_expire_date == null)
                                             <button id="addCartSeasonal1" class="btn btn-danger" onclick="addToCartSeasonal({{$product->id}})">Add to Cart Seasonal</button>
+                                            @endif
+
                                         @endif
+
                                     @endif
 
                                 </div>

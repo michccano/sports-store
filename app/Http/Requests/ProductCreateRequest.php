@@ -27,7 +27,6 @@ class ProductCreateRequest extends FormRequest
             'name' => 'required',
             'description' => 'required',
             "img" => 'required',
-            "expire_date" => 'required|date|after:today'
         ];
     }
 }

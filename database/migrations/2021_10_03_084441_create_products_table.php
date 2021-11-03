@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->string("img");
             $table->integer("status")->default(1);
             $table->date("expire_date")->nullable();
+            $table->date("season_price_expire_date")->nullable();
             $table->date("weekly_price_expire_date")->nullable();
             $table->date("display_date");
             $table->string("delivery_method");

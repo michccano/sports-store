@@ -52,8 +52,10 @@
                                                             <h5 class="card-title text-truncate">{{$product->name}}</h5>
                                                             <div class="info-area-btn">
                                                                 <p class="product-cart-btn">
-                                                                    <span
-                                                                        style="font-size: small">season: ${{$product->price}}</span>
+                                                                    @if(!($product->season_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->season_price_expire_date == null)
+                                                                    <span style="font-size: small">season: ${{$product->price}}</span>
+                                                                    @endif
+
                                                                     @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
                                                                         @if($product->weekly_price != null && $product->weekly_price != 0)
                                                                             <span

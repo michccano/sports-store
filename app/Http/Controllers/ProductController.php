@@ -76,7 +76,7 @@ class ProductController extends Controller
                 "weekly_price" => $request->weekly_price,
                 "img" => $imageName,
                 "display_date" => $request->display_date,
-                "expire_date" => $request->expire_date,
+                "season_price_expire_date" => $request->season_price_expire_date,
                 "weekly_price_expire_date" => $request->weekly_price_expire_date,
                 "delivery_method" => $request->delivery_method,
                 "category_id" => $request->category,
@@ -143,11 +143,9 @@ class ProductController extends Controller
             if ($request->display_date != null)
                 $dataToUpdate["display_date"] = $request->display_date;
 
-            if ($request->expire_date != null)
-                $dataToUpdate["expire_date"] = $request->expire_date;
+            $dataToUpdate["season_price_expire_date"] = $request->season_price_expire_date;
 
-            if ($request->weekly_price_expire_date !=null)
-                $dataToUpdate["weekly_price_expire_date"] = $request->weekly_price_expire_date;
+            $dataToUpdate["weekly_price_expire_date"] = $request->weekly_price_expire_date;
 
             if ($request->delivery_method != null)
                 $dataToUpdate["delivery_method"] = $request->delivery_method;

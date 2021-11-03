@@ -54,25 +54,25 @@
                                         <img id="previewImg" style="height: 100px; width: 130px"  />
                                     </div>
 
+                                    <div class="form-group">
+                                        <label >Display Date</label>
+                                        <input type="date" class="form-control" name="display_date"  value="{{ $today }}">
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label >Display Date</label>
-                                                <input type="date" class="form-control" name="display_date"  value="{{ $today }}">
+                                                <label >Season Price</label>
+                                                <input type="text" class="form-control" name="price" placeholder="Enter Season Price" value="{{ old('price') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >Expire Date</label>
-                                                <input type="date" class="form-control" name="expire_date"  value="{{ old('expire_date') }}">
+                                                <input type="date" class="form-control" name="season_price_expire_date"  value="{{ old('season_price_expire_date') }}">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label >Season Price</label>
-                                        <input type="text" class="form-control" name="price" placeholder="Enter Season Price" value="{{ old('price') }}">
-                                    </div>
 
                                     <div class="row">
                                        <div class="col-md-6">
