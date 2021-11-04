@@ -30,11 +30,12 @@ class CheckoutService implements ICheckoutService{
         $purchaseToken = $this->purchaseTokenService->getOwnedToken();
         $bonusToken = $this->bonusTokenService->getOwnedToken();
         $userTotalToken = $purchaseToken->total + $bonusToken->total;
+        $invoice =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD');
 
         $remainingPayment = null;
         $tokenLeft = $userTotalToken- $payment;
         if($tokenLeft >=0){
-            $this->orderService->create($payment , 0);
+            $this->orderService->create($payment , 0,$invoice, null, null, null,Auth::user());
             Cart::destroy();
             $purchaseToken->total = $tokenLeft;
 
@@ -53,7 +54,7 @@ class CheckoutService implements ICheckoutService{
         $hasMoney = 1;
         $message = null;
         if ($hasMoney !=0){
-            $this->orderService->create($payment-$remainingPayment , $remainingPayment, $invoice, $transactionReference, $transactionId, $cardNumber);
+            $this->orderService->create($payment-$remainingPayment , $remainingPayment, $invoice, $transactionReference, $transactionId, $cardNumber,Auth::user());
 
             Cart::destroy();
             $purchaseToken = $this->purchaseTokenService->getOwnedToken();
@@ -74,7 +75,7 @@ class CheckoutService implements ICheckoutService{
         $hasMoney = 1;
         $message = null;
         if ($hasMoney !=0){
-            $this->orderService->create(0 , $payment, $invoice, $transactionReference, $transactionId, $cardNumber);
+            $this->orderService->create(0 , $payment, $invoice, $transactionReference, $transactionId, $cardNumber,Auth::user());
             $products = Cart::content();
             foreach ($products as $product){
                 if ($product->options['category'] == "Memberships" || $product->options['category'] == "Tokens"){

@@ -84,7 +84,7 @@
                                                 TokenCheckout</a>
                                         </div>
                                         <div class="hero-button-area">
-                                            <a href="{{route("cardPayment")}}" class="btn btn-info checkoutButton">
+                                            <a href="{{route("checkProductCategory")}}" class="btn btn-info checkoutButton">
                                                 CCheckout</a>
                                         </div>
                                     </div>

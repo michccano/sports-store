@@ -7,6 +7,8 @@ use App\Models\Order;
 use App\Services\BonusToken\IBonusTokenService;
 use App\Services\Checkout\ICheckoutService;
 use App\Services\PurchaseToken\IPurchaseTokenService;
+use App\Services\User\IUserService;
+use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,14 +25,16 @@ class PaymentController extends Controller
     public $checkoutService;
     private $purchaseTokenService;
     private $bonusTokenService;
+    private $userService;
 
     public function __construct(ICheckoutService $checkoutService,
                                 IPurchaseTokenService $purchaseTokenService,
-                                IBonusTokenService $bonusTokenService)
+                                IBonusTokenService $bonusTokenService, IUserService $userService)
     {
         $this->checkoutService = $checkoutService;
         $this->purchaseTokenService = $purchaseTokenService;
         $this->bonusTokenService = $bonusTokenService;
+        $this->userService = $userService;
     }
 
     public function checkProductCategory(){
@@ -230,7 +234,7 @@ class PaymentController extends Controller
 
         // Create the controller and get the response
         $controller = new AnetController\CreateTransactionController($requests);
-        $response = $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse(ANetEnvironment::SANDBOX);
 
         if ($response != null) {
             // Check to see if the API request was successfully received and acted upon
@@ -244,7 +248,7 @@ class PaymentController extends Controller
                     $msg_type = "successMessage";
 
                     //place order
-                    $this->checkoutService->CardCheckout($invoiceId, $tresponse->getMessages()[0]->getCode(), $tresponse->getTransId(), $request->input('cc_number'));
+                    $this->userService->createGuestUser($request->all(),$payment, $invoiceId, $tresponse->getMessages()[0]->getCode(), $tresponse->getTransId(), $request->input('cc_number'));
                     return redirect()->route('shop')->with($msg_type,$message_text);
                 } else {
                     $message_text = 'There were some issue with the payment. Please try again later.';

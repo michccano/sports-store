@@ -28,6 +28,7 @@ use App\Services\Order\OrderService;
 use App\Services\PurchaseToken\IPurchaseTokenService;
 use App\Services\PurchaseToken\PurchaseTokenService;
 use App\Services\User\IUserService;
+use App\Services\User\UserService;
 use Illuminate\Support\ServiceProvider;
 
 class WebServiceProvider extends ServiceProvider
@@ -47,7 +48,7 @@ class WebServiceProvider extends ServiceProvider
         $this->app->bind(IBonusTokenRepository::class,BonusTokenRepository::class);
         $this->app->bind(IMakeupTokenRepository::class,MakeupToken::class);
         $this->app->bind(ICheckoutService::class,CheckoutService::class);
-        $this->app->bind(IUserService::class,User::class);
+        $this->app->bind(IUserService::class,UserService::class);
         $this->app->bind(IPurchaseTokenService::class,PurchaseTokenService::class);
         $this->app->bind(IBonusTokenService::class,BonusTokenServiceService::class);
         $this->app->bind(IOrderRepository::class,OrderRepository::class);

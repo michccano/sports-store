@@ -17,7 +17,7 @@
             <div class="shop-product-inner-wrap">
                 <div class="shop-product-title">
 
-                    <form action="{{ route('charge') }}" method="post">
+                    <form action="{{ route('guestCharge') }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">

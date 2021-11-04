@@ -143,6 +143,8 @@ Route::get('check-product-category', [PaymentController::class ,'checkProductCat
     ->name("checkProductCategory");
 Route::get('guest-card-payment', [PaymentController::class ,'guestPaymentView'])
     ->name("guestCardPayment");
+Route::post('guest-charge', [PaymentController::class,'guestCharge'])
+    ->name("guestCharge");
 
 Route::get('/shop',[ShopController::class,'index'])->name('shop');
 Route::get('/detail/{id}',[ShopController::class,'productDetail'])->name('productDetails');

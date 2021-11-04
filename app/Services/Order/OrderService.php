@@ -16,7 +16,8 @@ class OrderService implements IOrderService {
         $this->orderRepository = $orderRepository;
     }
 
-    public function create($tokenBill , $cardBill, $invoice, $message_code, $transactionId, $cardNumber){
+    public function create($tokenBill , $cardBill, $invoice, $message_code, $transactionId,
+                           $cardNumber, $user){
         $order = $this->orderRepository->create([
             "invoice" => $invoice,
             "total_bill" => Cart::total(),
@@ -25,14 +26,13 @@ class OrderService implements IOrderService {
             "message_code" => $message_code,
             "transactionId" => $transactionId,
             "cardNumber" => $cardNumber,
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
         ]);
-        $this->addOrderProduct($order);
+        $this->addOrderProduct($order,$user);
     }
 
-    public function addOrderProduct($order){
+    public function addOrderProduct($order,$user){
         $products = Cart::content();
-        $user = Auth::user();
 
         foreach ($products as $product){
             $order->products()->attach($product->id,
