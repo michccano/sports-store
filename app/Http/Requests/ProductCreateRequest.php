@@ -27,6 +27,7 @@ class ProductCreateRequest extends FormRequest
             'name' => 'required',
             'description' => 'required',
             "img" => 'required',
+            "file" => 'nullable|mimes:zip,pdf,doc,docx|max:2048'
         ];
     }
 }

@@ -69,12 +69,16 @@ class ProductController extends Controller
             $imageName = time() . '-' . $titleWithOutRegExpression . '.' . $request->img->extension();
             $request->img->move(public_path('images'), $imageName);
 
+            $documntName = time() . '-' . $titleWithOutRegExpression . '.' . $request->file('file')->extension();
+            $request->file('file')->storeAs('private/product_documents',$documntName);
+
             Product::create([
                 "name" => $request->name,
                 "description" => $request->description,
                 "price" => $request->price,
                 "weekly_price" => $request->weekly_price,
                 "img" => $imageName,
+                "file" => $documntName,
                 "display_date" => $request->display_date,
                 "season_price_expire_date" => $request->season_price_expire_date,
                 "weekly_price_expire_date" => $request->weekly_price_expire_date,

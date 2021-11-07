@@ -15,6 +15,7 @@ class Product extends Model
         "price",
         "weekly_price",
         "img",
+        "file",
         "status",
         "expire_date",
         "season_price_expire_date",

@@ -55,6 +55,11 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label >Document</label>
+                                        <input type="file" class="form-control" name="file">
+                                    </div>
+
+                                    <div class="form-group">
                                         <label >Display Date</label>
                                         <input type="date" class="form-control" name="display_date"  value="{{ $today }}">
                                     </div>
