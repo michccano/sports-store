@@ -47,13 +47,19 @@
                                     <div class="form-group">
                                         <label >Description</label>
                                         <textarea class="form-control description" name="description"
-                                                  placeholder="Enter Description" value="">{!! $product->description !!}</textarea>
+                                                  placeholder="Enter Description" >{!! $product->description !!}</textarea>
                                     </div>
+
                                     <div class="form-group">
                                         <label >Image</label>
                                         <input type="file" class="form-control" name="img" placeholder="Enter Image"
                                                onchange="previewImage(this)">
                                         <img id="previewImg" style="height: 100px; width: 130px" src="{{asset('images/' . $product->img)}}" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label >Document</label>
+                                        <input type="file" class="form-control" name="file">
                                     </div>
 
                                     <div class="form-group">

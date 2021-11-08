@@ -122,6 +122,9 @@ class ProductController extends Controller
     public function update(ProductUpdateRequest $request, $id){
         if (Gate::allows("admin"))
         {
+            $title = preg_replace('/\s+/', '', $request->name);
+            $titleWithOutRegExpression= str_replace( array( '\'', '!','”','#','$','%','&','’','(', '*','+',',',
+                '-','.','/',':',';','<','=','>','?','@','[',']','^','_','`','{','|','}','~'), '', $title);
             $dataToUpdate = [];
             if($request->name!= null)
                 $dataToUpdate["name"] = $request->name;
@@ -135,14 +138,16 @@ class ProductController extends Controller
             $dataToUpdate["weekly_price"] = $request->weekly_price;
 
             if ($request->img != null) {
-                $title = preg_replace('/\s+/', '', $request->name);
-                $titleWithOutRegExpression= str_replace( array( '\'', '!','”','#','$','%','&','’','(', '*','+',',',
-                    '-','.','/',':',';','<','=','>','?','@','[',']','^','_','`','{','|','}','~'), '', $title);
                 $imageName = time() . '-' . $titleWithOutRegExpression . '.' . $request->img->extension();
                 $request->img->move(public_path('images'), $imageName);
                 $dataToUpdate["img"] = $imageName;
             }
 
+            if ($request->file != null){
+                $documntName = time() . '-' . $titleWithOutRegExpression . '.' . $request->file('file')->extension();
+                $request->file('file')->storeAs('private/product_documents',$documntName);
+                $dataToUpdate["file"] = $documntName;
+            }
             if ($request->category != null)
                 $dataToUpdate["category_id"] = $request->category;
 
