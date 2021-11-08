@@ -6,8 +6,10 @@ use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Category;
 use App\Models\Product;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
 
@@ -22,7 +24,7 @@ class ProductController extends Controller
                         $id = $row['id'];
                         $actionBtn = '<a href="/admin/product/edit/' . $id .'" data-id="' . $id . '" class="btn btn-xs btn-warning edit"><i class="far fa-edit"></i></a>
                                   <button type="submit" class="btn btn-xs btn-danger" data-productid="' . $id . '" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
-                                  <a href="#" data-id="' . $id . '" class="btn btn-xs btn-info"><i class="fas fa-file-pdf"></i></a>';
+                                  <a href="/admin/product/document/' . $id .'" data-id="' . $id . '" class="btn btn-xs btn-info edit"><i class="fas fa-file-pdf"></i></a>';
                         return $actionBtn;
                     })
                     ->rawColumns(['action'])
@@ -168,6 +170,17 @@ class ProductController extends Controller
         else
             return redirect()->route("home")
                 ->with("errorMessage","You are not an Admin");
+    }
+
+    public function getDocument($id){
+        $product = Product::find($id);
+        if($product->file !=null) {
+            $path = "app\private\product_documents\'$product->file";
+            $path = str_replace(["'"],"",$path);
+            $document = storage_path($path);
+            return response()->file($document);
+        }
+        return "document not found";
     }
 
 }

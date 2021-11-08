@@ -107,6 +107,7 @@ Route::prefix("admin")->middleware("auth")->group(function (){
         Route::post('/delete',[ProductController::class,'delete'])->name("deleteProduct");
         Route::get('/edit/{id}',[ProductController::class,'edit'])->name("editProduct");
         Route::post('/update/{id}',[ProductController::class,'update'])->name("updateProduct");
+        Route::get('/document/{id}',[ProductController::class,'getDocument'])->name("getDocument");
     });
 
     Route::prefix("category")->group(function (){
