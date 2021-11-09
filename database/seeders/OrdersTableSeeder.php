@@ -14,11 +14,6 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-        
-
         \DB::table('Orders')->delete();
-        
-        
-        
     }
 }
