@@ -64,7 +64,6 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::get('/login',[AuthController::class,'login'])->name('login');
 Route::post('/login',[AuthController::class,'login_post'])->name('loginPost');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
-Route::get('/profile',[UserController::class,'profile'])->name('profile');
 
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');

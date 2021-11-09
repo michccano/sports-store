@@ -74,9 +74,4 @@ class UserController extends Controller
             return redirect()->route("home")
                 ->with("errorMessage","You are not an Admin");
     }
-
-    public function profile()
-    {
-        return view('profile');
-    }
 }

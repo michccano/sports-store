@@ -1997,3 +1997,9 @@ a.available_buy_btn {
 }
 
 /* ===================product page====================== */
+/* ===================profile page====================== */
+.profile-top-area {
+    margin-top: 15px;
+    background: #1f3b79;
+    padding: 65px 0;
+}

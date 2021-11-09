@@ -3,11 +3,23 @@
 @section('title', 'Profile')
 
 @section('content')
-    <section class="shop-category-main-area">
+    <section class="profile-top-area">
         <div class="container">
             <div class="shop-category-inner-wrap">
-                <div class="shop-category-title">
-                    <h3>Profile</h3>
+                <div class="row">
+                    <div class="col">
+                        <div class="shop-category-title">
+                            <h3>Profile</h3>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="d-flex justify-content-end">
+                            <form action="{{ route('logout') }}" method="get">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Logout</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -24,15 +36,15 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <img src="/theme/dist/img/purchase.jpg" alt="" style="height: 90px; width: 100px">
-                                    <p>{{$member->purchaseToken->total}}</p>
+                                    <p>{{ $member->purchaseToken ? $member->purchaseToken->total : 0 }}</p>
                                 </div>
                                 <div class="col-md-4">
                                     <img src="/theme/dist/img/bonustoken.png" alt="" style="height: 90px; width: 100px">
-                                    <p>{{$member->bonusToken->total}}</p>
+                                    <p>{{$member->bonusToken ? $member->bonusToken->total : 0}}</p>
                                 </div>
                                 <div class="col-md-4">
                                     <img src="/theme/dist/img/makeup.jpg" alt="" style="height: 90px; width: 100px">
-                                    <p>{{$member->makeupToken->total}}</p>
+                                    <p>{{$member->makeupToken ? $member->makeupToken->total : 0}}</p>
                                 </div>
                             </div>
                         </div>
