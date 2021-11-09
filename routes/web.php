@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -138,6 +139,12 @@ Route::middleware("auth")->group(function (){
         ->name("charge");
     Route::post('remaining-charge', [PaymentController::class,'remainingCharge'])
         ->name("remainingCharge");
+
+    Route::prefix("member")->group(function (){
+        Route::get('profile',[MemberController::class,'profile'])->name("profile");
+        Route::get('product-document/{id}',[MemberController::class,'getDocument'])
+            ->name("productDocument");
+    });
 });
 
 Route::get('check-product-category', [PaymentController::class ,'checkProductCategory'])

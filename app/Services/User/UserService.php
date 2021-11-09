@@ -3,7 +3,10 @@
 namespace App\Services\User;
 
 use App\Repository\User\IUserRepository;
+use App\Services\BonusToken\IBonusTokenService;
+use App\Services\MakeupToken\IMakeupTokenService;
 use App\Services\Order\IOrderService;
+use App\Services\PurchaseToken\IPurchaseTokenService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,15 +14,33 @@ class UserService implements IUserService{
 
     private $userRepository;
     private $orderService;
+    private $purchaseTokenService;
+    private $bonusTokenService;
+    private $makeupTokenService;
 
-    public function __construct(IUserRepository $userRepository, IOrderService $orderService){
+    public function __construct(IUserRepository $userRepository,
+                                IOrderService $orderService,
+                                IPurchaseTokenService $purchaseTokenService,
+                                IBonusTokenService $bonusTokenService,
+                                IMakeupTokenService $makeupTokenService){
         $this->userRepository = $userRepository;
         $this->orderService = $orderService;
+        $this->purchaseTokenService = $purchaseTokenService;
+        $this->bonusTokenService = $bonusTokenService;
+        $this->makeupTokenService = $makeupTokenService;
+
     }
 
-    public function getUserWithTokenRelationships(){
-        return $this->userRepository->with('purchaseToken','bonusToken','makeupToken')
+    public function getUserWithTokenProductRelationships(){
+        $user = $this->userRepository->with('purchaseToken','bonusToken','makeupToken','products')
             ->find(Auth::id());
+        if ($user->purchaseToken == null)
+            $this->purchaseTokenService->create();
+        if ($user->bonusToken == null)
+            $this->bonusTokenService->create();
+        if ($user->makeupToken == null)
+            $this->makeupTokenService->create();
+        return $user;
     }
 
     public function createGuestUser($request, $payment, $invoice, $message_code, $transactionId, $cardNumber){

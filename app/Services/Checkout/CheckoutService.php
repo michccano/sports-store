@@ -2,6 +2,7 @@
 
 namespace App\Services\Checkout;
 
+use App\Helpers\IdGenerator;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\BonusToken\IBonusTokenService;
@@ -35,7 +36,7 @@ class CheckoutService implements ICheckoutService{
         $remainingPayment = null;
         $tokenLeft = $userTotalToken- $payment;
         if($tokenLeft >=0){
-            $this->orderService->create($payment , 0,$invoice, null, null, null,Auth::user());
+            $this->orderService->create($payment , 0,$invoice, 0, 0, 0,Auth::user());
             Cart::destroy();
             $purchaseToken->total = $tokenLeft;
 

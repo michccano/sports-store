@@ -119,7 +119,7 @@ class ProductController extends Controller
                 ->with("errorMessage","You are not an Admin");
     }
 
-    public function update(ProductUpdateRequest $request, $id){
+    public function update(Request $request, $id){
         if (Gate::allows("admin"))
         {
             $title = preg_replace('/\s+/', '', $request->name);
@@ -178,14 +178,19 @@ class ProductController extends Controller
     }
 
     public function getDocument($id){
-        $product = Product::find($id);
-        if($product->file !=null) {
-            $path = "app\private\product_documents\'$product->file";
-            $path = str_replace(["'"],"",$path);
-            $document = storage_path($path);
-            return response()->file($document);
+        if (Gate::allows("admin")){
+            $product = Product::find($id);
+            if($product->file !=null) {
+                $path = "app\private\product_documents\'$product->file";
+                $path = str_replace(["'"],"",$path);
+                $document = storage_path($path);
+                return response()->file($document);
+            }
+            return "document not found";
         }
-        return "document not found";
+        else
+            return redirect()->route("home")
+                ->with("errorMessage","You are not an Admin");
     }
 
 }
