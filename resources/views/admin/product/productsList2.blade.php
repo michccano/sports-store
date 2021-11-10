@@ -36,6 +36,7 @@
                             <table id="product_dataTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>SL No.</th>
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>Price</th>
@@ -115,7 +116,12 @@
             responsive: true,
             autoWidth: false,
             ajax: "{{ route('getProducts') }}",
-            columns: [{
+            columns: [
+                {
+                    data: 'id',
+                    name: 'id'
+                },
+                {
                     data: 'name',
                     name: 'name'
                 },
