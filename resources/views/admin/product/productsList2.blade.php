@@ -113,6 +113,7 @@
             processing: true,
             serverSide: true,
             responsive: true,
+            autoWidth: false,
             ajax: "{{ route('getProducts') }}",
             columns: [{
                     data: 'name',

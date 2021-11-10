@@ -87,6 +87,7 @@
                 processing: true,
                 serverSide: true,
                 responsive: true,
+                autoWidth: false,
                 ajax: "{{ route('getOrders') }}",
                 columns: [
                     {

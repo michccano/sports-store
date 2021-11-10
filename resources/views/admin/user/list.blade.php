@@ -80,6 +80,7 @@
                 processing: true,
                 serverSide: true,
                 responsive: true,
+                autoWidth: false,
                 ajax: "{{ route('getUsers') }}",
                 columns: [
                     {

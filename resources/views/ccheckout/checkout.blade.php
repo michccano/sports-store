@@ -68,7 +68,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Country</label>
                                     <input type="text" class="form-control" name="country"
-                                           placeholder="Enter Country" value="{{$user->country}}">
+                                           placeholder="Enter Country" value="USA (united states)">
                                 </div>
                             </div>
                         </div>
