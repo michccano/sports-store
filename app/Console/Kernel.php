@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
                 $product->status = 0;
                 $product->save();
             }
-        })->dailyAt('12:01');
+        })->dailyAt('1:00');
     }
 
     /**
