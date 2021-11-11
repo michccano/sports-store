@@ -55,7 +55,9 @@
                             <br>
                             @if(count($member->products)>0)
                                 @foreach($member->products as $product)
-                                    <a href="{{route('productDocument',$product->id)}}"><p>{{$product->name}}</p></a>
+                                    @if($product->status == 1)
+                                        <a href="{{route('productDocument',$product->id)}}"><p>{{$product->name}}</p></a>
+                                    @endif
                                 @endforeach
                             @else
                                 <p>You don't have any product go to shop to purchase any product.</p>
