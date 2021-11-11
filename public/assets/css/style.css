@@ -2003,3 +2003,139 @@ a.available_buy_btn {
     background: #1f3b79;
     padding: 65px 0;
 }
+
+
+/* ========================================== */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.shop-product-title.checkout-page label {
+    margin-bottom: 10px;
+}
+
+.product-details-content {
+    display: grid;
+    grid-template-columns: 150px auto;
+    gap: 10px;
+}
+
+::placeholder {
+    font-size: 13px;
+}
+
+
+button.btn.btn-primary.form-checkout-submit-btn {
+    display: block;
+    width: 100%;
+    background: #1f3b79;
+    border-color: #1f3b79;
+    color: #fff;
+}
+
+.user-profile-data {
+    width: 100%;
+    height: 200px;
+    background-color: #ddd;
+}
+
+.profile-token {
+    width: 100px;
+}
+
+.profile-token img {
+    width: 100%;
+}
+
+.profile-token p {
+    text-align: center;
+    margin: auto;
+    font-size: 40px;
+    border: 1px solid #000;
+    line-height: 1;
+    width: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 15px;
+    padding: 0px 10px;
+}
+
+.product-details-content-image img {
+    width: 120px;
+    height: 120px;
+    background-color: #ddd;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+
+.product-nav-list button {
+    display: inline-block !important;
+    background: #fff !important;
+    color: #000 !important;
+    border-color: #fff !important;
+    padding: 0;
+    position: relative;
+    top: -3px;
+}
+
+
+
+.product-nav-list form {
+    display: inline-block;
+}
+
+.product-nav-list .navbar-nav {
+    display: flex;
+    flex-direction: revert;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    gap: 25px;
+}
+
+.pricing-table {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    padding: 20px 10px;
+
+
+}
+
+.pricing-table:after {
+    width: 90%;
+    background: #ddd;
+    content: "";
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.signup-btn a {
+    border: 2px solid #1f3b79;
+    display: block;
+    width: 70%;
+    border-radius: 30px 0px 0px 30px;
+    padding: 5px;
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: #1f3b79;
+    z-index: 9;
+}
+
+section.cart-product-body {
+    padding: 50px 0;
+}
+
+/* ========================================== */
