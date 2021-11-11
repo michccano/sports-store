@@ -12,14 +12,6 @@
                         <h3>Profile</h3>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="d-flex justify-content-end">
-                        <form action="{{ route('logout') }}" method="get">
-                            @csrf
-                            <button type="submit" class="btn btn-danger">Logout</button>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -126,7 +118,7 @@
             </div>
         </div>
     </div>
-    <div class="page-item-content">
+    {{--<div class="page-item-content">
         <div class="container">
             <div class="row">
               <div class="col-md-4">
@@ -147,6 +139,6 @@
               </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 </section>
 @endsection
