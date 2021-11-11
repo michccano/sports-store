@@ -63,6 +63,10 @@
                                         <label >Display Date</label>
                                         <input type="date" class="form-control" name="display_date"  value="{{ $today }}">
                                     </div>
+                                    <div class="form-group">
+                                        <label >Product Expire Date</label>
+                                        <input type="date" class="form-control" name="expire_date"  value="{{ old('expire_date') }}">
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
