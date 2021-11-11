@@ -31,7 +31,7 @@ class CheckoutService implements ICheckoutService{
         $purchaseToken = $this->purchaseTokenService->getOwnedToken();
         $bonusToken = $this->bonusTokenService->getOwnedToken();
         $userTotalToken = $purchaseToken->total + $bonusToken->total;
-        $invoice =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD');
+        $invoice =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD'.time());
 
         $remainingPayment = null;
         $tokenLeft = $userTotalToken- $payment;
