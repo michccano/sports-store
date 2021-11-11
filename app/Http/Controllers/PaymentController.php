@@ -100,7 +100,7 @@ class PaymentController extends Controller
         $paymentOne->setCreditCard($creditCard);
 
         // Create order information
-        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD');
+        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD'.time());
         $order = new AnetAPI\OrderType();
         $order->setInvoiceNumber($invoiceId);
         $order->setDescription("Product Payment");
@@ -203,7 +203,7 @@ class PaymentController extends Controller
         $paymentOne->setCreditCard($creditCard);
 
         // Create order information
-        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD');
+        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD'.time());
         $order = new AnetAPI\OrderType();
         $order->setInvoiceNumber($invoiceId);
         $order->setDescription("Product Payment");
@@ -310,7 +310,7 @@ class PaymentController extends Controller
         $paymentOne->setCreditCard($creditCard);
 
         // Create order information
-        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD');
+        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD'.time());
         $order = new AnetAPI\OrderType();
         $order->setInvoiceNumber($invoiceId);
         $order->setDescription("Product Payment");
