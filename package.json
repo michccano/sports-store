@@ -16,6 +16,6 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
-        "tinymce": "^5.9.2"
+        "tinymce": "^5.10.0"
     }
 }

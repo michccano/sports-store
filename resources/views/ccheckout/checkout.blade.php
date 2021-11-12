@@ -29,19 +29,9 @@
                                 </div>
                                 <div class="product-details-content">
                                     <div class="p_name">Product Name</div>
-                                    <div class="p_details"> jnzkcvccvxjn</div>
+                                    <div class="p_details">Product Name</div>
                                     <div class="p_name">Product Price</div>
                                     <div class="p_details"> $100</div>
-                                    <div class="p_name">Product Name</div>
-                                    <div class="p_details"> jnzkcvccvxjn</div>
-                                    <div class="p_name">Product Name</div>
-                                    <div class="p_details"> jnzkcvccvxjn</div>
-                                    <div class="p_name">Product Name</div>
-                                    <div class="p_details"> jnzkcvccvxjn</div>
-                                    <div class="p_name">Product Name</div>
-                                    <div class="p_details"> jnzkcvccvxjn</div>
-                                    <div class="p_name">Product Name</div>
-                                    <div class="p_details"> jnzkcvccvxjn</div>
                                 </div>
                             </div>
 
