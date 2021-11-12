@@ -72,7 +72,7 @@ class PaymentController extends Controller
 
     public function remainingPayment(){
         $user = Auth::user();
-        return view('payment2',compact('user'));
+        return view('ccheckout.remainingPaymentCheckout',compact('user'));
     }
 
     public function charge(Request $request)
