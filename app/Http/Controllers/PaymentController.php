@@ -158,9 +158,6 @@ class PaymentController extends Controller
                 }
                 // Or, print errors if the API request wasn't successful
             } else {
-                $message_text = 'There were some issue with the payment. Please try again later.';
-                $msg_type = "errorMessage";
-
                 $tresponse = $response->getTransactionResponse();
 
                 if ($tresponse != null && $tresponse->getErrors() != null) {
@@ -261,9 +258,6 @@ class PaymentController extends Controller
                 }
                 // Or, print errors if the API request wasn't successful
             } else {
-                $message_text = 'There were some issue with the payment. Please try again later.';
-                $msg_type = "errorMessage";
-
                 $tresponse = $response->getTransactionResponse();
 
                 if ($tresponse != null && $tresponse->getErrors() != null) {
@@ -368,9 +362,6 @@ class PaymentController extends Controller
                 }
                 // Or, print errors if the API request wasn't successful
             } else {
-                $message_text = 'There were some issue with the payment. Please try again later.';
-                $msg_type = "errorMessage";
-
                 $tresponse = $response->getTransactionResponse();
 
                 if ($tresponse != null && $tresponse->getErrors() != null) {
