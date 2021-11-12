@@ -107,6 +107,24 @@
                             </p>
                         </a>
                     </li>
+
+                    <li class="nav-header">Pick Managment</li>
+                    <li class="nav-item">
+                        <a href="{{route("pickList")}}" class="nav-link">
+                            <i class="fas fa-trophy"></i>
+                            <p>
+                                Picks
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route("sportList")}}" class="nav-link">
+                            <i class="fas fa-trophy"></i>
+                            <p>
+                                Sports
+                            </p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

@@ -8,8 +8,10 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PickController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\SportController;
 use App\Http\Controllers\SportsPressController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -124,6 +126,21 @@ Route::prefix("admin")->middleware("auth")->group(function (){
         Route::get('/get-orders',[OrderController::class,'getOrderData'])->name('getOrders');
         Route::get('/list',[OrderController::class,'list'])->name('orderList');
         Route::get('/details/{id}',[OrderController::class,'orderDetails']);
+    });
+
+    Route::prefix("sport")->group(function (){
+        Route::get('/list',[SportController::class,'list'])->name('sportList');
+        Route::get('/get-sports',[SportController::class,'getSportsData'])->name('getSports');
+        Route::post('/get-sports-schedule-multi',[SportController::class,'getSportsSchedleMulti'])->name('getSportsSchedleMulti');
+        Route::post('/get-sports-schedule',[SportController::class,'getSportSchedule'])->name('getSportsSchedule');
+        Route::post('/get-rating-number',[SportController::class,'getRatingNumber'])->name('getRatingNumber');
+        Route::post('/save-new-pick',[SportController::class,'saveNewPick'])->name('saveNewPick');
+        Route::post('/get-rating-type',[SportController::class,'getRatingType'])->name('getRatingType');
+    });
+
+    Route::prefix("pick")->group(function (){
+        Route::get('/list',[PickController::class,'list'])->name('pickList');
+        Route::get('/get-picks',[PickController::class,'getPicksData'])->name('getPicks');
     });
 });
 
