@@ -8,16 +8,12 @@ use App\Services\BonusToken\IBonusTokenService;
 use App\Services\Checkout\ICheckoutService;
 use App\Services\PurchaseToken\IPurchaseTokenService;
 use App\Services\User\IUserService;
-use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use net\authorize\api\constants\ANetEnvironment;
-use Omnipay\Common\CreditCard;
-use Omnipay\Omnipay;
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
-use Exception;
 
 class PaymentController extends Controller
 {
@@ -27,9 +23,9 @@ class PaymentController extends Controller
     private $bonusTokenService;
     private $userService;
 
-    public function __construct(ICheckoutService $checkoutService,
+    public function __construct(ICheckoutService      $checkoutService,
                                 IPurchaseTokenService $purchaseTokenService,
-                                IBonusTokenService $bonusTokenService, IUserService $userService)
+                                IBonusTokenService    $bonusTokenService, IUserService $userService)
     {
         $this->checkoutService = $checkoutService;
         $this->purchaseTokenService = $purchaseTokenService;
@@ -37,14 +33,15 @@ class PaymentController extends Controller
         $this->userService = $userService;
     }
 
-    public function checkProductCategory(){
+    public function checkProductCategory()
+    {
         $products = Cart::content();
         $printPublication = 1;
-        foreach ($products as $product){
+        foreach ($products as $product) {
             if ($product->options['category'] == "Memberships" ||
                 $product->options['category'] == "Tokens" ||
                 $product->options['category'] == "Online Publication" ||
-                $product->options['category'] == "Services"){
+                $product->options['category'] == "Services") {
 
                 $printPublication = 0;
                 break;
@@ -62,7 +59,7 @@ class PaymentController extends Controller
     public function checkoutView()
     {
         $user = Auth::user();
-        return view('ccheckout.checkout',compact('user'));
+        return view('ccheckout.checkout', compact('user'));
     }
 
     public function guestPaymentView()
@@ -70,9 +67,10 @@ class PaymentController extends Controller
         return view('ccheckout.guestCheckout');
     }
 
-    public function remainingPayment(){
+    public function remainingPayment()
+    {
         $user = Auth::user();
-        return view('ccheckout.remainingPaymentCheckout',compact('user'));
+        return view('ccheckout.remainingPaymentCheckout', compact('user'));
     }
 
     public function charge(Request $request)
@@ -92,7 +90,7 @@ class PaymentController extends Controller
         // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
         $creditCard->setCardNumber($cardNumber);
-        $creditCard->setExpirationDate($request->input('expiry_year') . "-" .$request->input('expiry_month'));
+        $creditCard->setExpirationDate($request->input('expiry_year') . "-" . $request->input('expiry_month'));
         $creditCard->setCardCode($request->input('cvv'));
 
         // Add the payment data to a paymentType object
@@ -100,7 +98,7 @@ class PaymentController extends Controller
         $paymentOne->setCreditCard($creditCard);
 
         // Create order information
-        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD'.time());
+        $invoiceId = IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD' . time());
         $order = new AnetAPI\OrderType();
         $order->setInvoiceNumber($invoiceId);
         $order->setDescription("Product Payment");
@@ -135,18 +133,18 @@ class PaymentController extends Controller
 
         if ($response != null) {
             // Check to see if the API request was successfully received and acted upon
+            $tresponse = $response->getTransactionResponse();
             if ($response->getMessages()->getResultCode() == "Ok") {
                 // Since the API request was successful, look for a transaction response
                 // and parse it to display the results of authorizing the card
-                $tresponse = $response->getTransactionResponse();
 
                 if ($tresponse != null && $tresponse->getMessages() != null) {
-                    $message_text = $tresponse->getMessages()[0]->getDescription().", Transaction ID: " . $tresponse->getTransId();
+                    $message_text = $tresponse->getMessages()[0]->getDescription() . ", Transaction ID: " . $tresponse->getTransId();
                     $msg_type = "successMessage";
 
                     //place order
                     $this->checkoutService->CardCheckout($invoiceId, $tresponse->getMessages()[0]->getCode(), $tresponse->getTransId(), $request->input('cc_number'));
-                    return redirect()->route('shop')->with($msg_type,$message_text);
+                    return redirect()->route('shop')->with($msg_type, $message_text);
                 } else {
                     $message_text = 'There were some issue with the payment. Please try again later.';
                     $msg_type = "errorMessage";
@@ -158,15 +156,13 @@ class PaymentController extends Controller
                 }
                 // Or, print errors if the API request wasn't successful
             } else {
-                $tresponse = $response->getTransactionResponse();
 
                 if ($tresponse != null && $tresponse->getErrors() != null) {
                     $message_text = $tresponse->getErrors()[0]->getErrorText();
-                    $msg_type = "errorMessage";
                 } else {
                     $message_text = $response->getMessages()->getMessage()[0]->getText();
-                    $msg_type = "errorMessage";
                 }
+                $msg_type = "errorMessage";
             }
         } else {
             $message_text = "No response returned";
@@ -192,7 +188,7 @@ class PaymentController extends Controller
         // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
         $creditCard->setCardNumber($cardNumber);
-        $creditCard->setExpirationDate($request->input('expiry_year') . "-" .$request->input('expiry_month'));
+        $creditCard->setExpirationDate($request->input('expiry_year') . "-" . $request->input('expiry_month'));
         $creditCard->setCardCode($request->input('cvv'));
 
         // Add the payment data to a paymentType object
@@ -200,7 +196,7 @@ class PaymentController extends Controller
         $paymentOne->setCreditCard($creditCard);
 
         // Create order information
-        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD'.time());
+        $invoiceId = IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD' . time());
         $order = new AnetAPI\OrderType();
         $order->setInvoiceNumber($invoiceId);
         $order->setDescription("Product Payment");
@@ -235,18 +231,18 @@ class PaymentController extends Controller
 
         if ($response != null) {
             // Check to see if the API request was successfully received and acted upon
+            $tresponse = $response->getTransactionResponse();
             if ($response->getMessages()->getResultCode() == "Ok") {
                 // Since the API request was successful, look for a transaction response
                 // and parse it to display the results of authorizing the card
-                $tresponse = $response->getTransactionResponse();
 
                 if ($tresponse != null && $tresponse->getMessages() != null) {
-                    $message_text = $tresponse->getMessages()[0]->getDescription().", Transaction ID: " . $tresponse->getTransId();
+                    $message_text = $tresponse->getMessages()[0]->getDescription() . ", Transaction ID: " . $tresponse->getTransId();
                     $msg_type = "successMessage";
 
                     //place order
-                    $this->userService->createGuestUser($request->all(),$payment, $invoiceId, $tresponse->getMessages()[0]->getCode(), $tresponse->getTransId(), $request->input('cc_number'));
-                    return redirect()->route('shop')->with($msg_type,$message_text);
+                    $this->userService->createGuestUser($request->all(), $payment, $invoiceId, $tresponse->getMessages()[0]->getCode(), $tresponse->getTransId(), $request->input('cc_number'));
+                    return redirect()->route('shop')->with($msg_type, $message_text);
                 } else {
                     $message_text = 'There were some issue with the payment. Please try again later.';
                     $msg_type = "errorMessage";
@@ -258,15 +254,13 @@ class PaymentController extends Controller
                 }
                 // Or, print errors if the API request wasn't successful
             } else {
-                $tresponse = $response->getTransactionResponse();
 
                 if ($tresponse != null && $tresponse->getErrors() != null) {
                     $message_text = $tresponse->getErrors()[0]->getErrorText();
-                    $msg_type = "errorMessage";
                 } else {
                     $message_text = $response->getMessages()->getMessage()[0]->getText();
-                    $msg_type = "errorMessage";
                 }
+                $msg_type = "errorMessage";
             }
         } else {
             $message_text = "No response returned";
@@ -277,11 +271,11 @@ class PaymentController extends Controller
 
     public function remainingCharge(Request $request)
     {
-        $payment=Cart::total();
+        $payment = Cart::total();
         $purchaseToken = $this->purchaseTokenService->getOwnedToken();
         $bonusToken = $this->bonusTokenService->getOwnedToken();
         $userTotalToken = $purchaseToken->total + $bonusToken->total;
-        $remainingPaymant =$payment - $userTotalToken;
+        $remainingPaymant = $payment - $userTotalToken;
 
         /* Create a merchantAuthenticationType object with authentication details
          retrieved from the constants file */
@@ -296,7 +290,7 @@ class PaymentController extends Controller
         // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
         $creditCard->setCardNumber($cardNumber);
-        $creditCard->setExpirationDate($request->input('expiry_year') . "-" .$request->input('expiry_month'));
+        $creditCard->setExpirationDate($request->input('expiry_year') . "-" . $request->input('expiry_month'));
         $creditCard->setCardCode($request->input('cvv'));
 
         // Add the payment data to a paymentType object
@@ -304,7 +298,7 @@ class PaymentController extends Controller
         $paymentOne->setCreditCard($creditCard);
 
         // Create order information
-        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD'.time());
+        $invoiceId = IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD' . time());
         $order = new AnetAPI\OrderType();
         $order->setInvoiceNumber($invoiceId);
         $order->setDescription("Product Payment");
@@ -339,18 +333,18 @@ class PaymentController extends Controller
 
         if ($response != null) {
             // Check to see if the API request was successfully received and acted upon
+            $tresponse = $response->getTransactionResponse();
             if ($response->getMessages()->getResultCode() == "Ok") {
                 // Since the API request was successful, look for a transaction response
                 // and parse it to display the results of authorizing the card
-                $tresponse = $response->getTransactionResponse();
 
                 if ($tresponse != null && $tresponse->getMessages() != null) {
-                    $message_text = $tresponse->getMessages()[0]->getDescription().", Transaction ID: " . $tresponse->getTransId();
+                    $message_text = $tresponse->getMessages()[0]->getDescription() . ", Transaction ID: " . $tresponse->getTransId();
                     $msg_type = "successMessage";
 
                     //place order
                     $this->checkoutService->remainingPaymentWithCard($payment, $remainingPaymant, $invoiceId, $tresponse->getMessages()[0]->getCode(), $tresponse->getTransId(), $request->input('cc_number'));
-                    return redirect()->route('shop')->with($msg_type,$message_text);
+                    return redirect()->route('shop')->with($msg_type, $message_text);
                 } else {
                     $message_text = 'There were some issue with the payment. Please try again later.';
                     $msg_type = "errorMessage";
@@ -362,15 +356,13 @@ class PaymentController extends Controller
                 }
                 // Or, print errors if the API request wasn't successful
             } else {
-                $tresponse = $response->getTransactionResponse();
 
                 if ($tresponse != null && $tresponse->getErrors() != null) {
                     $message_text = $tresponse->getErrors()[0]->getErrorText();
-                    $msg_type = "errorMessage";
                 } else {
                     $message_text = $response->getMessages()->getMessage()[0]->getText();
-                    $msg_type = "errorMessage";
                 }
+                $msg_type = "errorMessage";
             }
         } else {
             $message_text = "No response returned";
@@ -379,12 +371,13 @@ class PaymentController extends Controller
         return redirect()->route('cart.show')->with($msg_type, $message_text);
     }
 
-    public function refundView(){
+    public function refundView()
+    {
         return view('admin.refund');
     }
 
-    public function refund(Request $request){
-
+    public function refund(Request $request)
+    {
         /* Create a merchantAuthenticationType object with authentication details
        retrieved from the constants file */
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
@@ -397,14 +390,14 @@ class PaymentController extends Controller
         // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
         $creditCard->setCardNumber($request->cc_number);
-        $creditCard->setExpirationDate($request->input('expiry_year') . "-" .$request->input('expiry_month'));
+        $creditCard->setExpirationDate($request->input('expiry_year') . "-" . $request->input('expiry_month'));
 
         $paymentOne = new AnetAPI\PaymentType();
         $paymentOne->setCreditCard($creditCard);
 
         //create a transaction
         $transactionRequest = new AnetAPI\TransactionRequestType();
-        $transactionRequest->setTransactionType( "refundTransaction");
+        $transactionRequest->setTransactionType("refundTransaction");
         $transactionRequest->setAmount($request->amount);
         $transactionRequest->setPayment($paymentOne);
         $transactionRequest->setRefTransId($request->transactionReference);
@@ -413,56 +406,38 @@ class PaymentController extends Controller
         $request = new AnetAPI\CreateTransactionRequest();
         $request->setMerchantAuthentication($merchantAuthentication);
         $request->setRefId($refId);
-        $request->setTransactionRequest( $transactionRequest);
+        $request->setTransactionRequest($transactionRequest);
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse( ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION);
 
-        if ($response != null)
-        {
-            if($response->getMessages()->getResultCode() == "Ok")
-            {
-                $tresponse = $response->getTransactionResponse();
-
-                if ($tresponse != null && $tresponse->getMessages() != null)
-                {
-                    $message_text = $tresponse->getMessages()[0]->getDescription().", Response code: " . $tresponse->getResponseCode().", Refund SUCCESS: " . $tresponse->getTransId();
+        if ($response != null) {
+            $tresponse = $response->getTransactionResponse();
+            if ($response->getMessages()->getResultCode() == "Ok") {
+                if ($tresponse != null && $tresponse->getMessages() != null) {
+                    $message_text = $tresponse->getMessages()[0]->getDescription() . ", Response code: " . $tresponse->getResponseCode() . ", Refund SUCCESS: " . $tresponse->getTransId();
                     $msg_type = "successMessage";
                     return redirect()->route('orderList')->with($msg_type, $message_text);
-                }
-                else
-                {
-                    $message_text = "Transaction Failed" ;
+                } else {
+                    $message_text = "Transaction Failed";
                     $msg_type = "errorMessage";
-                    if($tresponse->getErrors() != null)
-                    {
-                        $message_text = $tresponse->getErrors()[0]->getErrorText() ;
+                    if ($tresponse->getErrors() != null) {
+                        $message_text = $tresponse->getErrors()[0]->getErrorText();
                         $msg_type = "errorMessage";
                     }
                 }
-            }
-            else
-            {
-                $message_text = "Transaction Failed" ;
+            } else {
+                if ($tresponse != null && $tresponse->getErrors() != null) {
+                    $message_text = $tresponse->getErrors()[0]->getErrorText();
+                } else {
+                    $message_text = $response->getMessages()->getMessage()[0]->getText();
+                }
                 $msg_type = "errorMessage";
-                $tresponse = $response->getTransactionResponse();
-                if($tresponse != null && $tresponse->getErrors() != null)
-                {
-                    $message_text = $tresponse->getErrors()[0]->getErrorText()  ;
-                    $msg_type = "errorMessage";
-                }
-                else
-                {
-                    $message_text = $response->getMessages()->getMessage()[0]->getText()  ;
-                    $msg_type = "errorMessage";
-                }
             }
-        }
-        else
-        {
-            $message_text = "No response returned" ;
+        } else {
+            $message_text = "No response returned";
             $msg_type = "errorMessage";
         }
 
-        return redirect()->route('refundView')->with($msg_type,$message_text);
+        return redirect()->route('refundView')->with($msg_type, $message_text);
     }
 }
