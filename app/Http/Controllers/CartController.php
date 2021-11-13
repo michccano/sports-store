@@ -20,6 +20,17 @@ class CartController extends Controller
         return response()->json($cartCount);
     }
 
+    public function storeRemainingToken(Request $request){
+        $product =Product::with('category')->where("name","Playbook Playbucks Tokens - 1")->first();
+        Cart::add([
+            'id' => $product->id,
+            'name' => $product->name,
+            'qty' => $request->remainingPayment,
+            'price' => $product->weekly_price,
+            'weight' => 0, 'options' => ['img' => $product->img, 'category' => $product->category->name, 'type' => 'single']]);
+        return redirect()->route('cart.show');
+    }
+
     public function storeSeasonal($id){
         $product =Product::with('category')->findOrFail($id);
         Cart::add([

@@ -28,10 +28,12 @@
                                     <img src="" alt="Product Image">
                                 </div>
                                 <div class="product-details-content">
-                                    <div class="p_name">Product Name</div>
-                                    <div class="p_details">Product Name</div>
-                                    <div class="p_name">Product Price</div>
-                                    <div class="p_details"> $100</div>
+                                    <div class="p_name"><b>Name</b></div>
+                                    <div class="p_details"><b>Price</b></div>
+                                    @foreach($products as $product)
+                                    <div class="p_name">{{$product->name}}</div>
+                                    <div class="p_details">{{$product->price * $product->qty}}</div>
+                                    @endforeach
                                 </div>
                             </div>
 

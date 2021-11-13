@@ -25,13 +25,18 @@
                 </div>
                 <p>Your Total Bill is: {{$payment}}</p>
                 <p>Your Total Token is: {{$payment - $remainingPayment}}</p>
-                <p>Your remaining payment is : {{$remainingPayment}}. Do you agree to pay from Card?</p>
+                <p>Your remaininng payment is : {{$remainingPayment}}. Do you agree to pay from Card?</p>
                 <form action="{{route('remainingCardPayment')}}" method="post">
                     @csrf
                     <input type="hidden" name="payment" value="{{$payment}}">
                     <input type="hidden" name="remainingPayment" value="{{$remainingPayment}}">
                     <button type="submit" class="btn btn-success">Agree</button>
-                    Or, <a href="#" class="btn btn-secondary">Buy Token</a>
+                </form>
+                <form action="{{route('purchaseRemainingToken')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="payment" value="{{$payment}}">
+                    <input type="hidden" name="remainingPayment" value="{{$remainingPayment}}">
+                    <button type="submit" class="btn btn-secondary">Buy Token</button>
                 </form>
             </div>
         </div>
