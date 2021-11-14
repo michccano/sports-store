@@ -6,6 +6,7 @@ use App\Helpers\IdGenerator;
 use App\Models\Order;
 use App\Services\BonusToken\IBonusTokenService;
 use App\Services\Checkout\ICheckoutService;
+use App\Services\Payment\IPaymentService;
 use App\Services\PurchaseToken\IPurchaseTokenService;
 use App\Services\User\IUserService;
 use App\Models\User;
@@ -26,15 +27,18 @@ class PaymentController extends Controller
     private $purchaseTokenService;
     private $bonusTokenService;
     private $userService;
+    private $paymentService;
 
     public function __construct(ICheckoutService $checkoutService,
                                 IPurchaseTokenService $purchaseTokenService,
-                                IBonusTokenService $bonusTokenService, IUserService $userService)
+                                IBonusTokenService $bonusTokenService,
+                                IUserService $userService, IPaymentService $paymentService)
     {
         $this->checkoutService = $checkoutService;
         $this->purchaseTokenService = $purchaseTokenService;
         $this->bonusTokenService = $bonusTokenService;
         $this->userService = $userService;
+        $this->paymentService = $paymentService;
     }
 
     public function checkProductCategory(){
@@ -80,60 +84,8 @@ class PaymentController extends Controller
     public function charge(Request $request)
     {
         $payment = Cart::total();
-
-        /* Create a merchantAuthenticationType object with authentication details
-         retrieved from the constants file */
-        $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        $merchantAuthentication->setName(env('ANET_API_LOGIN_ID'));
-        $merchantAuthentication->setTransactionKey(env('ANET_TRANSACTION_KEY'));
-
-        // Set the transaction's refId
-        $refId = 'ref' . time();
-        $cardNumber = preg_replace('/\s+/', '', $request->input('cc_number'));
-
-        // Create the payment data for a credit card
-        $creditCard = new AnetAPI\CreditCardType();
-        $creditCard->setCardNumber($cardNumber);
-        $creditCard->setExpirationDate($request->input('expiry_year') . "-" .$request->input('expiry_month'));
-        $creditCard->setCardCode($request->input('cvv'));
-
-        // Add the payment data to a paymentType object
-        $paymentOne = new AnetAPI\PaymentType();
-        $paymentOne->setCreditCard($creditCard);
-
-        // Create order information
-        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD'.time());
-        $order = new AnetAPI\OrderType();
-        $order->setInvoiceNumber($invoiceId);
-        $order->setDescription("Product Payment");
-
-        // Set the customer's Bill To address
-        $customerAddress = new AnetAPI\CustomerAddressType();
-        $customerAddress->setFirstName($request->input('firstname'));
-        $customerAddress->setLastName($request->input('lastname'));
-        $customerAddress->setAddress($request->input('address'));
-        $customerAddress->setCity($request->input('city'));
-        $customerAddress->setState($request->input('state'));
-        $customerAddress->setZip($request->input('postal'));
-        $customerAddress->setCountry($request->input('country'));
-
-        // Create a TransactionRequestType object and add the previous objects to it
-        $transactionRequestType = new AnetAPI\TransactionRequestType();
-        $transactionRequestType->setTransactionType("authCaptureTransaction");
-        $transactionRequestType->setAmount($payment);
-        $transactionRequestType->setPayment($paymentOne);
-        $transactionRequestType->setOrder($order);
-        $transactionRequestType->setBillTo($customerAddress);
-
-        // Assemble the complete transaction request
-        $requests = new AnetAPI\CreateTransactionRequest();
-        $requests->setMerchantAuthentication($merchantAuthentication);
-        $requests->setRefId($refId);
-        $requests->setTransactionRequest($transactionRequestType);
-
-        // Create the controller and get the response
-        $controller = new AnetController\CreateTransactionController($requests);
-        $response = $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION);
+        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 0, 'ORD'.time());
+        $response = $this->paymentService->gatewaySetup($payment,$request->all(),$invoiceId);
 
         if ($response != null) {
             // Check to see if the API request was successfully received and acted upon
@@ -180,60 +132,8 @@ class PaymentController extends Controller
     public function guestCharge(Request $request): \Illuminate\Http\RedirectResponse
     {
         $payment = Cart::total();
-
-        /* Create a merchantAuthenticationType object with authentication details
-         retrieved from the constants file */
-        $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        $merchantAuthentication->setName(env('ANET_API_LOGIN_ID'));
-        $merchantAuthentication->setTransactionKey(env('ANET_TRANSACTION_KEY'));
-
-        // Set the transaction's refId
-        $refId = 'ref' . time();
-        $cardNumber = preg_replace('/\s+/', '', $request->input('cc_number'));
-
-        // Create the payment data for a credit card
-        $creditCard = new AnetAPI\CreditCardType();
-        $creditCard->setCardNumber($cardNumber);
-        $creditCard->setExpirationDate($request->input('expiry_year') . "-" .$request->input('expiry_month'));
-        $creditCard->setCardCode($request->input('cvv'));
-
-        // Add the payment data to a paymentType object
-        $paymentOne = new AnetAPI\PaymentType();
-        $paymentOne->setCreditCard($creditCard);
-
-        // Create order information
-        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD'.time());
-        $order = new AnetAPI\OrderType();
-        $order->setInvoiceNumber($invoiceId);
-        $order->setDescription("Product Payment");
-
-        // Set the customer's Bill To address
-        $customerAddress = new AnetAPI\CustomerAddressType();
-        $customerAddress->setFirstName($request->input('firstname'));
-        $customerAddress->setLastName($request->input('lastname'));
-        $customerAddress->setAddress($request->input('address'));
-        $customerAddress->setCity($request->input('city'));
-        $customerAddress->setState($request->input('state'));
-        $customerAddress->setZip($request->input('postal'));
-        $customerAddress->setCountry($request->input('country'));
-
-        // Create a TransactionRequestType object and add the previous objects to it
-        $transactionRequestType = new AnetAPI\TransactionRequestType();
-        $transactionRequestType->setTransactionType("authCaptureTransaction");
-        $transactionRequestType->setAmount($payment);
-        $transactionRequestType->setPayment($paymentOne);
-        $transactionRequestType->setOrder($order);
-        $transactionRequestType->setBillTo($customerAddress);
-
-        // Assemble the complete transaction request
-        $requests = new AnetAPI\CreateTransactionRequest();
-        $requests->setMerchantAuthentication($merchantAuthentication);
-        $requests->setRefId($refId);
-        $requests->setTransactionRequest($transactionRequestType);
-
-        // Create the controller and get the response
-        $controller = new AnetController\CreateTransactionController($requests);
-        $response = $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION);
+        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 0, 'ORD'.time());
+        $response = $this->paymentService->gatewaySetup($payment,$request->all(),$invoiceId);
 
         if ($response != null) {
             // Check to see if the API request was successfully received and acted upon
@@ -283,61 +183,11 @@ class PaymentController extends Controller
         $purchaseToken = $this->purchaseTokenService->getOwnedToken();
         $bonusToken = $this->bonusTokenService->getOwnedToken();
         $userTotalToken = $purchaseToken->total + $bonusToken->total;
-        $remainingPaymant =$payment - $userTotalToken;
+        $remainingPayment =$payment - $userTotalToken;
 
-        /* Create a merchantAuthenticationType object with authentication details
-         retrieved from the constants file */
-        $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        $merchantAuthentication->setName(env('ANET_API_LOGIN_ID'));
-        $merchantAuthentication->setTransactionKey(env('ANET_TRANSACTION_KEY'));
+        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 0, 'ORD'.time());
+        $response = $this->paymentService->gatewaySetup($remainingPayment,$request->all(),$invoiceId);
 
-        // Set the transaction's refId
-        $refId = 'ref' . time();
-        $cardNumber = preg_replace('/\s+/', '', $request->input('cc_number'));
-
-        // Create the payment data for a credit card
-        $creditCard = new AnetAPI\CreditCardType();
-        $creditCard->setCardNumber($cardNumber);
-        $creditCard->setExpirationDate($request->input('expiry_year') . "-" .$request->input('expiry_month'));
-        $creditCard->setCardCode($request->input('cvv'));
-
-        // Add the payment data to a paymentType object
-        $paymentOne = new AnetAPI\PaymentType();
-        $paymentOne->setCreditCard($creditCard);
-
-        // Create order information
-        $invoiceId =IdGenerator::IDGenerator(new Order, 'invoice', 8, 'ORD'.time());
-        $order = new AnetAPI\OrderType();
-        $order->setInvoiceNumber($invoiceId);
-        $order->setDescription("Product Payment");
-
-        // Set the customer's Bill To address
-        $customerAddress = new AnetAPI\CustomerAddressType();
-        $customerAddress->setFirstName($request->input('firstname'));
-        $customerAddress->setLastName($request->input('lastname'));
-        $customerAddress->setAddress($request->input('address'));
-        $customerAddress->setCity($request->input('city'));
-        $customerAddress->setState($request->input('state'));
-        $customerAddress->setZip($request->input('postal'));
-        $customerAddress->setCountry($request->input('country'));
-
-        // Create a TransactionRequestType object and add the previous objects to it
-        $transactionRequestType = new AnetAPI\TransactionRequestType();
-        $transactionRequestType->setTransactionType("authCaptureTransaction");
-        $transactionRequestType->setAmount($remainingPaymant);
-        $transactionRequestType->setPayment($paymentOne);
-        $transactionRequestType->setOrder($order);
-        $transactionRequestType->setBillTo($customerAddress);
-
-        // Assemble the complete transaction request
-        $requests = new AnetAPI\CreateTransactionRequest();
-        $requests->setMerchantAuthentication($merchantAuthentication);
-        $requests->setRefId($refId);
-        $requests->setTransactionRequest($transactionRequestType);
-
-        // Create the controller and get the response
-        $controller = new AnetController\CreateTransactionController($requests);
-        $response = $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION);
 
         if ($response != null) {
             // Check to see if the API request was successfully received and acted upon
@@ -351,7 +201,7 @@ class PaymentController extends Controller
                     $msg_type = "successMessage";
 
                     //place order
-                    $this->checkoutService->remainingPaymentWithCard($payment, $remainingPaymant, $invoiceId, $tresponse->getMessages()[0]->getCode(), $tresponse->getTransId(), $request->input('cc_number'));
+                    $this->checkoutService->remainingPaymentWithCard($payment, $remainingPayment, $invoiceId, $tresponse->getMessages()[0]->getCode(), $tresponse->getTransId(), $request->input('cc_number'));
                     return redirect()->route('shop')->with($msg_type,$message_text);
                 } else {
                     $message_text = 'There were some issue with the payment. Please try again later.';
@@ -444,8 +294,6 @@ class PaymentController extends Controller
             }
             else
             {
-                $message_text = "Transaction Failed" ;
-                $msg_type = "errorMessage";
                 $tresponse = $response->getTransactionResponse();
                 if($tresponse != null && $tresponse->getErrors() != null)
                 {

@@ -28,6 +28,8 @@ use App\Services\MakeupToken\IMakeupTokenService;
 use App\Services\MakeupToken\MakeupTokenService;
 use App\Services\Order\IOrderService;
 use App\Services\Order\OrderService;
+use App\Services\Payment\IPaymentService;
+use App\Services\Payment\PaymentService;
 use App\Services\PurchaseToken\IPurchaseTokenService;
 use App\Services\PurchaseToken\PurchaseTokenService;
 use App\Services\User\IUserService;
@@ -57,6 +59,7 @@ class WebServiceProvider extends ServiceProvider
         $this->app->bind(IOrderRepository::class,OrderRepository::class);
         $this->app->bind(IOrderService::class,OrderService::class);
         $this->app->bind(IMakeupTokenService::class,MakeupTokenService::class);
+        $this->app->bind(IPaymentService::class,PaymentService::class);
     }
 
     /**
