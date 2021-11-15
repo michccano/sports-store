@@ -13,18 +13,15 @@
                                 <h3>Profile</h3>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="d-flex justify-content-end">
-                                <form action="{{ route('logout') }}" method="get">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger">Logout</button>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
     </section>
+    @if(session('successMessage'))
+        <p class="alert alert-success">{{session('successMessage')}}</p>
+    @elseif(session('errorMessage'))
+        <p class="alert alert-danger">{{session('errorMessage')}}</p>
+    @endif
     <section class="cart-product-body">
         <div class="container-md container-fluid">
             <div class="cart-product-inner-wrap">
@@ -108,7 +105,7 @@
                                 <a class="nav-link" href="#"><i class="fas fa-home-lg-alt"></i> Dashboard</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fal fa-user"></i> Profile Details</a>
+                                <a class="nav-link" href="{{route("detailInfo")}}"><i class="fal fa-user"></i> Profile Details</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="far fa-bags-shopping"></i> Orders</a>

@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Services\User\IUserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class MemberController extends Controller
@@ -46,11 +47,59 @@ class MemberController extends Controller
                 $product = $mproduct;
         }
         if($product !=null) {
-            $path = "app\private\product_documents\'$product->file";
-            $path = str_replace(["'"],"",$path);
-            $document = storage_path($path);
-            return response()->file($document);
+            if ($product->file != null) {
+                $path = "app\private\product_documents\'$product->file";
+                $path = str_replace(["'"], "", $path);
+                $document = storage_path($path);
+                return response()->file($document);
+            }
+            return back()->with("errorMessage","document not found");
         }
-        return "document not found";
+        return back()->with("errorMessage","document not found");
+    }
+
+    public function detailInfo(){
+        $member = Auth::user();
+        if ($member != null)
+            return view('member.detail',compact("member"));
+        return back();
+    }
+
+    public function edit(){
+        $member = Auth::user();
+        if ($member != null)
+            return view('member.editInfo',compact("member"));
+        return back();
+    }
+
+    public function update(Request $request){
+        $dataToUpdate = [];
+        if ($request->firstname !=null)
+            $dataToUpdate['firstname'] = $request->firstname;
+        if ($request->lastname !=null)
+            $dataToUpdate['lastname'] = $request->lastname;
+        if ($request->email !=null)
+            $dataToUpdate['email'] = $request->email;
+        if ($request->address1 !=null)
+            $dataToUpdate['address1'] = $request->address1;
+        if ($request->address2 !=null)
+            $dataToUpdate['address2'] = $request->address2;
+        if ($request->city !=null)
+            $dataToUpdate['city'] = $request->city;
+        if ($request->state !=null)
+            $dataToUpdate['state'] = $request->state;
+        if ($request->postal !=null)
+            $dataToUpdate['postal'] = $request->postal;
+        if ($request->country !=null)
+            $dataToUpdate['country'] = $request->country;
+        if ($request->dayphone !=null)
+            $dataToUpdate['dayphone'] = $request->dayphone;
+        if ($request->evephone !=null)
+            $dataToUpdate['evephone'] = $request->evephone;
+
+        $member = Auth::user();
+        $member->update($dataToUpdate);
+        return redirect()->route("detailInfo")
+            ->with("successMessage","Information Updated Succesfully");
     }
 }

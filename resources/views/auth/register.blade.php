@@ -33,14 +33,14 @@
                                             <div class="form-group">
                                                 <label >First Name</label>
                                                 <input type="text" class="form-control" name="firstname"
-                                                       placeholder="Enter Name" value="{{ old('firstname') }}">
+                                                       placeholder="Enter First Name" value="{{ old('firstname') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label >Last Name</label>
                                                 <input type="text" class="form-control" name="lastname"
-                                                       placeholder="Enter Name" value="{{ old('lastname') }}">
+                                                       placeholder="Enter Last Name" value="{{ old('lastname') }}">
                                             </div>
                                         </div>
                                     </div>

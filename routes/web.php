@@ -158,6 +158,9 @@ Route::middleware("auth")->group(function () {
 
     Route::prefix("member")->group(function () {
         Route::get('profile', [MemberController::class, 'profile'])->name("profile");
+        Route::get('info', [MemberController::class, 'detailInfo'])->name("detailInfo");
+        Route::get('edit', [MemberController::class, 'edit'])->name("editInfo");
+        Route::post('update', [MemberController::class, 'update'])->name("updateInfo");
         Route::get('product-document/{id}', [MemberController::class, 'getDocument'])
             ->name("productDocument");
     });
