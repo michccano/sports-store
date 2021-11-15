@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Services\User\IUserService;
 use Illuminate\Http\Request;
@@ -101,5 +102,10 @@ class MemberController extends Controller
         $member->update($dataToUpdate);
         return redirect()->route("detailInfo")
             ->with("successMessage","Information Updated Succesfully");
+    }
+
+    public function orderList(){
+        $orders = Order::with('products')->where("user_id",Auth::id())->get();
+        return view('member.orderList',compact("orders"));
     }
 }

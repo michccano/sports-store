@@ -108,7 +108,7 @@
                                 <a class="nav-link" href="{{route("detailInfo")}}"><i class="fal fa-user"></i> Profile Details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="far fa-bags-shopping"></i> Orders</a>
+                                <a class="nav-link" href="{{route("memberOrderList")}}"><i class="far fa-bags-shopping"></i> Orders</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fal fa-sign-out"></i>
