@@ -53,13 +53,12 @@
                                                             <div class="info-area-btn">
                                                                 <p class="product-cart-btn">
                                                                     @if(!($product->season_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->season_price_expire_date == null)
-                                                                    <span style="font-size: small">season: ${{$product->price}}</span>
+                                                                        <span class="season-price" style="font-size: small">season: ${{$product->price}}</span>
                                                                     @endif
 
                                                                     @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
                                                                         @if($product->weekly_price != null && $product->weekly_price != 0)
-                                                                            <span
-                                                                                style="font-size: small">single: ${{$product->weekly_price}}</span>
+                                                                            <span class="single-price" style="font-size: small">single: ${{$product->weekly_price}}</span>
                                                                         @endif
                                                                     @endif
                                                                 </p>
@@ -77,6 +76,44 @@
                                                                 Details</a>
                                                         </div>
                                                     </div>
+                                                    @if($cart->where('id',$product->id)->count())
+                                                        <div id="" class="add-to-cart-season-btn-wrap">
+                                                            <div class="hero-button-area">
+                                                                <a class="">In Cart</a>
+                                                            </div>
+                                                        </div>
+                                                    @else
+                                                        <div id="inCart2{{$product->id}}" class="add-to-cart-btn-wrap">
+                                                            <div class="hero-button-area">
+                                                                <a class="">In Cart</a>
+                                                            </div>
+                                                        </div>
+                                                        <div id="addCart2{{$product->id}}" class="add-to-cart-season-btn-wrap">
+                                                            <div class="hero-button-area">
+                                                                <a onclick="addToCartSeasonal({{$product->id}})">Add to cart Season</a>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+
+                                                    @if($cart->where('id',$product->id)->count())
+                                                        <div id="" class="add-to-cart-btn-wrap">
+                                                            <div class="hero-button-area">
+                                                                <a class="">In Cart</a>
+                                                            </div>
+                                                        </div>
+                                                    @else
+                                                        <div id="inCart{{$product->id}}" class="add-to-cart-single-btn-wrap">
+                                                            <div class="hero-button-area">
+                                                                <a class="">In Cart</a>
+                                                            </div>
+                                                        </div>
+                                                        <div id="addCart{{$product->id}}" class="add-to-cart-btn-wrap">
+                                                            <div class="hero-button-area">
+                                                                <a class="" onclick="addToCart({{$product->id}})">Add to cart single</a>
+                                                            </div>
+                                                        </div>
+
+                                                    @endif
                                                 </div>
                                             </div>
                                         @else
@@ -470,7 +507,6 @@
 @section("scripts")
     <script>
         function addToCart(id) {
-            console.log("2");
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -489,6 +525,30 @@
                 },
                 error: function () {
                     console.log('error');
+                }
+            });
+        }
+
+        function addToCartSeasonal(id) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let url = "{{ route('cart.storeSeasonal', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    $('#inCart2' + id).show();
+                    $('#addCart2' + id).hide();
+                    $('#message').html("Added To Cart");
+                    $('#message').attr("class","alert alert-success");
+                    $('#cartItemsNumber').html(`Cart<span class="product-count"> ${data}</span>`);;
+                },
+                error: function () {
                 }
             });
         }
