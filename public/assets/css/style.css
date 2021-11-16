@@ -1368,6 +1368,20 @@ p.footer-right-bottom {
     -o-transition: .3s;
 }
 
+.season-price:hover .add-to-cart-season-btn-wrap{
+    opacity: 1;
+    margin-top: 0px;
+    visibility: visible;
+    top: 0;
+}
+
+.single-price:hover .add-to-cart-single-btn-wrap{
+    opacity: 1;
+    margin-top: 0px;
+    visibility: visible;
+    top: 0;
+}
+
 .shop-single-item:hover .add-to-cart-btn-wrap {
     opacity: 1;
     margin-top: 0px;
