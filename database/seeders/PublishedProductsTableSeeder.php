@@ -22,8 +22,8 @@ class PublishedProductsTableSeeder extends Seeder
             0 =>
             array(
                 'id' => 1,
-                'name' => 'Marc\'s Preferred Picks Executive Football Service Preferred Picks Executive Through The Super Bowl',
-                'description' => 'Marc\'s Preferred Picks Executive Football Service Preferred Picks Executive Through The Super Bowl',
+                'name' => 'Marc\'s  Preferred Picks Executive Football Service Preferred Picks Executive Through The Super Bowl',
+                'description' => '<p><strong>Marc\'s Preferred Picks Executive Football Service Preferred Picks Executive Through The Super Bowl</strong></p>',
                 'price' => NULL,
                 'weekly_price' => '850',
                 'img' => '1634230820-MarcsPreferredPicksExecutiveFootballServicePreferredPicksExecutiveThroughTheSuperBowl.jpg',
@@ -40,7 +40,7 @@ class PublishedProductsTableSeeder extends Seeder
             array(
                 'id' => 2,
                 'name' => '2021 Playbook Football Preview Guide Magazine Digital Version',
-                'description' => '2021 Playbook Football Preview Guide Magazine Digital Version',
+                'description' => '<p><strong>2021 Playbook Football Preview Guide Magazine Digital Version</strong></p>',
                 'price' => NULL,
                 'weekly_price' => '12',
                 'img' => '1634231024-2021PlaybookFootballPreviewGuideMagazineDigitalVersion.jpg',
