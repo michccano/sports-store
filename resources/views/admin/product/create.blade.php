@@ -54,9 +54,21 @@
                                         <img id="previewImg" style="height: 100px; width: 130px"  />
                                     </div>
 
-                                    <div class="form-group">
-                                        <label >Document</label>
-                                        <input type="file" class="form-control" name="file">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label >Document</label>
+                                                <input type="file" class="form-control" name="file" id="file">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label ></label>
+                                                <br>
+                                                <a class="btn-danger form-control" style="text-align: center" onclick="document.getElementById('file').value = ''">
+                                                    Remove</a>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">

@@ -57,9 +57,33 @@
                                         <img id="previewImg" style="height: 100px; width: 130px" src="{{asset('images/' . $product->img)}}" />
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label >Document</label>
+                                                <input type="file" class="form-control" name="file" id="file">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label ></label>
+                                                <br>
+                                                <a class="btn-danger form-control" style="text-align: center" onclick="document.getElementById('file').value = ''">
+                                                    Remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
-                                        <label >Document</label>
-                                        <input type="file" class="form-control" name="file">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <input type="checkbox" id="remember" name="delete_document"
+                                                       value="1" {{ old('delete_document') ? 'checked' : '0' }}>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label >Remove Existing Document</label>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">

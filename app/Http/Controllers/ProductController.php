@@ -40,7 +40,7 @@ class ProductController extends Controller
 
     public function list(){
         if (Gate::allows("admin"))
-            return view("admin.product.productsList2");
+            return view("admin.product.productsList");
         else
             return redirect()->route("home")
                 ->with("errorMessage","You are not an Admin");
@@ -126,10 +126,22 @@ class ProductController extends Controller
     public function update(Request $request, $id){
         if (Gate::allows("admin"))
         {
+            $product = Product::find($id);
+
             $title = preg_replace('/\s+/', '', $request->name);
             $titleWithOutRegExpression= str_replace( array( '\'', '!','”','#','$','%','&','’','(', '*','+',',',
                 '-','.','/',':',';','<','=','>','?','@','[',']','^','_','`','{','|','}','~'), '', $title);
             $dataToUpdate = [];
+
+            if ($product->file !=null){
+                if($request->delete_document == "1"){
+                    $dataToUpdate["file"] = null;
+                    $path = "app\private\product_documents\'$product->file";
+                    $path = str_replace(["'"],"",$path);
+                    unlink(storage_path($path));
+                }
+            }
+
             if($request->name!= null)
                 $dataToUpdate["name"] = $request->name;
 
@@ -175,8 +187,7 @@ class ProductController extends Controller
                     $status = 0;
                 $dataToUpdate["status"] = $status;
             }
-            Product::find($id)->update($dataToUpdate);
-
+            $product->update($dataToUpdate);
             return redirect()->route("productList");
         }
         else
@@ -193,7 +204,7 @@ class ProductController extends Controller
                 $document = storage_path($path);
                 return response()->file($document);
             }
-            return "document not found";
+            return redirect()->route("productList")->with("errorMessage","This Product Has No Document");
         }
         else
             return redirect()->route("home")

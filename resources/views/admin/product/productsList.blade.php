@@ -12,6 +12,11 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
+                @if(session('successMessage'))
+                    <p class="alert alert-success">{{session('successMessage')}}</p>
+                @elseif(session('errorMessage'))
+                    <p class="alert alert-danger">{{session('errorMessage')}}</p>
+                @endif
                 <div class="row">
                     <div class="col-sm-10">
                         <p id="message" class=""></p>
@@ -33,45 +38,29 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="product_dataTable" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
+                                        <th>SL No.</th>
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>Price</th>
+                                        <th>Weekly Price</th>
                                         <th>Image</th>
+                                        <th>Category</th>
+                                        <th>Delivery</th>
+                                        <th>Display Date</th>
+                                        <th>Expire Date</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($products as $product)
-                                    <tr id="product{{$product->id}}">
-                                        <td>{{$product->name}}</td>
-                                        <td>{!! \Illuminate\Support\Str::of($product->description)->words(5) !!}</td>
-                                        <td>{{$product->price}}</td>
-                                        <td>
-                                            <img src="{{asset('images/' . $product->img)}}" style="height: 70px; width: 90px" class="img-fluid"  alt=""/>
-                                        </td>
-                                        <td>{{$product->status ? "Active" : "Inactive"}}</td>
-                                        <td>
-                                            <div class="row">
-                                                <a class="btn btn-primary btn-sm"
-                                                   href="{{route("editProduct",$product->id)}}">
-                                                    <i class="far fa-edit"></i></a>
-                                                <button type="submit" class="btn btn-danger btn-sm" data-productid="{{$product->id}}"
-                                                        data-toggle="modal" data-target="#deleteModal">
-                                                    <i class="fas fa-trash-alt"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
                                     </tbody>
 
                                 </table>
                                 <!-- Delete Modal-->
-                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                     aria-hidden="true">
+                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -125,12 +114,91 @@
     <script src="/theme/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="/theme/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script>
-        $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-            })
+        $(function() {
+            $('#product_dataTable').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                autoWidth: false,
+                ajax: "{{ route('getProducts') }}",
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'description',
+                        name: 'description',
+                        render: function(data, type, full, meta) {
+                            var html = data;
+                            var div = document.createElement("div");
+                            div.innerHTML = html;
+                            htmlContent = div.textContent || div.innerText || "";
+                            htmlToText =  $(htmlContent).text()
+                            return htmlToText.split(/\s+/).slice(0,5).join(" ");
+                        }
+                    },
+                    {
+                        data: 'price',
+                        name: 'price'
+                    },
+                    {
+                        data: 'weekly_price',
+                        name: 'weekly_price'
+                    },
+                    {
+                        data: 'img',
+                        name: 'img',
+                        render: function(data, type, full, meta) {
+                            return "<img src={{ URL::to('/') }}/images/" + data + " width='70' class='img-thumbnail' />";
+                        }
+                    },
+                    {
+                        data: 'category',
+                        name: 'category',
+                        render: function(data, type, full, meta) {
+                            return data.name
 
-            $('#deleteModal').on('show.bs.modal', function (event) {
+                        }
+                    },
+                    {
+                        data: 'delivery_method',
+                        name: 'delivery_method'
+                    },
+                    {
+                        data: 'display_date',
+                        name: 'display_date'
+                    },
+                    {
+                        data: 'expire_date',
+                        name: 'expire_date'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        render: function(data, type, full, meta) {
+                            if (data == 1)
+                                return "Active"
+                            else
+                                return "Inactive"
+
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+            });
+        });
+        $(function() {
+            $('#deleteModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget)
                 var product_id = button.data('productid')
                 var modal = $(this)
@@ -138,7 +206,7 @@
             })
         });
 
-        $('#deleteP').click(function (e) {
+        $('#deleteP').click(function(e) {
             e.preventDefault();
 
             $.ajaxSetup({
@@ -147,19 +215,18 @@
                 }
             });
 
-            var product_id= $('#product_id').val();
+            var product_id = $('#product_id').val();
 
             $.ajax({
                 url: 'delete',
-                data: { "product_id": product_id },
-                type: 'POST',
-                success: function (data) {
-                    $('#product'+product_id).hide();
-                    $('#message').html("Product Deleted");
-                    $('#message').attr("class","alert alert-danger");
+                data: {
+                    "product_id": product_id
                 },
-                error: function () {
-                }
+                type: 'POST',
+                success: function(data) {
+                    $('#product_dataTable').DataTable().ajax.reload();
+                },
+                error: function() {}
             });
         });
     </script>
