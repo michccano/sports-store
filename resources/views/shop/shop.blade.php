@@ -51,17 +51,42 @@
                                                         <div class="card-body">
                                                             <h5 class="card-title text-truncate">{{$product->name}}</h5>
                                                             <div class="info-area-btn">
-                                                                <p class="product-cart-btn">
-                                                                    @if(!($product->season_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->season_price_expire_date == null)
-                                                                        <span class="season-price" style="font-size: small">season: ${{$product->price}}</span>
-                                                                    @endif
+                                                                @if($cart->where('id',$product->id)->count())
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            @if(!($product->season_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->season_price_expire_date == null)
+                                                                                <span class="incart-season-price">season ${{$product->price}}</span>
+                                                                            @endif
+                                                                        </div>
 
-                                                                    @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
-                                                                        @if($product->weekly_price != null && $product->weekly_price != 0)
-                                                                            <span class="single-price" style="font-size: small">single: ${{$product->weekly_price}}</span>
-                                                                        @endif
-                                                                    @endif
-                                                                </p>
+                                                                        <div class="col-md-6">
+                                                                            @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
+                                                                                @if($product->weekly_price != null && $product->weekly_price != 0)
+                                                                                    <span class="incart-season-price" >single ${{$product->weekly_price}}</span>
+                                                                                @endif
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="row" id="in-shop-prices{{$product->id}}">
+                                                                        <div class="col-md-6">
+                                                                            @if(!($product->season_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->season_price_expire_date == null)
+                                                                                <span class="season-price"  data-hover = "ADD To Cart Season"
+                                                                                      onclick="addToCartSeasonal({{$product->id}})">season ${{$product->price}}
+                                                                        </span>
+                                                                            @endif
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
+                                                                                @if($product->weekly_price != null && $product->weekly_price != 0)
+                                                                                    <span class="season-price"  data-hover = "ADD To Cart Single"
+                                                                                          onclick="addToCart({{$product->id}})">single ${{$product->weekly_price}}</span>
+                                                                                @endif
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
                                                                 <a href="{{route("productDetails",$product->id)}}"
                                                                    class="product-cart-btn">
                                                                     <span><i class="far fa-info"></i> Info</span>
@@ -70,31 +95,6 @@
 
                                                         </div>
                                                     </div>
-                                                    <div id="" class="add-to-cart-btn-wrap">
-                                                        <div class="hero-button-area">
-                                                            <a href="{{route("productDetails",$product->id)}}">View
-                                                                Details</a>
-                                                        </div>
-                                                    </div>
-                                                    @if($cart->where('id',$product->id)->count())
-                                                        <div id="" class="add-to-cart-season-btn-wrap">
-                                                            <div class="hero-button-area">
-                                                                <a class="">In Cart</a>
-                                                            </div>
-                                                        </div>
-                                                    @else
-                                                        <div id="inCart2{{$product->id}}" class="add-to-cart-btn-wrap">
-                                                            <div class="hero-button-area">
-                                                                <a class="">In Cart</a>
-                                                            </div>
-                                                        </div>
-                                                        <div id="addCart2{{$product->id}}" class="add-to-cart-season-btn-wrap">
-                                                            <div class="hero-button-area">
-                                                                <a onclick="addToCartSeasonal({{$product->id}})">Add to cart Season</a>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-
                                                     @if($cart->where('id',$product->id)->count())
                                                         <div id="" class="add-to-cart-btn-wrap">
                                                             <div class="hero-button-area">
@@ -102,17 +102,17 @@
                                                             </div>
                                                         </div>
                                                     @else
-                                                        <div id="inCart{{$product->id}}" class="add-to-cart-single-btn-wrap">
+                                                        <div id="inCart{{$product->id}}" class="add-to-cart-btn-wrap">
                                                             <div class="hero-button-area">
                                                                 <a class="">In Cart</a>
                                                             </div>
                                                         </div>
                                                         <div id="addCart{{$product->id}}" class="add-to-cart-btn-wrap">
                                                             <div class="hero-button-area">
-                                                                <a class="" onclick="addToCart({{$product->id}})">Add to cart single</a>
+                                                                <a href="{{route("productDetails",$product->id)}}">View
+                                                                    Details</a>
                                                             </div>
                                                         </div>
-
                                                     @endif
                                                 </div>
                                             </div>
@@ -125,7 +125,7 @@
                                                         <div class="card-body">
                                                             <h5 class="card-title text-truncate">{{$product->name}}</h5>
                                                             <div class="info-area-btn">
-                                                                <p class="product-cart-btn">
+                                                                <p class="single-price">
                                                                     <span>${{$product->weekly_price}}</span>
                                                                 </p>
                                                                 <a href="{{route("productDetails",$product->id)}}"
@@ -506,6 +506,7 @@
 
 @section("scripts")
     <script>
+
         function addToCart(id) {
             $.ajaxSetup({
                 headers: {
@@ -518,6 +519,7 @@
                 type: 'GET',
                 success: function (data) {
                     $('#inCart' + id).show();
+                    $('#in-shop-prices' + id).hide();
                     $('#addCart' + id).hide();
                     $('#message').html("Added To Cart");
                     $('#message').attr("class", "alert alert-success");
@@ -542,8 +544,9 @@
                 url: url,
                 type: 'GET',
                 success: function (data) {
-                    $('#inCart2' + id).show();
-                    $('#addCart2' + id).hide();
+                    $('#addCart' + id).hide();
+                    $('#in-shop-prices' + id).hide();
+                    $('#inCart' + id).show();
                     $('#message').html("Added To Cart");
                     $('#message').attr("class","alert alert-success");
                     $('#cartItemsNumber').html(`Cart<span class="product-count"> ${data}</span>`);;
