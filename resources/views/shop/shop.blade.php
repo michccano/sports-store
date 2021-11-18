@@ -67,6 +67,7 @@
                                                                             @endif
                                                                         </div>
                                                                     </div>
+
                                                                 @else
                                                                     <div class="row" id="in-shop-prices{{$product->id}}">
                                                                         <div class="col-md-6">
@@ -82,6 +83,21 @@
                                                                                 @if($product->weekly_price != null && $product->weekly_price != 0)
                                                                                     <span class="season-price"  data-hover = "ADD To Cart Single"
                                                                                           onclick="addToCart({{$product->id}})">single ${{$product->weekly_price}}</span>
+                                                                                @endif
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row" id="in-cart-prices{{$product->id}}" hidden>
+                                                                        <div class="col-md-6">
+                                                                            @if(!($product->season_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->season_price_expire_date == null)
+                                                                                <span class="incart-season-price">season ${{$product->price}}</span>
+                                                                            @endif
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            @if(!($product->weekly_price_expire_date <= \Illuminate\Support\Carbon::now()) || $product->weekly_price_expire_date == null)
+                                                                                @if($product->weekly_price != null && $product->weekly_price != 0)
+                                                                                    <span class="incart-season-price" >single ${{$product->weekly_price}}</span>
                                                                                 @endif
                                                                             @endif
                                                                         </div>
@@ -519,6 +535,7 @@
                 type: 'GET',
                 success: function (data) {
                     $('#inCart' + id).show();
+                    $('#in-cart-prices' + id).show();
                     $('#in-shop-prices' + id).hide();
                     $('#addCart' + id).hide();
                     $('#message').html("Added To Cart");
@@ -546,6 +563,7 @@
                 success: function (data) {
                     $('#addCart' + id).hide();
                     $('#in-shop-prices' + id).hide();
+                    $('#in-cart-prices' + id).show();
                     $('#inCart' + id).show();
                     $('#message').html("Added To Cart");
                     $('#message').attr("class","alert alert-success");

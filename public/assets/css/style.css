@@ -1307,7 +1307,7 @@ p.footer-right-bottom {
 }
 
 .shop-single-item:hover {
-    border-color: red;
+    border-color: transparent;
     transition: .3s;
 }
 
